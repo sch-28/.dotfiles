@@ -1,0 +1,164 @@
+{
+  "React Function": {
+    "prefix": "fn",
+    "body": [
+      "export type ${TM_FILENAME_BASE/(.)(.*)/${1:/upcase}${2}/}Props = {",
+      "\t$1",
+      "}",
+      "export function ${TM_FILENAME_BASE/(.)(.*)/${1:/upcase}${2}/}(props: ${TM_FILENAME_BASE/(.)(.*)/${1:/upcase}${2}/}Props) {",
+      "\treturn (",
+      "\t\t$2",
+      "\t);",
+      "}"
+    ]
+  },
+  "Column Helper": {
+    "prefix": "cols",
+    "body": [
+      "const columnHelper = createColumnHelper<${1:Type}>();",
+      "const columns = [",
+      "\t$2",
+      "];"
+    ]
+  },
+  "Column": {
+    "prefix": "col",
+    "body": [
+      "columnHelper.accessor('${1:accessor}', {",
+      "\theader: t`${2:$1}`,",
+      "}),"
+    ]
+  },
+  "Translation": {
+    "prefix": "t",
+    "body": ["t`${1:Translation}`"]
+  },
+  "Form Field": {
+    "prefix": "ff",
+    "body": [
+      "{",
+      "\tname: '${1:name}',",
+      "\ttype: '${2:text}',",
+      "\tcolSpan: ${3:1},",
+      "},"
+    ]
+  },
+  "Form Field Select Query": {
+    "prefix": "ffq",
+    "body": [
+      "{",
+      "\tname: '${1:name}',",
+      "\ttype: 'select',",
+      "\tqueryFunction: trpc.$2,",
+      "\tqueryDataFunction: (query) =>",
+      "\t\tquery.data?.content.map((r) => ({",
+      "\t\tvalue: ${3:r.id},",
+      "\t\tlabel: ${4: r.name},",
+      "\t})),",
+      "\tcolSpan: ${5:2},",
+      "} as SelectFormField<Data, typeof trpc.$2>,"
+    ]
+  },
+  "Form": {
+    "prefix": "form",
+    "body": [
+      "import { z } from 'zod';",
+      "import {",
+      "  CustomForm,",
+      "  FieldGroup,",
+      "  SelectFormField,",
+      "  TranslationSource,",
+      "} from '@/shared';",
+      "import { trpc } from '@/shared/utils/trpc';",
+      "import { t } from '@lingui/core/macro';",
+      "",
+      "const schema = ${1:Schema};",
+      "type UpdateSchema = typeof schema;",
+      "type Data = z.infer<UpdateSchema>;",
+      "",
+      "export function ${TM_FILENAME_BASE/(.)(.*)/${1:/upcase}${2}/}(props: ${2:Props}) {",
+
+      "\tasync function onSubmit(values: Data) {",
+      "\t\t",
+      "\t}",
+      "",
+      "\tconst fieldgroups: FieldGroup<Data>[] = [",
+      "\t\t{",
+      "\t\t\tgroupName: t`Allgemein`,",
+      "\t\t\ttranslationSource: TranslationSource.Employee,",
+      "\t\t\tshowAsGroup: 'card',",
+      "\t\t\tfields: [",
+      "\t\t\t\t$3",
+      "\t\t\t]",
+      "\t\t},",
+      "\t]",
+      "\treturn (",
+      "\t\t<CustomForm",
+      "\t\tschema={schema}",
+      "\t\tdefaultValues={props.$4}",
+      "\t\twaitForDefaultValues={true}",
+      "\t\tshowLoading",
+      "\t\tsettings={{",
+      "\t\t\tcolumns: 12,",
+      "\t\t\tfullWidth: true,",
+      "\t\t\tstickyActions: false,",
+      "\t\t\tsplitGroupsAfter: 1,",
+      "\t\t}}",
+      "\t\tfieldgroups={fieldgroups}",
+      "\t\thandleSubmit={onSubmit}",
+      "\t/>",
+      "\t);",
+      "}"
+    ]
+  },
+  "Table": {
+    "prefix": "table",
+    "body": [
+      "import { useNavigate } from '@tanstack/react-router';",
+      "import { createColumnHelper } from '@tanstack/react-table';",
+      "import { TableSidebarLayout, useRegisterHeaderSlot } from '@/shared';",
+      "import { useInfiniteQueryEmployeeGetEmployeesQueryFunction } from '@/shared/api/employees';",
+      "import { RouterOutput } from '@/shared/utils/trpc';",
+      "import { t } from '@lingui/core/macro';",
+      "import { Header } from '@shared/components/layout/header';",
+      "import { Main } from '@shared/components/layout/main';",
+      "import { CreateEmployeeDialog } from './create-dialog';",
+
+      "type Data = RouterOutput['$1']['list${1/(.)(.*)/${1:/upcase}${2}/}']['content'][0];",
+
+      "export default function ${TM_FILENAME_BASE/(.)(.*)/${1:/upcase}${2}/}() {",
+      "\tconst queryFn = useInfiniteQueryEmployeeGetEmployeesQueryFunction();",
+      "\tconst columnHelper = createColumnHelper<Data>();",
+      "\tconst navigate = useNavigate();",
+      "\t// useRegisterHeaderSlot(<CreateEmployeeDialog />);",
+      "\tconst columns = [",
+      "\t\tcolumnHelper.accessor('${2:accessor}', {",
+      "\t\t\theader: t`${3:Header}`,",
+      "\t\t}),",
+      "\t];",
+      "",
+      "\treturn (",
+      "\t\t<>",
+      "\t\t<Header />",
+      "\t\t{/* ===== Main ===== */}",
+      "\t\t<Main className='h-full'>",
+      "\t\t<div className='relative w-full h-full'>",
+      "\t\t<TableSidebarLayout",
+      "\t\tcolumns={columns}",
+      "\t\tqueryFunction={queryFn}",
+      "\t\tqueryDataFunction={(q) => q.data?.content ?? []}",
+      "\t\t//navigate={(id) =>",
+      "\t\t\t//navigate({",
+      "\t\t\t\t//to: '/employees/$employeeId',",
+      "\t\t\t\t//params: { employeeId: id.toString() },",
+      "\t\t\t//})",
+      "\t\t//}",
+      "\t\t/>",
+      "\t\t</div>",
+      "\t\t</Main>",
+      "\t\t</>",
+      "\t);",
+      "}"
+    ]
+  }
+}
