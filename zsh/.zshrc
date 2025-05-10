@@ -2,6 +2,9 @@
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 export PATH=$PATH:/home/jan/.local/share/flatpak/exports/bin
 
+
+export TERM=xterm-256color
+
 # export __GLX_VENDOR_LIBRARY_NAME=nvidia
 
 # Path to your Oh My Zsh installation.

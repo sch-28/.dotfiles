@@ -16,8 +16,8 @@ vim.opt.linebreak = true
 vim.opt.spelllang = "en_us"
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = "/home/jan/.config/nvim/undodir"
-vim.opt.undofile = true
+vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undodir"
+vim.o.undofile = true
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
