@@ -88,11 +88,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
@@ -125,3 +125,10 @@ export NVM_DIR="$HOME/.nvm"
 
 
 eval "$(zoxide init zsh)"
+
+eval "$(ssh-agent -s)" > /dev/null
+
+# Only add SSH key if not already added
+if ! ssh-add -l | grep -q "id_rsa_github"; then
+    ssh-add ~/.ssh/id_rsa_github > /dev/null 2>&1
+fi
