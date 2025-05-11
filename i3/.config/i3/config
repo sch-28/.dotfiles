@@ -212,6 +212,7 @@ bindsym $mod+Shift+Return exec firefox
 
 bindsym $mod+Shift+f floating toggle, resize set 1200 800
 bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+bindsym $mod + Shift + s exec --no-startup-id flameshot gui
 
 for_window [class="steam"] floating enable
 for_window [class="slack"] floating enable
@@ -222,7 +223,8 @@ exec --no-startup-id ~/desk-mode.sh
 exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/pictures/black.jpg"
 exec --no-startup-id rfkill unblock all
-exec --no-startup-id picom
+exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 exec --no-startup-id greenclip daemon
 exec --no-startup-id  /usr/libexec/gsd-xsettings
 exec_always --no-startup-id sh ~/.config/polybar/launch.sh
+exec --no-startup-id sh -c "redshift -x && redshift -O 4500"
