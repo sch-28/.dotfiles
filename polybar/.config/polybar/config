@@ -110,6 +110,7 @@ type = internal/xworkspaces
 label-active = %name%
 label-active-background = ${colors.text}
 label-active-foreground = ${colors.crust}
+pin-workspaces = true
 label-active-underline= ${colors.lauve}
 label-active-padding = 1
 
