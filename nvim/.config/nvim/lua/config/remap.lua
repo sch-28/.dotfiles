@@ -70,14 +70,15 @@ end)
 -- map CTRL+V to instert literal escapes in insert mode: <C-v><Esc>
 -- vim.keymap.set({ "i" }, "<C-x>", "<C-v>", { noremap = true, silent = true })
 
-
 vim.keymap.set({ "n", "i", "v" }, "<C-s>", "<ESC>:Prettier<CR>:w<CR>")
 -- vim.keymap.set({ "n", "i", "v" }, "<C-s>", "<ESC>:Prettier<CR>:w<CR>:NeomakeProject<CR>")
 
 vim.cmd([[:call setreg("o", "F\"vf\"S{wvf\"S(iclsxwa{},bla")
 nmap <M-d> @o]])
 
-vim.keymap.set("n", "<leader>l", "iconsole.log(<C-r>=expand('<cword>')<CR>)<Esc>F(a")
+-- vim.keymap.set("n", "<leader>l", "iconsole.log(<C-r>=expand('<cword>')<CR>)<Esc>F(a")
+vim.keymap.set("n", "<leader>l", "yiwoconsole.log(<Esc>pa)<Esc>F(ea")
+
 
 
 -- vim.keymap.set("n", "<C-1>", "<C-^>")
