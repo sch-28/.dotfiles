@@ -6,6 +6,7 @@ local luasnip = require("luasnip")
 -- vim.cmd([[inoremap <C-Space> <C-x><C-o>
 --  inoremap <C-@> <C-Space>]])
 cmp.setup({
+    preselect = cmp.PreselectMode.None,
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body) -- For `luasnip` users.
@@ -58,7 +59,8 @@ cmp.setup({
                     luasnip.expand()
                 else
                     cmp.confirm({
-                        select = true,
+                        behavior = cmp.ConfirmBehavior.Insert,
+                        select = false,
                     })
                 end
             else
@@ -105,4 +107,3 @@ cmp.setup.cmdline(':', {
     }),
     matching = { disallow_symbol_nonprefix_matching = false }
 })
-
