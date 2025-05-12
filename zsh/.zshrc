@@ -132,3 +132,6 @@ eval "$(ssh-agent -s)" > /dev/null
 if ! ssh-add -l | grep -q "id_rsa_github"; then
     ssh-add ~/.ssh/id_rsa_github > /dev/null 2>&1
 fi
+
+# for fkc nova
+export SKIP_POSTINSTALL="true"
