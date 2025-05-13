@@ -173,4 +173,8 @@ return require('packer').startup(function(use)
     -- use({
     --     "HiPhish/rainbow-delimiters.nvim"
     use { "akinsho/toggleterm.nvim", tag = '*'}
+
+    use({
+        "onsails/lspkind.nvim"
+    })
 end)
