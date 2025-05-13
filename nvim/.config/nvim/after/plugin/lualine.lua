@@ -12,10 +12,6 @@ local colors = {
     blue     = '#51afef',
     red      = '#ec5f67',
 }
-local function is_neomake_running()
-    local jobs = vim.fn['neomake#GetJobs']()
-    return jobs and #jobs > 0
-end
 
 
 vim.api.nvim_set_hl(0, 'LualineRed', { fg = colors.red, bg = colors.bg })
@@ -43,10 +39,6 @@ local function neomakeLoading()
         format_status = '%s',
         format_default = ""
     })
-    -- if num_issues > 0 and not is_neomake_running() then
-    --     status = '%#LualineRed# ' .. num_issues -- display the issue count in red
-    --     -- status = ' ' .. num_issues -- display the issue count in red
-    -- end
 
 
     if status:sub(1, 2) == '? ' then
@@ -74,6 +66,19 @@ local conditions = {
         return gitdir and #gitdir > 0 and #gitdir < #filepath
     end,
 }
+
+local function copilot_status()
+    local status = vim.g.copilot_enabled
+    if status == 1 then
+        status = "on"
+    else
+        status = "off"
+    end
+
+    return "c-"..status
+end
+
+
 
 local lualine = require('lualine')
 
@@ -173,6 +178,10 @@ ins_left {
 
 
 -- Add components to right sections
+ins_right {
+    copilot_status,
+    color = { fg = colors.fg, gui = 'bold' },
+}
 ins_right {
     'o:encoding',       -- option component same as &encoding in viml
     fmt = string.upper, -- I'm not sure why it's upper case either ;)
