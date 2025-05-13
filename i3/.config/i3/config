@@ -214,6 +214,9 @@ bindsym $mod+Shift+f floating toggle, resize set 1200 800
 bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 bindsym $mod + Shift + s exec --no-startup-id flameshot gui
 
+#xcolor
+bindsym $mod+Shift+x exec --no-startup-id xcolor -s
+
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
@@ -228,11 +231,18 @@ bindsym $mod+minus scratchpad show
 for_window [class="steam"] floating enable
 for_window [class="slack"] floating enable
 
+
+default_border pixel 0
+gaps inner 10
+gaps outer 0 
+ 
+for_window [class=".*"] title_format "<span alpha='1'>%title</span>"
+
 client.focused          #333333 #5f676a #ffffff #484e50   #5f676a
 
 exec --no-startup-id ~/desk-mode.sh
 exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/pictures/black.jpg"
+exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/.config/bg.jpg"
 exec --no-startup-id rfkill unblock all
 exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 exec --no-startup-id greenclip daemon

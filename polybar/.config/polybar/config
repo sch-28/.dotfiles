@@ -1,5 +1,5 @@
  [colors]
-base = #222222
+base = #bb000000
 mantle = #181825
 crust = #11111b
 text = #ffffff
@@ -81,7 +81,7 @@ module-margin = 1
 separator = |
 separator-foreground = ${colors.text}
 
-font-0 = JetBrainsMonoNerdFontMono-Regular:size=10;2
+font-0 = JetBrainsMonoNerdFont Mono:size=10;2
 
 modules-left = xworkspaces xwindow 
 modules-right = systray pulseaudio filesystem battery memory cpu gpu eth wlan date 
@@ -179,10 +179,10 @@ format-prefix = "CPU"
 format-prefix-foreground = ${colors.primary}
 label = %percentage:2%%
 
-[module/gpu]
-type = custom/script
-exec = ~/.config/polybar/scripts/system-nvidia-smi.sh
-interval = 10
+; [module/gpu]
+; type = custom/script
+; exec = ~/.config/polybar/scripts/system-nvidia-smi.sh
+; interval = 10
 
 [module/battery]
 type = internal/battery

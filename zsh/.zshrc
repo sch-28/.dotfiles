@@ -2,13 +2,16 @@
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 export PATH=$PATH:/home/jan/.local/share/flatpak/exports/bin
 
+export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 
 export TERM=xterm-256color
 
 # export __GLX_VENDOR_LIBRARY_NAME=nvidia
 
+
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
