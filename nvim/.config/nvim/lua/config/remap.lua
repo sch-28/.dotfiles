@@ -128,8 +128,9 @@ vim.keymap.set('n', '<leader>sf', '<cmd>lua require("spectre").open_file_search(
 vim.keymap.set("n", "j", "v:count ? 'j' : 'gj'", { expr = true })
 vim.keymap.set("n", "k", "v:count ? 'k' : 'gk'", { expr = true })
 
-vim.keymap.set("n", "<leader>e", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>E", vim.diagnostic.goto_prev)
+-- vim.keymap.set("n", "<leader>e",  function () vim.diagnostic.jump({count= 1,float = true}) end, { desc = "Jump to next diagnostic" })
+-- vim.keymap.set("n", "<leader>E", vim.diagnostic.goto_prev)
+vim.diagnostic.config({ jump = { float = true }})
 
 vim.keymap.set('s', '<S-j>', 'j', { noremap = true })
 vim.keymap.set('s', '<S-k>', 'k', { noremap = true })
@@ -168,28 +169,12 @@ vim.keymap.set('n', 't%', JumpToHtmlTagEnd, { desc = "Treesitter HTML tag jump" 
 
 
 
-function SendLspCommand(command, args)
-    local params = {
-        command = command,
-        arguments = args or {},
-        title = ""
-    }
-    vim.lsp.buf.execute_command(params)
-end
+-- function SendLspCommand(command, args)
+--     local params = {
+--         command = command,
+--         arguments = args or {},
+--         title = ""
+--     }
+--     vim.lsp.buf.execute_command(params)
+-- end
 
-vim.keymap.set('n', '<leader>oi', function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local filepath = vim.api.nvim_buf_get_name(bufnr)
-
-    for _, client in pairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
-        if client.name == "vtsls" then
-            client.request("workspace/executeCommand", {
-                command = "typescript.removeUnusedImports",
-                arguments = { filepath },
-            }, nil, bufnr)
-            return
-        end
-    end
-
-    vim.notify("vtsls LSP not found", vim.log.levels.WARN)
-end, { noremap = true, silent = true, desc = "Remove unused imports" })
