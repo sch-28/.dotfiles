@@ -13,10 +13,23 @@ require('telescope').setup({
     -- other configuration values here
 })
 
+ require'telescope'.setup {
+  extensions = {
+    media_files = {
+      -- filetypes whitelist
+      -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+      filetypes = {"png", "webp", "jpg", "jpeg", "svg"},
+      -- find command (defaults to `fd`)
+      find_cmd = "rg"
+    }
+  },
+}
+
 
 -- builtin.load_extension('live_grep_args')
 
 require("telescope").load_extension("live_grep_args")
+-- require('telescope').load_extension('icons.icon-picker')
 
 -- require('config.telescopePickers').prettyGrepPicker({ file_picker = 'live_grep' })
 -- require('config.telescopePickers').prettyGrepPicker({ file_picker = 'grep_string' })

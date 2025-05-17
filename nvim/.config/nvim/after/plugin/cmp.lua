@@ -1,5 +1,5 @@
 local cmp = require('cmp')
-local icons = require("utils.icons")
+local icons = require("icons.icons")
 local cmp_action = require('lsp-zero').cmp_action()
 local luasnip = require("luasnip")
 

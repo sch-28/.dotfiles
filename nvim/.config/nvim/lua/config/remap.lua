@@ -178,3 +178,6 @@ vim.keymap.set('n', 't%', JumpToHtmlTagEnd, { desc = "Treesitter HTML tag jump" 
 --     vim.lsp.buf.execute_command(params)
 -- end
 
+
+vim.keymap.set("n", "<leader>li", require('icons.icon-picker').pick, { desc = "Pick Lucide Icon" })
+

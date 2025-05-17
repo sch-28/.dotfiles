@@ -172,9 +172,12 @@ return require('packer').startup(function(use)
     })
     -- use({
     --     "HiPhish/rainbow-delimiters.nvim"
-    use { "akinsho/toggleterm.nvim", tag = '*'}
+    use { "akinsho/toggleterm.nvim", tag = '*' }
 
     use({
         "onsails/lspkind.nvim"
+    })
+    use({
+        "nvim-telescope/telescope-media-files.nvim"
     })
 end)
