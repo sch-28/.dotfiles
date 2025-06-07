@@ -5,3 +5,4 @@ vim.api.nvim_create_autocmd("FileType", {
   -- command = "compiler tsc | setlocal makeprg=npx\\ tsc\\ --noEmit\\ --jsx\\ react-jsx\\ --allowSyntheticDefaultImports",
   command = "compiler tsc | setlocal makeprg=pnpm\\ run\\ build:check:clean",
 })
+

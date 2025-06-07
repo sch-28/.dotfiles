@@ -112,6 +112,11 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
+alias envim="cd ~/.dotfiles/nvim/.config/nvim && nvim"
+alias ei3="cd ~/.dotfiles/i3/.config/i3 && nvim config"
+
+
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # pnpm
@@ -138,3 +143,12 @@ fi
 
 # for fkc nova
 export SKIP_POSTINSTALL="true"
+# bun completions
+[ -s "/home/jan/.bun/_bun" ] && source "/home/jan/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+nmcli radio all on

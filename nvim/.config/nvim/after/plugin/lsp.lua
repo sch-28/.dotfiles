@@ -102,7 +102,7 @@ lsp_zero.on_attach(function(client, bufnr)
 end)
 
 
-require("neodev").setup({})
+-- require("neodev").setup({})
 require('mason').setup({})
 
 mason_lspconfig.setup({

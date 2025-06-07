@@ -37,7 +37,7 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
 
-
+    use { 'hrsh7th/nvim-cmp', commit = "b356f2c", pin = true }
 
 
     use {
@@ -55,8 +55,13 @@ return require('packer').startup(function(use)
             { 'L3MON4D3/LuaSnip' },
         }
     }
-    use('folke/neodev.nvim')
+    -- use('folke/neodev.nvim')
+    -- use('folke/neodev.nvim')
     -- use('prettier/vim-prettier', { run = 'npm i --frozen-lockfile --production' })
+    use({
+        "folke/todo-comments.nvim",
+        requires = { "nvim-lua/plenary.nvim" }
+    })
 
     -- use('tpope/vim-commentary')
     use('nvim-tree/nvim-web-devicons')
@@ -152,9 +157,9 @@ return require('packer').startup(function(use)
         -- install jsregexp (optional!:).
         run = "make install_jsregexp"
     })
-    use({
-        "hrsh7th/nvim-cmp",
-    })
+    -- use({
+    --     "hrsh7th/nvim-cmp",
+    -- })
     use({
         "hrsh7th/cmp-nvim-lsp",
     })
@@ -180,4 +185,8 @@ return require('packer').startup(function(use)
     use({
         "nvim-telescope/telescope-media-files.nvim"
     })
+
+    use {
+        'stevearc/overseer.nvim',
+    }
 end)

@@ -15,6 +15,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- replace paste
 vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "D", '"_d', { desc = "Delete without yanking" })
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
@@ -130,12 +131,13 @@ vim.keymap.set("n", "k", "v:count ? 'k' : 'gk'", { expr = true })
 
 -- vim.keymap.set("n", "<leader>e",  function () vim.diagnostic.jump({count= 1,float = true}) end, { desc = "Jump to next diagnostic" })
 -- vim.keymap.set("n", "<leader>E", vim.diagnostic.goto_prev)
-vim.diagnostic.config({ jump = { float = true }})
+vim.diagnostic.config({ jump = { float = true } })
 
 vim.keymap.set('s', '<S-j>', 'j', { noremap = true })
 vim.keymap.set('s', '<S-k>', 'k', { noremap = true })
 vim.keymap.set('s', '<S-h>', 'h', { noremap = true })
 vim.keymap.set('s', '<S-l>', 'l', { noremap = true })
+
 
 
 
@@ -181,3 +183,49 @@ vim.keymap.set('n', 't%', JumpToHtmlTagEnd, { desc = "Treesitter HTML tag jump" 
 
 vim.keymap.set("n", "<leader>li", require('icons.icon-picker').pick, { desc = "Pick Lucide Icon" })
 
+
+
+
+
+
+-- Define inner text object for backticks (`) using Lua
+function _G.select_backtick_textobject_2(inner)
+  local line = vim.fn.getline('.')
+  local col = vim.fn.col('.')
+  local start, finish
+
+  -- Search backwards for ` or ' or "
+  for i = col - 1, 1, -1 do
+    if line:sub(i, i) == '`' or line:sub(i, i) == "'" or line:sub(i, i) == '"' then
+      start = i
+      break
+    end
+  end
+
+  -- Search forwards for ` or '
+  for i = col, #line do
+    if line:sub(i, i) == '`' or line:sub(i, i) == "'" or line:sub(i, i) == '"' then
+      finish = i - 1
+      break
+    end
+  end
+
+  if start and finish and start < finish then
+    if inner then
+      vim.fn.setpos("'<", {0, vim.fn.line('.'), start + 1, 0})
+      vim.fn.setpos("'>", {0, vim.fn.line('.'), finish, 0})
+    else
+      vim.fn.setpos("'<", {0, vim.fn.line('.'), start, 0})
+      vim.fn.setpos("'>", {0, vim.fn.line('.'), finish + 1, 0})
+    end
+    vim.cmd('normal! gv')
+  end
+end
+
+-- Map iq and aq
+vim.keymap.set({'o', 'x'}, 'iq', function() select_backtick_textobject_2(true) end, { noremap = true, silent = true })
+vim.keymap.set({'o', 'x'}, 'aq', function() select_backtick_textobject_2(false) end, { noremap = true, silent = true })
+
+
+-- cgn for last replaced word
+vim.keymap.set("n", "g.", [[/\V\C<C-r>"<CR>cgn<C-a><Esc>]], { noremap = true, silent = true })

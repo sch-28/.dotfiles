@@ -1,3 +1,4 @@
+local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 require('telescope').setup({
     defaults = {
@@ -41,7 +42,7 @@ local file_picker = require('config.telescopePickers').prettyFilesPicker
 local grep_picker = require('config.telescopePickers').prettyGrepPicker
 
 -- builtin.grep_string({ search = vim.fn.input("Grep > ") });
-vim.keymap.set('n', '<leader>pf', function() file_picker({ picker = "find_files" }) end, {})
+vim.keymap.set('n', '<leader>pf', function() file_picker({ picker = "find_files",options={hidden=true}  }) end, {})
 vim.keymap.set('n', '<C-p>', function() builtin.git_files() end, {})
 vim.keymap.set('n', '<leader>ps', function()
     grep_picker({ picker = "grep_string", options = { search = vim.fn.input("Grep > ") } });
@@ -53,9 +54,16 @@ vim.keymap.set('n', '<leader>pd', function()
     local selected_word = vim.fn.expand("<cword>")
     grep_picker({ picker = "grep_string", options = { search = selected_word } })
 end)
-vim.keymap.set('n', '<Leader>fs', function() builtin.current_buffer_fuzzy_find() end)
+vim.keymap.set('n', '<Leader>fl', function() builtin.current_buffer_fuzzy_find() end)
 vim.keymap.set('n', '<Leader>pe',
     function() builtin.diagnostics({ initial_mode = "normal", severity = vim.lsp.protocol.DiagnosticSeverity.Error }) end)
 vim.keymap.set('n', '<Leader>fe',
     function() builtin.diagnostics({ initial_mode = "normal", bufnr = 0,
             severity = vim.lsp.protocol.DiagnosticSeverity.Error }) end)
+vim.keymap.set("n", "<leader>li", require('icons.icon-picker').pick, { desc = "Pick Lucide Icon" })
+-- call todo-comments picker
+vim.keymap.set('n', "<leader>pt",function() 
+    require('telescope').extensions["todo-comments"].todo({
+        initial_mode = "normal",
+    })
+end, { desc = "Telescope Todo Comments" })

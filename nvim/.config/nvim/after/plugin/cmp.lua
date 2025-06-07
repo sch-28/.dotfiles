@@ -89,6 +89,8 @@ cmp.setup({
                         behavior = cmp.ConfirmBehavior.Insert,
                         select = false,
                     })
+
+                    fallback()
                 end
             else
                 fallback()
