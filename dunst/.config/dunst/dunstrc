@@ -430,6 +430,8 @@
 #
 # vim: ft=cfg
 
- [play_sound]
+[play_sound]
     summary = "*"
     script = ~/.config/dunst/sound.sh
+
+    
