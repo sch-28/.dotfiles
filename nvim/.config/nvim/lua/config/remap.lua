@@ -229,3 +229,21 @@ vim.keymap.set({'o', 'x'}, 'aq', function() select_backtick_textobject_2(false) 
 
 -- cgn for last replaced word
 vim.keymap.set("n", "g.", [[/\V\C<C-r>"<CR>cgn<C-a><Esc>]], { noremap = true, silent = true })
+
+
+-- Function to preserve case when substituting text
+function CasePreserveSub(from, to)
+  local escaped_from = vim.pesc(from)
+  local pattern = '\\v(' .. escaped_from .. ')'
+  vim.cmd(string.format([[
+    %%s/%s/\=submatch(1)[0] =~# '\u' ? '%s' : '%s'/g
+  ]], pattern, to:sub(1,1):upper() .. to:sub(2), to:lower()))
+end
+
+vim.api.nvim_create_user_command("CaseSub", function(opts)
+ if #opts.fargs ~= 2 then
+    print("Usage: :CaseSub {from} {to}")
+    return
+  end
+  CasePreserveSub(opts.fargs[1], opts.fargs[2])
+end, { nargs = "+" })
