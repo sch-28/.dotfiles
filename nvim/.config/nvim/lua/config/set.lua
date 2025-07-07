@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 })
 
 -- vim.opt.background = "dark"
-vim.cmd.colorscheme("nightfox")
+vim.cmd.colorscheme("dayfox")
 
 
 -- autoread file on change

@@ -1,11 +1,12 @@
  [colors]
-base = #bb000000
-mantle = #181825
+base = #C0C0C0
+mantle = #A0A0A0
 crust = #11111b
-text = #ffffff
-text-highlight = #F0C674
+text = #000000
+text-highlight = #000080
+white = #ffffff
 subtext0 = #a6adc8
-subtext1 = #bac2de
+subtext1 = #A0A0A0
 surface0 = #313244
 surface1 = #45475a
 surface2 = #585b70
@@ -21,12 +22,13 @@ green = #a6e3a1
 yellow = #f9e2af
 peach = #fab387
 maroon = #eba0ac
-red = #f38ba8
+red = #800000
 mauve = #cba6f7
 pink = #f5c2e7
 flamingo = #f2cdcd
 rosewater = #f5e0dc
 transparent = #FF00000
+
 
 ;==========================================================
 ;
@@ -45,6 +47,7 @@ transparent = #FF00000
 ;   The README contains a lot of information
 ;
 ;==========================================================
+
 
 [colors]
 background = ${colors.base}
@@ -108,8 +111,8 @@ tray-size = 50%
 type = internal/xworkspaces
 
 label-active = %name%
-label-active-background = ${colors.text}
-label-active-foreground = ${colors.crust}
+label-active-background = ${colors.primary}
+label-active-foreground = ${colors.white}
 pin-workspaces = true
 label-active-underline= ${colors.lauve}
 label-active-padding = 1
@@ -175,7 +178,7 @@ label = %percentage_used:2%%
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "CPU"
+format-prefix = "CPU "
 format-prefix-foreground = ${colors.primary}
 label = %percentage:2%%
 
