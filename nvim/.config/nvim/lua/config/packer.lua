@@ -189,4 +189,7 @@ return require('packer').startup(function(use)
     use {
         'stevearc/overseer.nvim',
     }
+    use {
+        'rmagatti/auto-session',
+    }
 end)

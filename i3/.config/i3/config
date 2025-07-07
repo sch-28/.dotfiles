@@ -209,6 +209,8 @@ bindsym $alt+n exec sh /home/jan/turn-off-displays.sh
 
 # exec firefox on mod shift enter
 bindsym $mod+Shift+Return exec firefox
+# Open Firefox developer edition
+bindsym $mod+Shift+BackSpace exec --no-startup-id /home/jan/.local/bin/firefox/firefox
 
 bindsym $mod+Shift+f floating toggle, resize set 1200 800
 bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
@@ -223,6 +225,13 @@ bindsym $mod+Shift+minus move scratchpad
 
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
+
+# Toggle Spotify
+bindsym $mod+p exec --no-startup-id playerctl --player=spotify play-pause
+
+# keybind to open browser AI
+bindsym $mod+x exec --no-startup-id firefox --new-window "http://localhost:4000"
+
 
 # bindsym $mod+BackSpace [class="Termite"] scratchpad show
 # bindsym $mod+equal [class="keepassxc"] scratchpad show
@@ -241,11 +250,12 @@ gaps outer 0
  
 for_window [class=".*"] title_format "<span alpha='1'>%title</span>"
 
+focus_follows_mouse no
 client.focused          #333333 #5f676a #ffffff #484e50   #5f676a
 
 exec --no-startup-id ~/desk-mode.sh
 exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/pictures/black.jpg"
+exec --no-startup-id sh -c "sleep 1 && wal -R" 
 exec --no-startup-id rfkill unblock all
 exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 exec --no-startup-id greenclip daemon
