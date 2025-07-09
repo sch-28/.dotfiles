@@ -255,7 +255,8 @@ client.focused          #333333 #5f676a #ffffff #484e50   #5f676a
 
 exec --no-startup-id ~/desk-mode.sh
 exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id sh -c "sleep 1 && wal -R" 
+# exec --no-startup-id sh -c "sleep 1 && wal -R" 
+exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/pictures/blue.jpg"
 exec --no-startup-id rfkill unblock all
 exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 exec --no-startup-id greenclip daemon
