@@ -43,7 +43,7 @@ local grep_picker = require('config.telescopePickers').prettyGrepPicker
 
 -- builtin.grep_string({ search = vim.fn.input("Grep > ") });
 vim.keymap.set('n', '<leader>pf', function() file_picker({ picker = "find_files",options={hidden=true}  }) end, {})
-vim.keymap.set('n', '<C-p>', function() builtin.git_files() end, {})
+-- vim.keymap.set('n', '<C-p>', function() builtin.git_files() end, {})
 vim.keymap.set('n', '<leader>ps', function()
     grep_picker({ picker = "grep_string", options = { search = vim.fn.input("Grep > ") } });
 end)
@@ -55,6 +55,7 @@ vim.keymap.set('n', '<leader>pd', function()
     grep_picker({ picker = "grep_string", options = { search = selected_word } })
 end)
 vim.keymap.set('n', '<Leader>fl', function() builtin.current_buffer_fuzzy_find() end)
+vim.keymap.set("n", "<leader>bf", function() builtin.buffers() end)
 vim.keymap.set('n', '<Leader>pe',
     function() builtin.diagnostics({ initial_mode = "normal", severity = vim.lsp.protocol.DiagnosticSeverity.Error }) end)
 vim.keymap.set('n', '<Leader>fe',

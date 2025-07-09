@@ -94,8 +94,8 @@ return require('packer').startup(function(use)
         end
     }
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
-    use('justinmk/vim-sneak')
     use { 'folke/trouble.nvim', requires = "kyazdani42/nvim-web-devicons", config = function() require("trouble").setup {} end }
+    use { 'folke/flash.nvim' }
     use('mattn/emmet-vim')
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
     use {

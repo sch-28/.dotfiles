@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+-- vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- move text blocks w/ J/K
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -14,7 +14,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- replace paste
-vim.keymap.set("x", "<leader>p", [["_dP]])
+-- vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("x", "D", '"_d', { desc = "Delete without yanking" })
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
@@ -247,3 +247,9 @@ vim.api.nvim_create_user_command("CaseSub", function(opts)
   end
   CasePreserveSub(opts.fargs[1], opts.fargs[2])
 end, { nargs = "+" })
+
+-- bnext bprev
+vim.keymap.set("n", "<C-n>", "<cmd>bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<C-p>", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
+-- delete buffer
+vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", { desc = "Delete buffer" })
