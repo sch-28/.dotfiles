@@ -1,8 +1,14 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-export PATH=$PATH:/home/jan/.local/share/flatpak/exports/bin
-export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+# Prioritize custom xdg-open first
+export PATH="$HOME/.local/xdg-open:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+
+# Flatpak apps
+export PATH="$PATH:/home/jan/.local/share/flatpak/exports/bin"
+
+# Node.js (nvm)
 export PATH="$HOME/.nvm/versions/node/v22.14.0/bin:$PATH"
+
+# PKG config
+export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 
 export TERM=xterm-256color
 
@@ -119,3 +125,7 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
