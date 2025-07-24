@@ -1,186 +1,103 @@
--- local fzf = require('fzf-lua')
--- fzf.setup({
--- 	winopts = {
--- 		height = 0.25,
--- 		width = 0.4,
--- 		row = 0.5,
--- 		hl = { normal = "Pmenu" },
--- 		border = "none",
--- 	},
--- 	fzf_opts = {
--- 		["--no-info"] = "",
--- 		["--info"] = "hidden",
--- 		["--padding"] = "13%,5%,13%,5%",
--- 		["--header"] = " ",
--- 		-- ["--no-scrollbar"] = "",
--- 	},
--- 	files = {
--- 		formatter = "path.filename_first",
--- 		git_icons = true,
--- 		prompt = "files:",
--- 		preview_opts = "hidden",
--- 		no_header = true,
--- 		cwd_header = false,
--- 		cwd_prompt = false,
--- 		-- cwd = require("utils").git_root(),
--- 		actions = {
--- 			["ctrl-d"] = function(...)
--- 				fzf.actions.file_vsplit(...)
--- 				vim.cmd("windo diffthis")
--- 				local switch = vim.api.nvim_replace_termcodes("<C-w>h", true, false, true)
--- 				vim.api.nvim_feedkeys(switch, "t", false)
--- 			end,
--- 		},
--- 	},
--- 	buffers = {
--- 		formatter = "path.filename_first",
--- 		prompt = "buffers:",
--- 		preview_opts = "hidden",
--- 		no_header = true,
--- 		fzf_opts = { ["--delimiter"] = " ", ["--with-nth"] = "-1.." },
--- 	},
--- 	helptags = {
--- 		prompt = "💡:",
--- 		preview_opts = "hidden",
--- 		winopts = {
--- 			row = 1,
--- 			width = vim.api.nvim_win_get_width(0),
--- 			height = 0.3,
--- 		},
--- 	},
--- 	git = {
--- 		bcommits = {
--- 			prompt = "logs:",
--- 			cmd = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen%><(12)%cr%><|(12)%Creset %s' <file>",
--- 			preview = "git show --stat --color --format='%C(cyan)%an%C(reset)%C(bold yellow)%d%C(reset): %s' {1} -- <file>",
--- 			actions = {
--- 				["ctrl-d"] = function(...)
--- 					fzf.actions.git_buf_vsplit(...)
--- 					vim.cmd("windo diffthis")
--- 					local switch = vim.api.nvim_replace_termcodes("<C-w>h", true, false, true)
--- 					vim.api.nvim_feedkeys(switch, "t", false)
--- 				end,
--- 			},
--- 			preview_opts = "nohidden",
--- 			winopts = {
--- 				preview = {
--- 					layout = "vertical",
--- 					vertical = "right:50%",
--- 					wrap = "wrap",
--- 				},
--- 				row = 1,
--- 				width = vim.api.nvim_win_get_width(0),
--- 				height = 0.3,
--- 			},
--- 		},
--- 		branches = {
--- 			prompt = "branches:",
--- 			cmd = "git branch --all --color",
--- 			winopts = {
--- 				preview = {
--- 					layout = "vertical",
--- 					vertical = "right:50%",
--- 					wrap = "wrap",
--- 				},
--- 				row = 1,
--- 				width = vim.api.nvim_win_get_width(0),
--- 				height = 0.3,
--- 			},
--- 		},
--- 	},
--- 	autocmds = {
--- 		prompt = "autocommands:",
--- 		winopts = {
--- 			width = 0.8,
--- 			height = 0.7,
--- 			preview = {
--- 				layout = "horizontal",
--- 				horizontal = "down:40%",
--- 				wrap = "wrap",
--- 			},
--- 		},
--- 	},
--- 	keymaps = {
--- 		prompt = "keymaps:",
--- 		winopts = {
--- 			width = 0.8,
--- 			height = 0.7,
--- 		},
--- 		actions = {
--- 			["default"] = function(selected)
--- 				local lines = vim.split(selected[1], "│", {})
--- 				local mode, key = lines[1]:gsub("%s+", ""), lines[2]:gsub("%s+", "")
--- 				vim.cmd("verbose " .. mode .. "map " .. key)
--- 			end,
--- 		},
--- 	},
--- 	highlights = {
--- 		prompt = "highlights:",
--- 		winopts = {
--- 			width = 0.8,
--- 			height = 0.7,
--- 			preview = {
--- 				layout = "horizontal",
--- 				horizontal = "down:40%",
--- 				wrap = "wrap",
--- 			},
--- 		},
--- 		actions = {
--- 			["default"] = function(selected)
--- 				print(vim.cmd.highlight(selected[1]))
--- 			end,
--- 		},
--- 	},
--- 	lsp = {
--- 		code_actions = {
--- 			prompt = "code actions:",
--- 			winopts = {
--- 				width = 0.8,
--- 				height = 0.7,
--- 				preview = {
--- 					layout = "horizontal",
--- 					horizontal = "up:75%",
--- 				},
--- 			},
--- 		},
--- 	},
--- 	registers = {
--- 		prompt = "registers:",
--- 		preview_opts = "hidden",
--- 		winopts = {
--- 			width = 0.8,
--- 			height = 0.7,
--- 			preview = {
--- 				layout = "horizontal",
--- 				horizontal = "down:45%",
--- 			},
--- 		},
--- 	},
--- })
---
---
--- -- builtin.grep_string({ search = vim.fn.input("Grep > ") });
--- -- vim.keymap.set('n', '<leader>pf', function() file_picker({ picker = "find_files" }) end, {})
--- -- vim.keymap.set('n', '<C-p>', function() builtin.git_files() end, {})
--- -- vim.keymap.set('n', '<leader>ps', function()
--- --     grep_picker({ picker = "grep_string", options = { search = vim.fn.input("Grep > ") } });
--- -- end)
--- -- vim.keymap.set('n', '<leader>pl', function()
--- --     grep_picker({ picker = "live_grep"});
--- -- end)
--- -- vim.keymap.set('n', '<leader>pd', function()
--- --     local selected_word = vim.fn.expand("<cword>")
--- --     grep_picker({ picker = "grep_string", options = { search = selected_word } })
--- -- end)
--- -- vim.keymap.set('n', '<Leader>fs', function() builtin.current_buffer_fuzzy_find() end)
--- -- vim.keymap.set('n', '<Leader>pe',
--- --     function() builtin.diagnostics({ initial_mode = "normal", severity = vim.lsp.protocol.DiagnosticSeverity.Error }) end)
--- -- vim.keymap.set('n', '<Leader>fe',
--- --     function() builtin.diagnostics({ initial_mode = "normal", bufnr = 0,
--- --             severity = vim.lsp.protocol.DiagnosticSeverity.Error }) end)
---
--- -- map these old telesope commands to fzf
---
+local fzf = require('fzf-lua')
+local actions = require("fzf-lua").actions
+fzf.setup({
+    winopts = {
+        -- split = "belowright new",-- open in a split instead?
+        -- "belowright new"  : split below
+        -- "aboveleft new"   : split above
+        -- "belowright vnew" : split right
+        -- "aboveleft vnew   : split left
+        -- Only valid when using a float window
+        -- (i.e. when 'split' is not defined, default)
+        height        = 0.25, -- window height
+        width         = 1,    -- window width
+        row           = 1,    -- window row position (0=top, 1=bottom)
+        col           = 0,    -- window col position (0=left, 1=right)
+        -- border argument passthrough to nvim_open_win()
+        -- [ "/", "-", \"\\\\\", "|" ] ascci border:
+        border        = "border-top",
+        -- Backdrop opacity, 0 is fully opaque, 100 is fully transparent (i.e. disabled)
+        backdrop      = 60,
+        -- title         = "Title",
+        -- title_pos     = "center",        -- 'left', 'center' or 'right'
+        -- title_flags   = false,           -- uncomment to disable title flags
+        fullscreen    = false, -- start fullscreen?
+        -- enable treesitter highlighting for the main fzf window will only have
+        -- effect where grep like results are present, i.e. "file:line:col:text"
+        -- due to highlight color collisions will also override `fzf_colors`
+        -- set `fzf_colors=false` or `fzf_colors.hl=...` to override
+        treesitter    = {
+            enabled    = true,
+            fzf_colors = { ["hl"] = "-1:reverse", ["hl+"] = "-1:reverse" }
+        },
+        on_focus_lost = function()
+            if fzf.win.is_open() then fzf.win.close() end
+        end,
+        preview       = {
+            -- default     = 'bat',           -- override the default previewer?
+            -- default uses the 'builtin' previewer
+            border       = "rounded", -- preview border: accepts both `nvim_open_win`
+            -- and fzf values (e.g. "border-top", "none")
+            -- native fzf previewers (bat/cat/git/etc)
+            -- can also be set to `fun(winopts, metadata)`
+            wrap         = false,       -- preview line wrap (fzf's 'wrap|nowrap')
+            hidden       = false,       -- start preview hidden
+            vertical     = "down:45%",  -- up|down:size
+            horizontal   = "right:60%", -- right|left:size
+            layout       = "flex",      -- horizontal|vertical|flex
+            flip_columns = 100,         -- #cols to switch to horizontal on flex
+            -- Only used with the builtin previewer:
+            title        = true,        -- preview border title (file/buf)?
+            title_pos    = "center",    -- left|center|right, title alignment
+            scrollbar    = "float",     -- `false` or string:'float|border'
+            -- float:  in-window floating border
+            -- border: in-border "block" marker
+            scrolloff    = -1, -- float scrollbar offset from right
+            -- applies only when scrollbar = 'float'
+            delay        = 20, -- delay(ms) displaying the preview
+            -- prevents lag on fast scrolling
+            winopts      = {   -- builtin previewer window options
+                number         = true,
+                relativenumber = false,
+                cursorline     = true,
+                cursorlineopt  = "both",
+                cursorcolumn   = false,
+                signcolumn     = "no",
+                list           = false,
+                foldenable     = false,
+                foldmethod     = "manual",
+            },
+        },
+        on_create     = function()
+            -- called once upon creation of the fzf main window
+            -- can be used to add custom fzf-lua mappings, e.g:
+            --   vim.keymap.set("t", "<C-j>", "<Down>", { silent = true, buffer = true })
+        end,
+        -- called once _after_ the fzf interface is closed
+        -- on_close = function() ... end
+    },
+    buffers = {
+        previewer     = false,
+        prompt        = 'Buffers❯ ',
+        file_icons    = true,  -- show file icons (true|"devicons"|"mini")?
+        color_icons   = true,  -- colorize file|git icons
+        sort_lastused = true,  -- sort buffers() by last used
+        show_unloaded = true,  -- show unloaded buffers
+        cwd_only      = false, -- buffers for the cwd only
+        cwd           = nil,   -- buffers list for a given dir
+        actions       = {
+            -- actions inherit from 'actions.files' and merge
+            -- by supplying a table of functions we're telling
+            -- fzf-lua to not close the fzf window, this way we
+            -- can resume the buffers picker on the same window
+            -- eliminating an otherwise unaesthetic win "flash"
+            ["ctrl-x"] = { fn = actions.buf_del, reload = true },
+        }
+    },
+})
+
+
+
 -- vim.keymap.set('n', '<leader>pf', function() fzf.files() end, {})
 --
 -- -- project
@@ -192,19 +109,33 @@
 -- vim.keymap.set('x', '<leader>pd', function() fzf.grep_visual() end)
 --
 -- -- buffers
--- vim.keymap.set('n', '<Leader>b', function() fzf.buffers() end)
+vim.keymap.set('n', '<Leader>bf', function() fzf.buffers() end)
 --
 -- -- file
 -- vim.keymap.set('n', '<Leader>fs', function() fzf.lgrep_curbuf() end)
 -- vim.keymap.set('n', '<Leader>fe', function() fzf.diagnostics_document() end)
---
---
---
---
--- vim.keymap.set({ "i" }, "<C-x><C-f>",
---     function()
---         require("fzf-lua").complete_file({
---             cmd = "rg --files",
---             winopts = { preview = { hidden = "nohidden" } }
---         })
---     end, { silent = true, desc = "Fuzzy complete file" })
+
+
+
+
+
+
+vim.keymap.set({ "i" }, "<C-x><C-f>",
+    function()
+        fzf.complete_file({
+            cmd = "rg --files",
+            winopts = { preview = { hidden = "nohidden" } }
+        })
+    end, { silent = true, desc = "Fuzzy complete file" })
+
+
+
+
+vim.api.nvim_create_autocmd("FocusLost", {
+    callback = function()
+        local w = require('fzf-lua.utils').fzf_winobj()
+        if w then
+            w:close()
+        end
+    end,
+})

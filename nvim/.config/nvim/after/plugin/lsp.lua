@@ -1,4 +1,5 @@
-local lsp_zero = require('lsp-zero') local lsp_config = require("lspconfig")
+local lsp_zero = require('lsp-zero')
+local lsp_config = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -36,8 +37,8 @@ require("typescript-tools").setup {
         -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
         tsserver_locale = "en",
         -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
-        complete_function_calls = true,
-        include_completions_with_insert_text = true,
+        complete_function_calls = false,
+        include_completions_with_insert_text = false,
         -- CodeLens
         -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
         -- possible values: ("off"|"all"|"implementations_only"|"references_only")
@@ -142,7 +143,7 @@ vim.lsp.config('lua_ls', {
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true),
-                ignoreDir= {"lucide_icons"}
+                ignoreDir = { "lucide_icons" }
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
@@ -152,3 +153,6 @@ vim.lsp.config('lua_ls', {
     },
 }
 )
+
+-- require('java').setup()
+-- lsp_config.jdtls.setup({})
