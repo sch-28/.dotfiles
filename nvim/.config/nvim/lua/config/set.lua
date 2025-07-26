@@ -24,7 +24,7 @@ vim.o.undofile = true
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
@@ -99,7 +99,7 @@ vim.cmd.colorscheme("dayfox")
 --   pattern = { "*" },
 -- })
 
-vim.g.user_emmet_leader_key = "<C-z>"
+-- vim.g.user_emmet_leader_key = "<C-z>"
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true

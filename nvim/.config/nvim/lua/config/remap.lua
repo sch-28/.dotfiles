@@ -248,8 +248,29 @@ vim.api.nvim_create_user_command("CaseSub", function(opts)
   CasePreserveSub(opts.fargs[1], opts.fargs[2])
 end, { nargs = "+" })
 
+
 -- bnext bprev
-vim.keymap.set("n", "<C-n>", "<cmd>bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<C-p>", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
 -- delete buffer
 vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", { desc = "Delete buffer" })
+-- delete all but current buffer
+vim.keymap.set("n", "<leader>bo", function()
+    local current_buf = vim.api.nvim_get_current_buf()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if buf ~= current_buf then
+            vim.api.nvim_buf_delete(buf, { force = true })
+        end
+    end
+end, { desc = "Delete all buffers but current" })
+
+
+
+-- -- toggle hlsearch
+-- vim.keymap.set("n", "<leader>h", function()
+--     vim.o.hlsearch = not vim.o.hlsearch
+-- end, { desc = "Toggle highlight search" })
+
+-- reset current search
+vim.keymap.set("n", "<leader>r", function()
+    vim.cmd("nohlsearch")
+end, { desc = "Reset current search" })
+

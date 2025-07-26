@@ -37,7 +37,7 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
 
-    use { 'hrsh7th/nvim-cmp', commit = "b356f2c", pin = true }
+    use { 'hrsh7th/nvim-cmp' }
 
 
     use {
@@ -94,9 +94,9 @@ return require('packer').startup(function(use)
         end
     }
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
-    use { 'folke/trouble.nvim', requires = "kyazdani42/nvim-web-devicons", config = function() require("trouble").setup {} end }
     use { 'folke/flash.nvim' }
-    use('mattn/emmet-vim')
+    use { 'folke/trouble.nvim', requires = "kyazdani42/nvim-web-devicons", config = function() require("trouble").setup {} end }
+    -- use('mattn/emmet-vim')
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
     use {
         "pmizio/typescript-tools.nvim",
@@ -192,4 +192,31 @@ return require('packer').startup(function(use)
     use {
         'rmagatti/auto-session',
     }
+
+    -- use {
+    --     'nvim-java/nvim-java',
+    --     requires = {
+    --         'nvim-java/lua-async-await',
+    --         'nvim-java/nvim-java-refactor',
+    --         'nvim-java/nvim-java-core',
+    --         'nvim-java/nvim-java-test',
+    --         'nvim-java/nvim-java-dap',
+    --         'MunifTanjim/nui.nvim',
+    --         'neovim/nvim-lspconfig',
+    --         'mfussenegger/nvim-dap',
+    --         {
+    --             'JavaHello/spring-boot.nvim',
+    --             commit = '218c0c26c14d99feca778e4d13f5ec3e8b1b60f0',
+    --         },
+    --         -- {
+    --         --     'williamboman/mason.nvim',
+    --         --     -- opts = {
+    --         --     -- registries = {
+    --         --     -- 	'github:nvim-java/mason-registry',
+    --         --     -- 	'github:mason-org/mason-registry',
+    --         --     -- },
+    --         --     -- },
+    --         -- },
+    --     },
+    -- }
 end)
