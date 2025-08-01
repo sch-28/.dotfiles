@@ -88,7 +88,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     callback = set_hl_for_floating_window,
 })
 
--- vim.opt.background = "dark"
+-- vim.opt.background = ""
 vim.cmd.colorscheme("dayfox")
 
 

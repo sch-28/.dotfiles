@@ -5,7 +5,6 @@ return {
         local file = vim.fn.expand("%:p")
         return {
             cmd = { "bun" },
-            cwd =  "./apps/web",
             -- args = { file },
             args = { "run", "build:check:clean" },
             components = {

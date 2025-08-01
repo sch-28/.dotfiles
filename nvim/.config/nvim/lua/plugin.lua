@@ -1,0 +1,60 @@
+vim.pack.add({
+    { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+    { src = "https://github.com/onsails/lspkind.nvim" },
+    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/neovim/nvim-lspconfig" },
+    { src = "https://github.com/mason-org/mason.nvim" },
+    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+    { src = "https://github.com/EdenEast/nightfox.nvim" },
+    { src = "https://github.com/nvim-pack/nvim-spectre" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
+    {
+        src = "https://github.com/ThePrimeagen/harpoon",
+        version = "harpoon2"
+    },
+    { src = "https://github.com/mbbill/undotree" },
+    { src = "https://github.com/tpope/vim-fugitive" },
+    { src = "https://github.com/mbbill/undotree" },
+    { src = "https://github.com/windwp/nvim-autopairs" },
+    { src = "https://github.com/windwp/nvim-ts-autotag" },
+    { src = "https://github.com/github/copilot.vim" },
+    { src = "https://github.com/f-person/git-blame.nvim" },
+    { src = "https://github.com/dense-analysis/ale" },
+    { src = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring" },
+    { src = "https://github.com/numToStr/Comment.nvim" },
+    { src = "https://github.com/pmizio/typescript-tools.nvim" },
+    { src = "https://github.com/nvim-lualine/lualine.nvim" },
+    { src = "https://github.com/norcalli/nvim-colorizer.lua" },
+    { src = "https://github.com/echasnovski/mini.hipatterns" },
+    { src = "https://github.com/kylechui/nvim-surround" },
+    { src = "https://github.com/ibhagwan/fzf-lua" },
+    { src = "https://github.com/hrsh7th/nvim-cmp" },
+    { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
+    { src = "https://github.com/hrsh7th/cmp-buffer" },
+    { src = "https://github.com/hrsh7th/cmp-path" },
+    { src = "https://github.com/hrsh7th/cmp-cmdline" },
+    { src = "https://github.com/akinsho/toggleterm.nvim" },
+    { src = "https://github.com/stevearc/overseer.nvim" },
+    { src = "https://github.com/rmagatti/auto-session" },
+})
+
+require "oil".setup()
+require "nvim-autopairs".setup()
+require "nvim-ts-autotag".setup()
+require "nvim-surround".setup()
+
+require "plugins.comment"
+require "plugins.nightfox"
+require "plugins.colorizer"
+require "plugins.fzf"
+require "plugins.git-blame"
+require "plugins.lualine"
+require "plugins.overseer"
+require "plugins.cmp"
+require "plugins.toggleterm"
+require "plugins.oil"
+require "plugins.treesitter"
+require "plugins.ale"
+require "plugins.auto-session"

@@ -1,7 +1,6 @@
 require 'colorizer'.setup()
 local hipatterns = require 'mini.hipatterns'
 
-
 -- Returns hex color group for matching hsl() color.
 --
 ---@param match string
@@ -51,5 +50,3 @@ hipatterns.setup({
         },
     },
 })
-
---     --test2: hsl(0.2, 100%, 50%);
