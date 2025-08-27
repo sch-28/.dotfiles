@@ -10,7 +10,7 @@ export PATH="$HOME/.nvm/versions/node/v22.14.0/bin:$PATH"
 # PKG config
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 
-export TERM=xterm-256color
+export TERM=tmux-256color
 
  ZVM_INIT_MODE=sourcing
 # export __GLX_VENDOR_LIBRARY_NAME=nvidia
@@ -20,12 +20,11 @@ export TERM=xterm-256color
 export ZSH="$HOME/.oh-my-zsh"
 
 
-ZSH_THEME="Chicago95"
-plugins=(git zsh-autosuggestions zsh-vi-mode)
-
+ZSH_THEME="agnoster"
 ENABLE_CORRECTION="false"
 zstyle ':omz:plugins:nvm' lazy yes
-plugins=(nvm git zsh-autosuggestions zsh-vi-mode)
+# plugins=(nvm git zsh-autosuggestions zsh-vi-mode)
+plugins=(nvm git zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 
@@ -57,6 +56,8 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+export NODE_OPTIONS="--max-old-space-size=16384"
+
 
 
 eval "$(zoxide init zsh)"
@@ -78,7 +79,6 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 
-nmcli radio all on
  # ripgrep->fzf->vim [QUERY]
 sf() (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
@@ -104,30 +104,30 @@ source ~/.fzf.zsh
 source <(fzf --zsh)
 
 
-# (cat ~/.cache/wal/sequences &)
+(cat ~/.cache/wal/sequences &)
 
-# ### Added by Zinit's installer
-# if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-#     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-#     command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-#     command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-#         print -P "%F{33} %F{34}Installation successful.%f%b" || \
-#         print -P "%F{160} The clone has failed.%f%b"
-# fi
-#
-# source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-# autoload -Uz _zinit
-# (( ${+_comps} )) && _comps[zinit]=_zinit
-#
-# # Load a few important annexes, without Turbo
-# # (this is currently required for annexes)
-# zinit light-mode for \
-#     zdharma-continuum/zinit-annex-as-monitor \
-#     zdharma-continuum/zinit-annex-bin-gem-node \
-#     zdharma-continuum/zinit-annex-patch-dl \
-#     zdharma-continuum/zinit-annex-rust
-#
-# ### End of Zinit's installer chunk
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
 
 autoload -z edit-command-line
 zle -N edit-command-line
