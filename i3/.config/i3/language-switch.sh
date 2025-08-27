@@ -11,7 +11,7 @@ english() {
     notify-send "English Keyboard"
 }
 
-choice=$(printf 'English\nGerman' | rofi -l 2  -no-custom -dmenu -p "Select Language")
+choice=$(printf 'English\nGerman' | rofi -l 2 -i -no-custom -dmenu -p "Select Language")
 if [ "$choice" = "English" ]; then
     english
 elif [ "$choice" = "German" ]; then

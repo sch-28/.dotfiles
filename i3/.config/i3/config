@@ -208,8 +208,8 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 workspace 1 output DP-4
 workspace 2 output DP-1
 
-bindsym $alt+b exec sh /home/jan/toggle-displays.sh
-bindsym $alt+n exec sh /home/jan/turn-off-displays.sh
+bindsym $alt+Shift+b exec sh /home/jan/toggle-displays.sh
+bindsym $alt+Shift+n exec sh /home/jan/turn-off-displays.sh
 
 # exec firefox on mod shift enter
 bindsym $mod+Shift+Return exec firefox
@@ -235,6 +235,8 @@ bindsym $mod+p exec --no-startup-id playerctl --player=spotify play-pause
 
 # keybind to open browser AI
 bindsym $mod+x exec --no-startup-id firefox --new-window "http://localhost:4000"
+
+bindsym $mod+Shift+a exec --no-startup-id  ~/.config/i3/voice-memo.sh
 
 
 # bindsym $mod+BackSpace [class="Termite"] scratchpad show
