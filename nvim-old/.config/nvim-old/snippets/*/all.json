@@ -1,0 +1,7 @@
+{
+  "shebang": {
+    "prefix": "sh",
+    "body": ["#!/bin/sh"],
+    "description": "Shell script shebang"
+  }
+}
