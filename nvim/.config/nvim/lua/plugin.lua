@@ -1,3 +1,4 @@
+#52342
 vim.pack.add({
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
     { src = "https://github.com/onsails/lspkind.nvim" },
@@ -10,10 +11,6 @@ vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
-    {
-        src = "https://github.com/ThePrimeagen/harpoon",
-        version = "harpoon2"
-    },
     { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/tpope/vim-fugitive" },
     { src = "https://github.com/mbbill/undotree" },
@@ -26,8 +23,6 @@ vim.pack.add({
     { src = "https://github.com/numToStr/Comment.nvim" },
     { src = "https://github.com/pmizio/typescript-tools.nvim" },
     { src = "https://github.com/nvim-lualine/lualine.nvim" },
-    { src = "https://github.com/norcalli/nvim-colorizer.lua" },
-    { src = "https://github.com/echasnovski/mini.hipatterns" },
     { src = "https://github.com/kylechui/nvim-surround" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/hrsh7th/nvim-cmp" },
@@ -38,16 +33,21 @@ vim.pack.add({
     { src = "https://github.com/akinsho/toggleterm.nvim" },
     { src = "https://github.com/stevearc/overseer.nvim" },
     { src = "https://github.com/rmagatti/auto-session" },
+    { src = "https://github.com/ThePrimeagen/harpoon",                       version = "harpoon2" },
+    { src = "https://github.com/L3MON4D3/LuaSnip",                           version = "v2.4.0" },
+    { src = "https://github.com/LudoPinelli/comment-box.nvim" },
+    { src = "https://github.com/m4xshen/hardtime.nvim" },
+    { src = "https://github.com/christoomey/vim-tmux-navigator" }
 })
 
 require "oil".setup()
 require "nvim-autopairs".setup()
 require "nvim-ts-autotag".setup()
 require "nvim-surround".setup()
+require "hardtime".setup()
 
 require "plugins.comment"
 require "plugins.nightfox"
-require "plugins.colorizer"
 require "plugins.fzf"
 require "plugins.git-blame"
 require "plugins.lualine"
@@ -58,3 +58,4 @@ require "plugins.oil"
 require "plugins.treesitter"
 require "plugins.ale"
 require "plugins.auto-session"
+require "plugins.luasnip"
