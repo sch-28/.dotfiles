@@ -10,7 +10,7 @@ export PATH="$HOME/.nvm/versions/node/v22.14.0/bin:$PATH"
 # PKG config
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 
-export TERM=tmux-256color
+# export TERM=tmux-256color
 
  ZVM_INIT_MODE=sourcing
 # export __GLX_VENDOR_LIBRARY_NAME=nvidia
