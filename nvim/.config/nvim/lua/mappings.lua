@@ -4,13 +4,9 @@ local set = vim.keymap.set
 set("n", "-", ":Oil<CR>", { desc = "Open Oil" })
 set("n", "<leader>w", ":write<CR>", { desc = "Write File" })
 set("n", "<leader>q", ":quit<CR>", { desc = "Close Buffer" })
--- set('i', '<C-w>', '<Plug>(copilot-dismiss)',
--- 	{ noremap = true, silent = true, desc = "Dismiss Copilot suggestion" })
--- -- map accect to  C-f
-vim.cmd([[
-         imap <silent><script><expr> <C-F> copilot#Accept("\<CR>")
-         let g:copilot_no_tab_map = v:true
-]])
+
+set('i', '<C-F>', require "plugins.copilot".copilot_suggest, { expr = true,replace_keycodes= false, silent = true, desc = "Suggest/Accept Copilot" })
+
 
 set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
 set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
@@ -115,7 +111,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         set("n", "<leader>vca", function() buf.code_action() end, opts)
         set("n", "<leader>vrr", function() buf.references({ includeDeclaration = false }) end, opts)
         set("n", "<leader>vrn", function() buf.rename() end, opts)
-        set("i", "<C-s>", function() buf.signature_help() end, opts)
+        set("i", "<C-e>", function() buf.signature_help() end, opts)
 
         local jump_opts = function(dir)
             return {
@@ -179,12 +175,12 @@ set('x', '<leader>cl', function()
 end, { noremap = true, silent = true, desc = "Insert console.log" })
 
 set("n", "<leader>cl", functions.log_variable, { noremap = true, silent = true, desc = "Log variable" })
-set({ "n", "x" }, "gcb", functions.comment_box, { noremap = true, silent = true, desc = "Comment box" })
-set({ "n", "x" }, "gcl", functions.comment_line, { noremap = true, silent = true, desc = "Comment line" })
+set({ "n", "x" }, "<leader>ccb", functions.comment_box, { noremap = true, silent = true, desc = "Comment box" })
+set({ "n", "x" }, "<leader>ccl", functions.comment_line, { noremap = true, silent = true, desc = "Comment line" })
 
 
 local ls = require "luasnip"
-set("i", "<C-e>", function() ls.expand() end, {  silent = true, desc = "Expand snippet" })
+-- set("i", "<C-e>", function() ls.expand() end, { silent = true, desc = "Expand snippet" })
 set({ "i", "s" }, "<C-j>", function() ls.jump(1) end,
     { noremap = true, silent = true, desc = "Jump to next snippet node" })
 set({ "i", "s" }, "<C-k>", function() ls.jump(-1) end,

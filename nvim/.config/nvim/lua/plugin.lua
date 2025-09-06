@@ -37,8 +37,20 @@ vim.pack.add({
     { src = "https://github.com/L3MON4D3/LuaSnip",                           version = "v2.4.0" },
     { src = "https://github.com/LudoPinelli/comment-box.nvim" },
     { src = "https://github.com/m4xshen/hardtime.nvim" },
-    { src = "https://github.com/christoomey/vim-tmux-navigator" }
+    { src = "https://github.com/christoomey/vim-tmux-navigator" },
+
 })
+
+local inactive_plugins = {}
+local plugins = vim.pack.get()
+for i, v in ipairs(plugins) do
+    if v.active == false then
+        table.insert(inactive_plugins, v.spec.name)
+    end
+end
+if #inactive_plugins > 0 then
+    vim.pack.del(inactive_plugins)
+end
 
 require "oil".setup()
 require "nvim-autopairs".setup()
@@ -59,3 +71,4 @@ require "plugins.treesitter"
 require "plugins.ale"
 require "plugins.auto-session"
 require "plugins.luasnip"
+require "plugins.copilot"

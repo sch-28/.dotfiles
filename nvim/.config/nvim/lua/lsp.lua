@@ -63,6 +63,9 @@ vim.diagnostic.config({
 vim.lsp.config('lua_ls', {
 	settings = {
 		Lua = {
+            completion = {
+                callSnippet = "Replace"
+            },
 			runtime = {
 				version = 'LuaJIT',
 			},
@@ -70,8 +73,8 @@ vim.lsp.config('lua_ls', {
 				globals = { 'vim', 'require' },
 			},
 			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-				ignoreDir = { "lucide_icons" }
+                checkThirdParty = false,
+
 			},
 			telemetry = {
 				enable = false,

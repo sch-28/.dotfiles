@@ -1,7 +1,7 @@
 local cmp = require('cmp')
 -- local icons = require("icons.icons")
 -- local cmp_action = require('lsp-zero').cmp_action()
--- local luasnip = require("luasnip")
+local luasnip = require("luasnip")
 
 --- Get completion context, i.e., auto-import/target module location.
 --- Depending on the LSP this information is stored in different parts of the
@@ -34,14 +34,14 @@ end
 --  inoremap <C-@> <C-Space>]])
 cmp.setup({
     preselect = cmp.PreselectMode.None,
-    -- snippet = {
-    --     expand = function(args)
-    --         luasnip.lsp_expand(args.body) -- For `luasnip` users.
-    --     end,
-    -- },
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body) -- For `luasnip` users.
+        end,
+    },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        -- { name = 'luasnip' },
+        { name = 'luasnip' },
     }, {
         { name = 'buffer' },
     }),
@@ -71,8 +71,8 @@ cmp.setup({
         ['<C-y>'] = cmp.mapping.complete(),
 
         -- Navigate between snippet placeholder
-        -- ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-        -- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+        -- ['<C-j>'] = cmp_action.luasnip_jump_forward(),
+        -- ['<C-k>'] = cmp_action.luasnip_jump_backward(),
 
         -- Scroll up and down in the completion documentation
         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
@@ -110,8 +110,8 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            -- elseif luasnip.locally_jumpable(-1) then
-            --     luasnip.jump(-1)
+            elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
             else
                 fallback()
             end
