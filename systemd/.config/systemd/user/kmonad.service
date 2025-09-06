@@ -1,0 +1,10 @@
+[Unit]
+Description=KMonad keyboard remapping
+After=graphical.target
+
+[Service]
+ExecStart=/bin/kmonad /home/jan/.config/kmonad/config.kbd
+Restart=always
+
+[Install]
+WantedBy=default.target
