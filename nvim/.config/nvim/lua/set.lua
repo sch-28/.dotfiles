@@ -37,3 +37,4 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 vim.o.showtabline = 0
+-- vim.o.conceallevel = 1

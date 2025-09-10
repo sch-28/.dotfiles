@@ -175,8 +175,9 @@ set('x', '<leader>cl', function()
 end, { noremap = true, silent = true, desc = "Insert console.log" })
 
 set("n", "<leader>cl", functions.log_variable, { noremap = true, silent = true, desc = "Log variable" })
-set({ "n", "x" }, "<leader>ccb", functions.comment_box, { noremap = true, silent = true, desc = "Comment box" })
-set({ "n", "x" }, "<leader>ccl", functions.comment_line, { noremap = true, silent = true, desc = "Comment line" })
+set({ "n", "x" }, "<leader>cb", functions.comment_box, { noremap = true, silent = true, desc = "Comment box" })
+set({ "n", "x" }, "<leader>cx", functions.comment_line, { noremap = true, silent = true, desc = "Comment line" })
+
 
 
 local ls = require "luasnip"
@@ -198,3 +199,6 @@ set("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>",
 
 
 set("n", "<leader>z", functions.zoom, { noremap = true, silent = true, desc = "Zoom toggle" })
+
+set("n", "<leader>ip", '<cmd>!feh -B black --auto-zoom --force-aliasing % & <CR>',
+    { noremap = true, silent = true, desc = "Open image in feh" })
