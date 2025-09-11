@@ -32,7 +32,6 @@ vim.pack.add({
     { src = "https://github.com/hrsh7th/cmp-cmdline" },
     { src = "https://github.com/akinsho/toggleterm.nvim" },
     { src = "https://github.com/stevearc/overseer.nvim" },
-    { src = "https://github.com/rmagatti/auto-session" },
     { src = "https://github.com/ThePrimeagen/harpoon",                       version = "harpoon2" },
     { src = "https://github.com/L3MON4D3/LuaSnip",                           version = "v2.4.0" },
     { src = "https://github.com/LudoPinelli/comment-box.nvim" },
@@ -69,6 +68,5 @@ require "plugins.toggleterm"
 require "plugins.oil"
 require "plugins.treesitter"
 require "plugins.ale"
-require "plugins.auto-session"
 require "plugins.luasnip"
 require "plugins.copilot"
