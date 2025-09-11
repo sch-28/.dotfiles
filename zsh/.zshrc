@@ -132,3 +132,14 @@ zinit light-mode for \
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
+
+
+
+# auto-start tmux unless already inside tmux
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  if tmux has-session -t main; then
+      tmux attach -t main
+    else
+        tmux new -s main
+  fi
+fi
