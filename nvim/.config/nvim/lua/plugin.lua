@@ -1,19 +1,16 @@
 #52342
 vim.pack.add({
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
-    { src = "https://github.com/onsails/lspkind.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
     { src = "https://github.com/EdenEast/nightfox.nvim" },
-    -- { src = "https://github.com/nvim-pack/nvim-spectre" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/tpope/vim-fugitive" },
-    { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/windwp/nvim-autopairs" },
     { src = "https://github.com/windwp/nvim-ts-autotag" },
     { src = "https://github.com/github/copilot.vim" },
@@ -25,17 +22,13 @@ vim.pack.add({
     { src = "https://github.com/nvim-lualine/lualine.nvim" },
     { src = "https://github.com/kylechui/nvim-surround" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
-    { src = "https://github.com/hrsh7th/nvim-cmp" },
-    { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
-    { src = "https://github.com/hrsh7th/cmp-buffer" },
-    { src = "https://github.com/hrsh7th/cmp-path" },
-    { src = "https://github.com/hrsh7th/cmp-cmdline" },
-    { src = "https://github.com/akinsho/toggleterm.nvim" },
     { src = "https://github.com/stevearc/overseer.nvim" },
     { src = "https://github.com/ThePrimeagen/harpoon",                       version = "harpoon2" },
     { src = "https://github.com/L3MON4D3/LuaSnip",                           version = "v2.4.0" },
     { src = "https://github.com/m4xshen/hardtime.nvim" },
     { src = "https://github.com/christoomey/vim-tmux-navigator" },
+    { src = "https://github.com/Saghen/blink.cmp" }
+
 
 })
 
@@ -62,10 +55,9 @@ require "plugins.fzf"
 require "plugins.git-blame"
 require "plugins.lualine"
 require "plugins.overseer"
-require "plugins.cmp"
-require "plugins.toggleterm"
 require "plugins.oil"
 require "plugins.treesitter"
 require "plugins.ale"
 require "plugins.luasnip"
 require "plugins.copilot"
+require "plugins.blink"

@@ -1,12 +1,14 @@
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = {}
 require("typescript-tools").setup {
 
     on_init = function(client)
         -- disable formatting capabilities
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentFormattingRangeProvider = false
+
+        capabilities = require "blink.cmp".get_lsp_capabilities(client.server_capabilities)
     end,
-    capabilities = capabilities,
+    -- capabilities = capabilities,
     settings = {
         -- spawn additional tsserver instance to calculate diagnostics on it
         separate_diagnostic_server = true,
@@ -53,7 +55,7 @@ require("typescript-tools").setup {
 }
 require "mason".setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls" },
+    ensure_installed = { "lua_ls" },
 })
 
 vim.diagnostic.config({
@@ -61,27 +63,26 @@ vim.diagnostic.config({
 })
 
 vim.lsp.config('lua_ls', {
-	settings = {
-		Lua = {
+    settings = {
+        Lua = {
             completion = {
                 callSnippet = "Replace"
             },
-			runtime = {
-				version = 'LuaJIT',
-			},
-			diagnostics = {
-				globals = { 'vim', 'require' },
-			},
-			workspace = {
-                checkThirdParty = false,
-            library = {
-                vim.env.VIMRUNTIME
+            runtime = {
+                version = 'LuaJIT',
             },
-			},
-			telemetry = {
-				enable = false,
-			},
-		},
-	},
+            diagnostics = {
+                globals = { 'vim', 'require' },
+            },
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    vim.env.VIMRUNTIME
+                },
+            },
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
 })
-
