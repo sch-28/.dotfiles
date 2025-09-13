@@ -7,7 +7,7 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
     { src = "https://github.com/EdenEast/nightfox.nvim" },
-    { src = "https://github.com/nvim-pack/nvim-spectre" },
+    -- { src = "https://github.com/nvim-pack/nvim-spectre" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
@@ -34,7 +34,6 @@ vim.pack.add({
     { src = "https://github.com/stevearc/overseer.nvim" },
     { src = "https://github.com/ThePrimeagen/harpoon",                       version = "harpoon2" },
     { src = "https://github.com/L3MON4D3/LuaSnip",                           version = "v2.4.0" },
-    { src = "https://github.com/LudoPinelli/comment-box.nvim" },
     { src = "https://github.com/m4xshen/hardtime.nvim" },
     { src = "https://github.com/christoomey/vim-tmux-navigator" },
 

@@ -1,20 +1,20 @@
 vim.g.mapleader = " "
-vim.opt.jumpoptions = ""
+vim.o.jumpoptions = ""
 
 vim.o.number = true
 vim.o.relativenumber = true
 
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 vim.o.tabstop = 4
 vim.o.wrap = false
 vim.o.smartindent = true
 vim.o.linebreak = true
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
 
-vim.opt.virtualedit = "all"
+vim.o.virtualedit = "all"
 
 vim.o.winborder = "rounded"
 vim.lsp.document_color.enable()
@@ -37,4 +37,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 vim.o.showtabline = 0
--- vim.o.conceallevel = 1
+vim.o.scroll = 10
+
+vim.opt.path:append("**")
+

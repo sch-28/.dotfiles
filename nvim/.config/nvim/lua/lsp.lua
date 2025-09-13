@@ -74,7 +74,9 @@ vim.lsp.config('lua_ls', {
 			},
 			workspace = {
                 checkThirdParty = false,
-
+            library = {
+                vim.env.VIMRUNTIME
+            },
 			},
 			telemetry = {
 				enable = false,
