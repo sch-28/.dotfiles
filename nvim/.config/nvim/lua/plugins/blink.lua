@@ -21,37 +21,41 @@ blink.setup({
     completion = {
         documentation = {
             auto_show = true,
-            auto_show_delay_ms = 500,
+            auto_show_delay_ms = 0,
             window = {
                 border = "rounded",
                 winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
             },
         },
+        list = {
+            selection = {
+                preselect = true,
+                auto_insert = false
+            }
+        },
         menu = {
             auto_show = true,
             draw = {
-                treesitter = { "lsp" },
+                -- treesitter = { "lsp" },
                 columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
                 gap = 2
             },
             border = "rounded",
             winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
-        }
+        },
     },
     keymap = {
-        -- set to 'none' to disable the 'default' preset
-        preset = 'default',
+        preset = 'none',
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-        -- ['<C-e>'] = { 'hide' },
-        ['<CR>'] = { 'select_and_accept', 'fallback' },
+        ['<C-y>'] = { 'select_and_accept', 'fallback' },
 
         ['<Up>'] = { 'select_prev', 'fallback' },
         ['<Down>'] = { 'select_next', 'fallback' },
         ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
         ['<C-n>'] = { 'show', 'select_next', 'fallback_to_mappings' },
 
-        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+        ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
 
         ['<C-j>'] = { 'snippet_forward', 'fallback' },
         ['<C-k>'] = { 'snippet_backward', 'fallback' },
@@ -61,10 +65,15 @@ blink.setup({
     cmdline = {
         keymap = {
             preset = 'inherit',
-            ['<Tab>'] = { 'accept' },
-            ['<CR>'] = { 'accept_and_enter', 'fallback' },
+            ['<Tab>'] = { 'select_prev', 'fallback' },
+            ['<S-Tab>'] = { 'select_next', 'fallback' },
+            ['<C-y>'] = { 'accept_and_enter', 'fallback' },
         },
-        completion = { menu = { auto_show = true } },
+        completion = {
+            menu = { auto_show = true },
+            list = { selection = { auto_insert = true, preselect = false } }
+
+        },
     },
     sources = {
         providers = {

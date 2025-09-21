@@ -1,14 +1,12 @@
-local capabilities = {}
+local capabilities = require "blink.cmp".get_lsp_capabilities()
 require("typescript-tools").setup {
 
     on_init = function(client)
         -- disable formatting capabilities
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentFormattingRangeProvider = false
-
-        capabilities = require "blink.cmp".get_lsp_capabilities(client.server_capabilities)
     end,
-    -- capabilities = capabilities,
+    capabilities = capabilities,
     settings = {
         -- spawn additional tsserver instance to calculate diagnostics on it
         separate_diagnostic_server = true,
@@ -63,6 +61,7 @@ vim.diagnostic.config({
 })
 
 vim.lsp.config('lua_ls', {
+    capabilities = capabilities,
     settings = {
         Lua = {
             completion = {
@@ -86,3 +85,4 @@ vim.lsp.config('lua_ls', {
         },
     },
 })
+

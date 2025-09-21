@@ -5,7 +5,8 @@ set("n", "-", ":Oil<CR>", { desc = "Open Oil" })
 set("n", "<leader>w", ":write<CR>", { desc = "Write File" })
 set("n", "<leader>q", ":quit<CR>", { desc = "Close Buffer" })
 
-set('i', '<C-F>', require "plugins.copilot".copilot_suggest, { expr = true,replace_keycodes= false, silent = true, desc = "Suggest/Accept Copilot" })
+set('i', '<C-F>', require "plugins.copilot".copilot_suggest,
+    { expr = true, replace_keycodes = false, silent = true, desc = "Suggest/Accept Copilot" })
 
 
 set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
@@ -95,6 +96,7 @@ set("n", "<leader>oi", ":TSToolsOrganizeImports<CR>", { silent = true, desc = "O
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
         local opts = { buffer = args.buf, remap = false }
         local buf = vim.lsp.buf
         local diagnostic = vim.diagnostic
@@ -132,6 +134,46 @@ vim.api.nvim_create_autocmd('LspAttach', {
                     end
                 })
             end, opts)
+
+        --  ── auto completion ───────────────────────────────────────────────────────
+        -- if client:supports_method('textDocument/completion') then
+        --     -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+        --     -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+        --     -- client.server_capabilities.completionProvider.triggerCharacters = chars
+        --     vim.lsp.completion.enable(true, args.data.client_id, args.buf, {
+        --         autotrigger = true,
+        --         convert = function(item)
+        --             local abbr = item.label
+        --             abbr = abbr:gsub("%b()", ""):gsub("%b{}", "")
+        --             abbr = abbr:match("[%w_.]+.*") or abbr
+        --             abbr = #abbr > 30 and abbr:sub(1, 29) .. "…" or abbr
+        --
+        --             -- Cap return value field to 15 chars
+        --             local menu = item.detail or ""
+        --             menu = #menu > 15 and menu:sub(1, 14) .. "…" or menu
+        --
+        --             local source = ''
+        --             if item.data then
+        --                 local entries = item.data.entryNames
+        --                 if entries and entries[1] and entries[1].source then
+        --                     source = string.sub(entries[1].source, 1, 20)
+        --                     menu = menu .. source
+        --                 end
+        --             end
+        --
+        --
+        --             return { abbr = abbr, menu = menu }
+        --         end,
+        --     })
+        --     --- hotkey if no option is selected but ctrl y is hit then select first and accept
+        --     -- set("i", "<C-y>", function()
+        --     --     if vim.fn.pumvisible() == 1 and not vim.fn.complete_info().selected then
+        --     --         return "<C-n><C-y>"
+        --     --     else
+        --     --         return "<C-y>"
+        --     --     end
+        --     -- end, { expr = true, silent = true, desc = "Select complete item" })
+        -- end
     end,
 })
 
@@ -202,3 +244,6 @@ set("n", "<leader>z", functions.zoom, { noremap = true, silent = true, desc = "Z
 
 set("n", "<leader>ip", '<cmd>!feh -B black --auto-zoom --force-aliasing % & <CR>',
     { noremap = true, silent = true, desc = "Open image in feh" })
+
+set({ "n", "x" }, "y", [["+y]], { silent = true, desc = "Yank to system clipboard" })
+set({ "n", "x" }, "<leader>pp", [["+p]], { silent = true, desc = "Paste from system clipboard" })
