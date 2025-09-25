@@ -46,10 +46,6 @@ set("n", "<leader><S-w>", function()
     vim.wo.wrap = not vim.wo.wrap
 end, { desc = "Toggle wrap" })
 
-set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
-    desc = "Toggle Spectre"
-})
-
 set("n", "j", "v:count ? 'j' : 'gj'",
     { expr = true, desc = "Move down with count support for wrapping lines" })
 set("n", "k", "v:count ? 'k' : 'gk'", { expr = true, desc = "Move up with count support for wrapping lines" })
@@ -247,3 +243,12 @@ set("n", "<leader>ip", '<cmd>!feh -B black --auto-zoom --force-aliasing % & <CR>
 
 set({ "n", "x" }, "y", [["+y]], { silent = true, desc = "Yank to system clipboard" })
 set({ "n", "x" }, "<leader>pp", [["+p]], { silent = true, desc = "Paste from system clipboard" })
+
+
+set("n", "j", function()
+    return vim.v.count > 2 and "m'" .. vim.v.count .. "j" or "j"
+end, { noremap = true, expr = true, silent = true, desc = "Move down and set jump list mark" })
+
+set("n", "k", function()
+    return vim.v.count > 2 and "m'" .. vim.v.count .. "k" or "k"
+end, { noremap = true, expr = true, silent = true, desc = "Move up and set jump list mark" })

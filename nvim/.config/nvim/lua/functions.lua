@@ -267,12 +267,12 @@ local function delete_qf_items()
         vim.api.nvim_feedkeys(
             vim.api.nvim_replace_termcodes(
                 '<esc>', -- what to escape
-                true, -- Vim leftovers
-                false, -- Also replace `<lt>`?
-                true -- Replace keycodes (like `<esc>`)?
+                true,    -- Vim leftovers
+                false,   -- Also replace `<lt>`?
+                true     -- Replace keycodes (like `<esc>`)?
             ),
-            'x', -- Mode flag
-            false -- Should be false, since we already `nvim_replace_termcodes()`
+            'x',         -- Mode flag
+            false        -- Should be false, since we already `nvim_replace_termcodes()`
         )
     end
 
@@ -315,6 +315,21 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         })
     end,
     desc = 'Highlight on yank',
+})
+
+
+vim.api.nvim_create_autocmd('BufEnter', {
+    group = augroup,
+    callback = function(args)
+        local lines = vim.api.nvim_buf_line_count(args.buf)
+        vim.o.scroll = math.min(lines, 10)
+    end,
+    desc = "Set scroll size to 10 on buffer enter",
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "typescript,typescriptreact",
+  group = augroup,
+  command = "compiler tsc | setlocal makeprg=cd\\ ./apps/web\\ &&\\ bun\\ run\\ build:check:clean",
 })
 
 return {

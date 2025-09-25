@@ -22,7 +22,6 @@ vim.pack.add({
     { src = "https://github.com/nvim-lualine/lualine.nvim" },
     { src = "https://github.com/kylechui/nvim-surround" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
-    { src = "https://github.com/stevearc/overseer.nvim" },
     { src = "https://github.com/ThePrimeagen/harpoon",                       version = "harpoon2" },
     { src = "https://github.com/L3MON4D3/LuaSnip",                           version = "v2.4.0" },
     { src = "https://github.com/m4xshen/hardtime.nvim" },
@@ -52,7 +51,6 @@ require "plugins.nightfox"
 require "plugins.fzf"
 require "plugins.git-blame"
 require "plugins.lualine"
-require "plugins.overseer"
 require "plugins.oil"
 require "plugins.treesitter"
 require "plugins.ale"

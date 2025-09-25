@@ -49,8 +49,6 @@ blink.setup({
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<C-y>'] = { 'select_and_accept', 'fallback' },
 
-        ['<Up>'] = { 'select_prev', 'fallback' },
-        ['<Down>'] = { 'select_next', 'fallback' },
         ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
         ['<C-n>'] = { 'show', 'select_next', 'fallback_to_mappings' },
 
