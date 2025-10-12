@@ -317,19 +317,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight on yank',
 })
 
-
 vim.api.nvim_create_autocmd('BufEnter', {
     group = augroup,
     callback = function(args)
         local lines = vim.api.nvim_buf_line_count(args.buf)
-        vim.o.scroll = math.min(lines, 10)
+        if lines > 10 then
+            vim.o.scroll = 10
+        end
     end,
     desc = "Set scroll size to 10 on buffer enter",
 })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "typescript,typescriptreact",
-  group = augroup,
-  command = "compiler tsc | setlocal makeprg=cd\\ ./apps/web\\ &&\\ bun\\ run\\ build:check:clean",
+    pattern = "typescript,typescriptreact",
+    group = augroup,
+    command = "compiler tsc | setlocal makeprg=cd\\ ./apps/web\\ &&\\ bun\\ run\\ build:check:clean",
 })
 
 return {

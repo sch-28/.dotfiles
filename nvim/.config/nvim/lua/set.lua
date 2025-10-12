@@ -46,6 +46,7 @@ opt.shiftround = true
 opt.listchars = "tab: ,multispace:|   "
 opt.list = true
 
+vim.api.nvim_set_hl(0, "SnippetTabstopActive", { link = "NONE" })
 -- opt.complete = ".,o"
 -- opt.completeopt = "menuone,noinsert,popup"
 -- opt.autocomplete = true
