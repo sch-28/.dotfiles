@@ -1,6 +1,6 @@
 ## needed programs
 ```
-sudo pacman -S bob zsh tmux zoxide kitty stow ly polybar rofi kmonad
+sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow ly polybar rofi kmonad
 ```
 
 ## stow
@@ -26,6 +26,7 @@ sudo visudo
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 chsh -s $(which zsh)
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 
 ## wlan 

@@ -50,7 +50,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+q kill
@@ -235,9 +235,9 @@ bindsym $mod+Shift+a exec --no-startup-id  ~/.config/i3/voice-memo.sh
 # bindsym $mod+equal [class="keepassxc"] scratchpad show
 # bindsym $mod+minus [class="Boostnote"] scratchpad show
 
-for_window [class="steam"] floating enable
-for_window [class="slack"] floating enable
-for_window [class="Lutris"] floating enable
+for_window [class="^.*"] floating enable
+for_window [class="kitty"] floating disable
+
 
 bindsym $mod+Ctrl+n [title="nvim"] focus; move to workspace 1; workspace 1;
 
@@ -254,7 +254,7 @@ client.focused          #a29f98 #a29f98 #a29f98 #a29f98 #a29f98
 exec --no-startup-id ~/desk-mode.sh
 exec --no-startup-id setxkbmap -option caps:escape
 # exec --no-startup-id sh -c "sleep 1 && wal -R" 
-exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/pictures/blue.jpg"
+exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/Pictures/forest.jpg"
 exec --no-startup-id setxkbmap -layout us -option caps:escape
 exec --no-startup-id rfkill unblock all
 exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf

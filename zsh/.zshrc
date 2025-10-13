@@ -1,5 +1,5 @@
 # Prioritize custom xdg-open first
-export PATH="$HOME/.local/xdg-open:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.local/xdg-open:$HOME/bin:$HOME/.local/share/bob/nvim-bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
 # Flatpak apps
 export PATH="$PATH:/home/jan/.local/share/flatpak/exports/bin"
@@ -46,7 +46,6 @@ alias aiq="docker exec -it ollama ollama run deepseek-r1 --think=false"
 
 
 export FZF_DEFAULT_OPTS='--height 40% --layout reverse --border top'
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # pnpm
 export PNPM_HOME="/home/jan/.local/share/pnpm"
@@ -104,7 +103,7 @@ source ~/.fzf.zsh
 source <(fzf --zsh)
 
 
-(cat ~/.cache/wal/sequences &)
+# (cat ~/.cache/wal/sequences &)
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
