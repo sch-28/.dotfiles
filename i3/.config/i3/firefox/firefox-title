@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+#vim: set filetype=python
+import i3ipc
+import re
+import time
+
+i3 = i3ipc.Connection()
+
+def on_window_title(i3, e):
+    con = e.container
+    if con.window_class == "firefox" and " — Mozilla Firefox" in con.name:
+        new_title = re.sub(r" — Mozilla Firefox$", "", con.name)
+        con.command(f'title_format "{new_title}"')
+
+i3.on("window::title", on_window_title)
+
+
+def on_new_window(i3conn, e):
+    con = e.container
+    cls = con.window_class.lower() if con.window_class else ""
+    if "firefox" not in cls:
+        return
+
+    # Wait a moment for Firefox to fully map & get focus
+    time.sleep(0.05)
+
+    # Focus the Firefox window explicitly
+    i3conn.command(f"[con_id={con.id}] focus")
+    time.sleep(0.02)
+
+    # Change *its* container to tabbed layout (won’t affect others)
+    i3conn.command(f"[con_id={con.id}] layout tabbed")
+
+i3.on("window::new", on_new_window)
+
+
+i3.main()

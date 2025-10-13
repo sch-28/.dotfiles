@@ -321,7 +321,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     group = augroup,
     callback = function(args)
         local lines = vim.api.nvim_buf_line_count(args.buf)
-        if lines > 10 then
+        if lines > 20 then
             vim.o.scroll = 10
         end
     end,
