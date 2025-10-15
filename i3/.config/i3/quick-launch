@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+# vim: set filetype=python
+import sys
+import i3ipc
+import subprocess
+import time
+
+i3 = i3ipc.Connection()
+
+
+# launch function for a class that checks if it already exisits: yes: show scratchpad, no: launch and show scratchpad
+
+
+def launch_or_focus(app_class, launch_cmd):
+    command_class = f'[class="{app_class}"] scratchpad show, move position center, mode default'
+    command_instance = f'[instance="{app_class}"] scratchpad show, move position center, mode default'
+
+    # Check if the app is already running
+    app_window = i3.get_tree().find_classed(app_class)
+    if not app_window:
+        app_window = i3.get_tree().find_instanced(app_class)
+
+    if app_window:
+        # If found, show the scratchpad and move it to center
+        if app_class != 'docs':
+            i3.command(command_class)
+        else:
+            i3.command(command_instance)
+    else:
+        # If not found, launch the app, wait a bit, then show the scratchpad and move it to center
+        subprocess.Popen(launch_cmd)
+        time.sleep(0.5)  # Adjust delay as needed for the app to launch
+        if app_class != 'docs':
+            i3.command(command_class)
+        else:
+            i3.command(command_instance)
+
+
+# expose with args
+if len(sys.argv) != 2:
+    print("Usage: quick-launch <app>")
+    sys.exit(1)
+app = sys.argv[1].lower()
+if app == "vol":
+    launch_or_focus("vol", ["kitty --class vol,vol -e pulsemixer"])
+elif app == "spotify":
+    launch_or_focus("Spotify", ["spotify"])
+elif app == "slack":
+    launch_or_focus("Slack", ["slack"])
+elif app == "notes":
+    launch_or_focus(
+        "notes", ["kitty", "--class", "notes", "-1", "-e", "zsh", "-lic", "nvim ~/notes.md"])
+elif app == "docs":
+    launch_or_focus("docs", ["qutebrowser",
+                             "--qt-arg", "name", "docs",
+                             "--qt-arg", "windowicon", "docs",
+                             "http://localhost:9292/"])
+else:
+    print(f"Unknown app: {app}")
+    sys.exit(1)

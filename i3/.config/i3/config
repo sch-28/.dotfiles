@@ -4,6 +4,7 @@
 
 set $mod Mod4
 set $alt Mod1
+set $leader d
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -51,7 +52,6 @@ bindsym $mod+BackSpace exec "rofi -show drun"
 
 # bindsym $mod+e exec --no-startup-id setxkbmap us -option caps:escape 
 # bindsym $mod+d exec --no-startup-id setxkbmap de -variant nodeadkeys -option caps:escape 
-bindsym $mod+d exec --no-startup-id ~/.config/i3/language-switch.sh
 
 # change focus
 bindsym $mod+h focus left
@@ -208,7 +208,7 @@ for_window [class="firefox"] floating disable
 bindsym $mod+Ctrl+n [title="nvim"] focus; move to workspace 1; workspace 1;
 
 default_border pixel 4
-gaps inner 4
+gaps inner 0
 gaps outer 0 
  
 # hide_edge_borders smart
@@ -225,7 +225,7 @@ client.background       #000000
 
 exec --no-startup-id ~/desk-mode.sh
 exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id sh -c "sleep 1 && wal -R" 
+# exec --no-startup-id sh -c "sleep 1 && wal -R" 
 #exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/pictures/blue.jpg"
 exec --no-startup-id setxkbmap -layout us -option caps:escape
 exec --no-startup-id rfkill unblock all
@@ -238,13 +238,28 @@ exec_always --no-startup-id sh ~/.config/polybar/launch.sh
 # scratch apps and bindings
 for_window [class="vol|Spotify|Slack|news|notes"] floating enable, move scratchpad, border pixel 0
 for_window [class="vol|news|notes"] resize set 1400 800
+for_window [instance="docs"] floating enable, move scratchpad, border pixel 0
+for_window [instance="docs"] resize set 1400 800
  
-bindsym $mod+Shift+p [class="vol"] scratchpad show; move position center
-bindsym $mod+m [class="Spotify"] scratchpad show; move position center
-bindsym $mod+comma [class="Slack"] scratchpad show; move position center
-bindsym $mod+n [class="notes"] scratchpad show; move position center
-exec_always --no-startup-id pgrep -f '^kitty --class vol,vol' || kitty --class vol,vol -e pulsemixer
-exec_always --no-startup-id pgrep -f '^kitty --class notes,notes' || kitty --class notes,notes -1 -e zsh -lic "nvim ~/notes.md"
+bindsym $mod+$leader mode "scratchpads"
+
+# Define the scratchpad mode
+mode "scratchpads" {
+    bindsym m exec ~/.config/i3/quick-launch spotify
+    bindsym n exec ~/.config/i3/quick-launch notes
+    bindsym v exec ~/.config/i3/quick-launch vol
+    bindsym s exec ~/.config/i3/quick-launch slack
+    bindsym d exec ~/.config/i3/quick-launch docs
+    bindsym l exec --no-startup-id ~/.config/i3/language-switch.s, mode default
+
+    bindsym Escape mode default
+    bindsym Return mode default
+    bindsym $mod mode default
+} 
+
+# exec_always --no-startup-id pgrep -f '^kitty --class vol,vol' || kitty --class vol,vol -e pulsemixer
+# exec_always --no-startup-id pgrep -f '^kitty --class notes,notes' || kitty --class notes,notes -1 -e zsh -lic "nvim ~/notes.md"
+# exec_always --no-startup-id pgrep -f 'qutebrowser.*docs' || 'qutebrowser --qt-arg name docs --qt-arg windowicon docs http://localhost:9292/'
 
 
 

@@ -40,3 +40,8 @@ systemctl status NetworkManager
 nmcli device wifi list
 sudo nmcli device wifi connect "NAME" password "PASSWORD"
 ```
+
+## devdocs
+```
+docker run --name devdocs -d -p 9292:9292 ghcr.io/freecodecamp/devdocs:latest
+```
