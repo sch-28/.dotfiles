@@ -17,8 +17,12 @@ end
 local blink = require "blink.cmp"
 
 blink.setup({
+    enabled = function ()
+        return vim.fn.reg_recording() == ''
+    end,
     signature = { enabled = true },
     completion = {
+        accept = { auto_brackets = { enabled = false }, },
         documentation = {
             auto_show = true,
             auto_show_delay_ms = 0,
@@ -63,8 +67,8 @@ blink.setup({
     cmdline = {
         keymap = {
             preset = 'inherit',
-            ['<Tab>'] = { 'select_prev', 'fallback' },
-            ['<S-Tab>'] = { 'select_next', 'fallback' },
+            ['<Tab>'] = { 'select_next', 'fallback' },
+            ['<S-Tab>'] = { 'select_prev', 'fallback' },
             ['<C-y>'] = { 'accept_and_enter', 'fallback' },
         },
         completion = {
@@ -85,3 +89,4 @@ blink.setup({
     --     }
     -- }
 })
+
