@@ -132,19 +132,19 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
-main_session_exists=false
-if tmux has-session -t main 2>/dev/null; then
-    main_session_exists=true
-fi
-
-kitty_count=$(ps aux | grep kitty | wc -l)
-
-# auto-start tmux unless already inside tmux
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-
-if $main_session_exists && [ $kitty_count -eq 3 ]; then
-      tmux attach -t main
-  elif ! $main_session_exists; then
-        tmux new -s main
-  fi
-fi
+# main_session_exists=false
+# if tmux has-session -t main 2>/dev/null; then
+#     main_session_exists=true
+# fi
+#
+# kitty_count=$(ps aux | grep kitty | wc -l)
+#
+# # auto-start tmux unless already inside tmux
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#
+# if $main_session_exists && [ $kitty_count -eq 3 ]; then
+#       tmux attach -t main
+#   elif ! $main_session_exists; then
+#         tmux new -s main
+#   fi
+# fi
