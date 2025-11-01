@@ -241,7 +241,7 @@ set("n", "<leader>z", functions.zoom, { noremap = true, silent = true, desc = "Z
 set("n", "<leader>ip", '<cmd>!feh -B black --auto-zoom --force-aliasing % & <CR>',
     { noremap = true, silent = true, desc = "Open image in feh" })
 
-set({ "n", "x" }, "y", [["+y]], { silent = true, desc = "Yank to system clipboard" })
+set({ "n", "x" }, "<leader>y", [["+y]], { silent = true, desc = "Yank to system clipboard" })
 set({ "n", "x" }, "<leader>pp", [["+p]], { silent = true, desc = "Paste from system clipboard" })
 
 
