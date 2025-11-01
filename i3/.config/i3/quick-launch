@@ -29,7 +29,7 @@ def launch_or_focus(app_class, launch_cmd):
     else:
         # If not found, launch the app, wait a bit, then show the scratchpad and move it to center
         subprocess.Popen(launch_cmd)
-        time.sleep(0.5)  # Adjust delay as needed for the app to launch
+        time.sleep(1.5)  # Adjust delay as needed for the app to launch
         if app_class != 'docs':
             i3.command(command_class)
         else:
@@ -54,7 +54,7 @@ elif app == "docs":
     launch_or_focus("docs", ["qutebrowser",
                              "--qt-arg", "name", "docs",
                              "--qt-arg", "windowicon", "docs",
-                             "http://localhost:9292/"])
+                             "https://devdocs.io/"])
 else:
     print(f"Unknown app: {app}")
     sys.exit(1)
