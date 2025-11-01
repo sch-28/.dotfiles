@@ -44,6 +44,7 @@ bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+q kill
+bindsym --release button2 kill
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
@@ -201,8 +202,7 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+p exec --no-startup-id playerctl --player=spotify play-pause
 
 for_window [class="^.*"] floating enable
-for_window [class="kitty"] floating disable
-for_window [class="firefox"] floating disable 
+for_window [class="kitty|firefox"] floating disable
 
 
 bindsym $mod+Ctrl+n [title="nvim"] focus; move to workspace 1; workspace 1;
@@ -223,16 +223,17 @@ client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #000000
 
 client.background       #000000
 
-exec --no-startup-id ~/desk-mode.sh
-exec --no-startup-id setxkbmap -option caps:escape
+# exec --no-startup-id ~/desk-mode.sh
+exec_always --no-startup-id setxkbmap -option caps:escape
 # exec --no-startup-id sh -c "sleep 1 && wal -R" 
-#exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/pictures/blue.jpg"
-exec --no-startup-id setxkbmap -layout us -option caps:escape
-exec --no-startup-id rfkill unblock all
+exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/Pictures/black.jpg"
+# exec --no-startup-id setxkbmap -layout us -option caps:escape
+# exec --no-startup-id rfkill unblock all
 exec --no-startup-id greenclip daemon
-exec --no-startup-id  /usr/libexec/gsd-xsettings
-exec --no-startup-id xrdb -merge ~/.Xresources
+# exec --no-startup-id  /usr/libexec/gsd-xsettings
+# exec --no-startup-id xrdb -merge ~/.Xresources
 exec_always --no-startup-id sh ~/.config/polybar/launch.sh
+exec --no-startup-id dunst
 
 
 # scratch apps and bindings
@@ -250,16 +251,13 @@ mode "scratchpads" {
     bindsym v exec ~/.config/i3/quick-launch vol
     bindsym s exec ~/.config/i3/quick-launch slack
     bindsym d exec ~/.config/i3/quick-launch docs
-    bindsym l exec --no-startup-id ~/.config/i3/language-switch.s, mode default
+    bindsym l exec --no-startup-id ~/.config/i3/language-switch.sh, mode default
 
     bindsym Escape mode default
     bindsym Return mode default
     bindsym $mod mode default
 } 
 
-# exec_always --no-startup-id pgrep -f '^kitty --class vol,vol' || kitty --class vol,vol -e pulsemixer
-# exec_always --no-startup-id pgrep -f '^kitty --class notes,notes' || kitty --class notes,notes -1 -e zsh -lic "nvim ~/notes.md"
-# exec_always --no-startup-id pgrep -f 'qutebrowser.*docs' || 'qutebrowser --qt-arg name docs --qt-arg windowicon docs http://localhost:9292/'
 
 
 
@@ -268,3 +266,7 @@ exec_always --no-startup-id ~/.config/i3/autotiling
 exec_always --no-startup-id ~/.config/i3/firefox/firefox-title
 # exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 exec_always --no-startup-id sh -c "redshift -x && redshift -O 4500"
+
+exec_always --no-startup-id xset s off
+exec_always --no-startup-id xset -dpms
+exec_always --no-startup-id xset s noblank
