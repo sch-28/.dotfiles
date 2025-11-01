@@ -214,12 +214,12 @@ type = internal/network
 interval = 5
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>
-label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
+label-disconnected = %{F#F0C674}lan%{F#707880} off
 
 [module/wlan]
 inherit = network-base
 interface-type = wireless
-label-connected = %{F#F0C674}wlan %{essid}%{F-}
+label-connected = %{F#F0C674}wlan%{F-} %essid%
 label-disconnected = %{F#F0C674}wlan %{F-}off
 
 [module/eth]
