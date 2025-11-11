@@ -1,2 +1,2 @@
  #!/bin/sh
-paplay ~/.config/dunst/warning.wav
+pw-play ~/.config/dunst/sound.wav
