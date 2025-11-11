@@ -9,8 +9,8 @@ set('i', '<C-F>', require "plugins.copilot".copilot_suggest,
     { expr = true, replace_keycodes = false, silent = true, desc = "Suggest/Accept Copilot" })
 
 
-set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
-set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
+set("n", "<C-d>", "10jzz", { desc = "Scroll down and center" })
+set("n", "<C-u>", "10kzz", { desc = "Scroll up and center" })
 set("n", "n", "nzzzv", { desc = "Next search result and center" })
 set("n", "N", "Nzzzv", { desc = "Previous search result and center" })
 

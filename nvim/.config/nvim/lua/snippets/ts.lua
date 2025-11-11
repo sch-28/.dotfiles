@@ -20,11 +20,11 @@ local isn = ls.indent_snippet_node
 local events = require("luasnip.util.events")
 return {
 
-    s("import", {
-        t("import { "),
-        i(1, "name"),
-        t(" } from '"),
-        i(2, "module"),
-        t("';"),
-    }),
+    -- s("import", {
+    --     t("import { "),
+    --     i(1, "name"),
+    --     t(" } from '"),
+    --     i(2, "module"),
+    --     t("';"),
+    -- }),
 }
