@@ -1,6 +1,6 @@
 ## needed programs
 ```
-sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow ly polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip
+sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow ly polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot
 ```
 
 ## node
