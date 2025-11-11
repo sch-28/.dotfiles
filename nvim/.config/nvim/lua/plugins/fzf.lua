@@ -119,15 +119,6 @@ fzf.setup({
     },
 })
 
-vim.api.nvim_create_autocmd("FocusLost", {
-    callback = function()
-        local w = require('fzf-lua.utils').fzf_winobj()
-        if w then
-            w:close()
-        end
-    end,
-})
-
 
 
 

@@ -317,15 +317,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight on yank',
 })
 
-vim.api.nvim_create_autocmd('BufEnter', {
-    group = augroup,
-    callback = function(args)
-        local lines = vim.api.nvim_buf_line_count(args.buf)
-        if lines > 20 then
-            vim.o.scroll = 10
+vim.api.nvim_create_autocmd("FocusLost", {
+    callback = function()
+        vim.fn.setreg('+', vim.fn.getreg('"'))
+        local w = require('fzf-lua.utils').fzf_winobj()
+        if w then
+            w:close()
         end
     end,
-    desc = "Set scroll size to 10 on buffer enter",
+    desc = "Sync system clipboard on focus lost and close fzf",
 })
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "typescript,typescriptreact",
