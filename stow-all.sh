@@ -12,5 +12,5 @@ for dir in */; do
 done
 
 # Now stow ly with sudo to /etc
-echo "Stowing ly to /etc with sudo..."
-sudo stow -t / ly
+# echo "Stowing ly to /etc with sudo..."
+# sudo stow -t / ly
