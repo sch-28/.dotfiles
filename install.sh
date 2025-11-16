@@ -22,27 +22,30 @@ log "Running full update"
 bash ./update.sh
 
 log "Install required pacman packages"
-sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot
+sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven
 
 log "Install required yay packages"
 yay -S greenclip
 
 log "Install node"
 nvm install 22.14
+npm i -g bun@1.2.23
+
+log "Install neovim"
+bob install nightly
+bob use nightly
 
 log "Install antigen"
-curl -L git.io/antigen > .antigen.zsh
+curl -L git.io/antigen > ~/.antigen.zsh
 
 log "Stow all dotfiles"
 sudo bash stow-all.sh
 
-if promt "Do you want to install ly?"; then
+if prompt "Do you want to install ly?"; then
     log "Download ly"
     sudo pacman -S ly
     log "Remove initial ly config"
     sudo rm -rf /etc/ly/config.ini
     sudo stow -t / ly
-    sudo systemctl stop lightdm
-    sudo systemctl disable lightdm
-    sudo systemctl enable ly
+    sudo systemctl stop lightdm && sudo systemctl disable lightdm && sudo systemctl enable ly
 fi
