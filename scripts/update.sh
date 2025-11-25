@@ -2,7 +2,7 @@
 
 # Update system and AUR packages
 sudo pacman -Syu --noconfirm
-yay -Syu --noconfirm
+yay -Syu
 
 # Clean package cache
 sudo paccache -r

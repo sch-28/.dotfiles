@@ -4,6 +4,9 @@ export PATH="$HOME/.local/xdg-open:$HOME/bin:$HOME/.local/share/bob/nvim-bin:$HO
 # Flatpak apps
 export PATH="$PATH:/home/jan/.local/share/flatpak/exports/bin"
 
+# Cargo apps
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Node.js (nvm)
 export PATH="$HOME/.nvm/versions/node/v22.14.0/bin:$PATH"
 
