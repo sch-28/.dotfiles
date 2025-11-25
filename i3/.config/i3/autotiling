@@ -57,15 +57,16 @@ def switch_splitting(i3, e, debug, outputs, workspaces, depth_limit, splitwidth,
         # Stop, if outputs is set and current output is not in the selection
         if outputs and output not in outputs:
             if debug:
-                print(f"Debug: Autotiling turned off on output {output}", file=sys.stderr)
+                print(f"Debug: Autotiling turned off on output {
+                      output}", file=sys.stderr)
             return
-        # Ignore Firefox
-        if con.window_class: 
-            name = con.window_class.lower()
-            if "firefox" in name:
-                if debug:
-                    print("Debug: Ignoring Firefox", file=sys.stderr)
-                return
+        # # Ignore Firefox
+        # if con.window_class:
+        #     name = con.window_class.lower()
+        #     if "firefox" in name:
+        #         if debug:
+        #             print("Debug: Ignoring Firefox", file=sys.stderr)
+        #         return
 
         if con and not workspaces or (str(con.workspace().num) in workspaces):
             if con.floating:
@@ -115,32 +116,40 @@ def switch_splitting(i3, e, debug, outputs, workspaces, depth_limit, splitwidth,
                 if new_layout != con.parent.layout:
                     result = i3.command(new_layout)
                     if result[0].success and debug:
-                        print(f"Debug: Switched to {new_layout}", file=sys.stderr)
+                        print(f"Debug: Switched to {
+                              new_layout}", file=sys.stderr)
                     elif debug:
-                        print(f"Error: Switch failed with err {result[0].error}", file=sys.stderr)
+                        print(f"Error: Switch failed with err {
+                              result[0].error}", file=sys.stderr)
 
                 if e.change in ["new", "move"] and con.percent:
                     if con.parent.layout == "splitv" and splitheight != 1.0:  # top / bottom
                         # print(f"split top fac {splitheight*100}")
-                        i3.command(f"resize set height {int(con.percent * splitheight * 100)} ppt")
-                    elif con.parent.layout == "splith" and splitwidth != 1.0:  # top / bottom:                     # left / right
+                        i3.command(f"resize set height {
+                                   int(con.percent * splitheight * 100)} ppt")
+                    # top / bottom:                     # left / right
+                    elif con.parent.layout == "splith" and splitwidth != 1.0:
                         # print(f"split right fac {splitwidth*100} ")
-                        i3.command(f"resize set width {int(con.percent * splitwidth * 100)} ppt")
+                        i3.command(f"resize set width {
+                                   int(con.percent * splitwidth * 100)} ppt")
 
         elif debug:
-            print("Debug: No focused container found or autotiling on the workspace turned off", file=sys.stderr)
+            print(
+                "Debug: No focused container found or autotiling on the workspace turned off", file=sys.stderr)
 
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
 
 
 def get_parser():
-    parser = argparse.ArgumentParser(prog="autotiling", description="Script for sway and i3 to automatically switch the horizontal / vertical window split orientation")
+    parser = argparse.ArgumentParser(
+        prog="autotiling", description="Script for sway and i3 to automatically switch the horizontal / vertical window split orientation")
 
     parser.add_argument("-d", "--debug", action="store_true",
                         help="print debug messages to stderr")
     parser.add_argument("-v", "--version", action="version",
-                        version=f"%(prog)s {__version__}, Python {sys.version}",
+                        version=f"%(prog)s {__version__}, Python {
+                            sys.version}",
                         help="display version information")
     parser.add_argument("-o", "--outputs", nargs="*", type=str, default=[],
                         help="restricts autotiling to certain output; example: autotiling --output  DP-1 HDMI-0")
@@ -175,14 +184,17 @@ def get_parser():
 
     return parser
 
+
 def main():
     args = get_parser().parse_args()
 
     if args.debug:
         if args.outputs:
-            print(f"autotiling is only active on outputs: {','.join(args.outputs)}")
+            print(f"autotiling is only active on outputs: {
+                  ','.join(args.outputs)}")
         if args.workspaces:
-            print(f"autotiling is only active on workspaces: {','.join(args.workspaces)}")
+            print(f"autotiling is only active on workspaces: {
+                  ','.join(args.workspaces)}")
 
     # For use w/ nwg-panel
     ws_file = os.path.join(temp_dir(), "autotiling")

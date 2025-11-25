@@ -10,13 +10,13 @@ i3 = i3ipc.Connection()
 focused = i3.get_tree().find_focused()
 
 # Check window class safely
-focused_class = getattr(focused, "window_class", "") or ""
-if focused_class.lower() != "firefox":
-    # Split horizontally, exec Firefox, and set layout to tabbed
-    i3.command("split h")
-    subprocess.Popen(["firefox"])
-    # Small delay to allow Firefox window to spawn
-    time.sleep(0.2)
-    i3.command("layout tabbed")
-else:
-    subprocess.Popen(["firefox"])
+# focused_class = getattr(focused, "window_class", "") or ""
+# if focused_class.lower() != "firefox":
+#     # Split horizontally, exec Firefox, and set layout to tabbed
+#     i3.command("split h")
+#     subprocess.Popen(["firefox"])
+#     # Small delay to allow Firefox window to spawn
+#     time.sleep(0.2)
+#     i3.command("layout tabbed")
+# else:
+subprocess.Popen(["firefox"])

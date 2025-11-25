@@ -182,7 +182,7 @@ for_window [class="firefox"] title_format "%title"
 
 
 #files
-bindsym $mod+o exec --no-startup-id nemo
+bindsym $mod+o exec --no-startup-id thunar
 
 bindsym $mod+Shift+f floating toggle, resize set 1200 800
 bindsym $mod+Shift+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
@@ -262,9 +262,10 @@ mode "scratchpads" {
 
 
 
+exec_always --no-startup-id xrandr --output DP-4 --primary --output DP-0 --right-of DP-4
 exec_always --no-startup-id ~/.config/i3/autotiling
 exec_always --no-startup-id ~/.config/i3/firefox/firefox-title
-# exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
+exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 exec_always --no-startup-id sh -c "redshift -x && redshift -O 4500"
 
 exec_always --no-startup-id xset s off

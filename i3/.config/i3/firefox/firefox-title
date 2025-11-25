@@ -31,7 +31,7 @@ def on_new_window(i3conn, e):
     # Change *its* container to tabbed layout (won’t affect others)
     i3conn.command(f"[con_id={con.id}] layout tabbed")
 
-i3.on("window::new", on_new_window)
+# i3.on("window::new", on_new_window)
 
 
 i3.main()
