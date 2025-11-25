@@ -51,3 +51,5 @@ vim.api.nvim_set_hl(0, "SnippetTabstopActive", { link = "NONE" })
 -- opt.completeopt = "menuone,noinsert,popup"
 -- opt.autocomplete = true
 -- opt.pumheight = 10
+
+vim.cmd("set diffopt-=linematch:40")

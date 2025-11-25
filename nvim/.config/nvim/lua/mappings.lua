@@ -23,6 +23,8 @@ set("n", "<leader>j", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
 set("n", "<leader>K", "<cmd>lprev<CR>zz", { desc = "Previous location list item" })
 set("n", "<leader>J", "<cmd>lnext<CR>zz", { desc = "Next location list item" })
 
+set("n", "ZZ", "zszH", { desc = "Center horizontally" })
+
 set(
     { "n", "o", "x" },
     "<M-w>",
@@ -187,11 +189,17 @@ end
 set('n', '<leader>pf', function() fzf.files() end, { desc = "find files" })
 set('n', '<leader>Pf', function() fzf.files({ cwd = get_current_cwd(), cwd_only = true }) end,
     { desc = "find files in current directory" })
+set('n', '<leader>paf', function() fzf.files({  no_ignore = true }) end,
+    { desc = "find all files including hidden" })
 set('n', '<C-p>', function() fzf.git_files() end, { desc = "find git files" })
 set('n', '<leader>ps', function() fzf.grep() end, { desc = "search in files" })
 set('n', '<leader>pl', function() fzf.live_grep() end, { desc = "live grep in files" })
 set('n', '<leader>Pl', function() fzf.live_grep({ cwd = get_current_cwd() }) end,
     { desc = "live grep in current directory" })
+set('n', '<leader>pal', function() fzf.live_grep({ no_ignore = true }) end,
+    { desc = "live grep in all files including hidden" })
+
+
 set('n', '<leader>pw', function() fzf.grep_cword() end, { desc = "search current word" })
 set('n', '<leader>pW', function() fzf.grep_cWORD() end, { desc = "search current WORD" })
 set('x', '<leader>pd', function() fzf.grep_visual() end, { desc = "search visual selection" })
