@@ -330,7 +330,8 @@ vim.api.nvim_create_autocmd("FocusLost", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "typescript,typescriptreact",
     group = augroup,
-    command = "compiler tsc | setlocal makeprg=cd\\ ./apps/web\\ &&\\ bun\\ run\\ build:check:clean",
+    -- command = "compiler tsc | setlocal makeprg=cd\\ ./apps/web\\ &&\\ bun\\ run\\ build:check:clean",
+    command = "compiler tsc | setlocal makeprg=pnpm\\ run\\ build:check",
 })
 
 return {
