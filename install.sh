@@ -22,7 +22,7 @@ log "Running full update"
 bash ./update.sh
 
 log "Install required pacman packages"
-sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven
+sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven redshift
 
 log "Install required yay packages"
 yay -S greenclip
