@@ -22,4 +22,4 @@ local events = require("luasnip.util.events")
 
 
 local ts_snippets = require("snippets.ts")
-return {}, ts_snippets
+return  ts_snippets

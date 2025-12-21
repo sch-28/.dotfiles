@@ -54,7 +54,7 @@ local tsx_snippets = {
         i(0),
         t({ "", "}" }),
     }),
-    s({ trig = "tolg", descr = "tolgee import" }, {
+    s({ trig = "t", descr = "tolgee import" }, {
         f(function()
             local imported = false
             imported = vim.fn.search(
@@ -71,25 +71,35 @@ local tsx_snippets = {
         end, {}),
         t({ "const { t } = useTranslate();" }),
     }),
-    -- s({ trig = "useE", descr = "useEffect hook" }, {
-    --     f(function()
-    --         return add_react_hook_import("useEffect")
-    --     end, {}),
-    --     t({ "useEffect(() => {", "\t" }),
-    --     i(0),
-    --     t({ "", "}, []);" }),
-    -- }),
-    -- s({ trig = "useS", descr = "useState  hook" }, {
-    --     f(function()
-    --         return add_react_hook_import("useState")
-    --     end, {}),
-    --     t("const ["), i(1, "state"), t(", set"), f(function(args)
-    --     return args[1][1]:gsub("^%l", string.upper)
-    -- end, { 1 }), t("] = useState<"), i(2, "type"), t(">("), i(3, "initial"), t(")")
-    -- })
+    s({ trig = "useE", descr = "useEffect hook" }, {
+        f(function()
+            return add_react_hook_import("useEffect")
+        end, {}),
+        t({ "useEffect(() => {", "\t" }),
+        i(0),
+        t({ "", "}, []);" }),
+    }),
+    s({ trig = "useS", descr = "useState  hook" }, {
+        f(function()
+            return add_react_hook_import("useState")
+        end, {}),
+        t("const ["), i(1, "state"), t(", set"), f(function(args)
+        return args[1][1]:gsub("^%l", string.upper)
+    end, { 1 }), t("] = useState<"), i(2, "type"), t(">("), i(3, "initial"), t(")")
+    }),
+    s({ trig = "col", descr = "columnHelper accessor" }, {
+        t("columnHelper.accessor('"), i(1, "key"), t("',"),
+        t({ '{', '' }),
+        t("\theader: t("),
+        f(function(args)
+            return '"' .. args[1][1] .. '"'
+        end, { 1 }),
+        t({ "),", "" }),
+        t("}),"),
+    }),
 }
 for _, snip in ipairs(ts_snippets) do
     table.insert(tsx_snippets, snip)
 end
 
-return {}, tsx_snippets
+return tsx_snippets
