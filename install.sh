@@ -50,5 +50,7 @@ if prompt "Do you want to install ly?"; then
     log "Remove initial ly config"
     sudo rm -rf /etc/ly/config.ini
     sudo stow -t / ly
-    sudo systemctl stop lightdm && sudo systemctl disable lightdm && sudo systemctl enable ly
+    sudo systemctl enable ly@tty1.service
+    sudo systemctl disable getty@tty1.service
+    sudo systemctl disable lightdm && sudo systemctl stop lightdm
 fi

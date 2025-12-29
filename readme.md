@@ -16,9 +16,9 @@ sudo sh stow-all.sh
 
 ## setup ly
 ```
-sudo systemctl stop lightdm
-sudo systemctl disable lightdm
-sudo systemctl enable ly
+sudo systemctl enable ly@tty1.service
+sudo systemctl disable getty@tty1.service
+sudo systemctl disable lightdm && sudo systemctl stop lightdm
 ```
 
 
