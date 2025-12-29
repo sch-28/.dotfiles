@@ -24,6 +24,8 @@ else
   export EDITOR='nvim'
 fi
 
+export SUDO_EDITOR='/home/jan/.local/share/bob/nvim-bin/nvim'
+
 
 
 alias envim="cd ~/.dotfiles/nvim/.config/nvim && nvim"
@@ -74,6 +76,8 @@ fi
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+export NVM_LAZY_LOAD=true
+
 
 export FZF_DEFAULT_OPTS='--height 40% --layout reverse --border top'
  # ripgrep->fzf->vim [QUERY]
@@ -111,8 +115,11 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle git
 antigen theme robbyrussell/oh-my-zsh themes/minimal
+antigen bundle lukechilds/zsh-nvm
 antigen apply 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux 
+fi
