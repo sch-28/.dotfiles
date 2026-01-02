@@ -225,8 +225,7 @@ client.background       #000000
 
 # exec --no-startup-id ~/desk-mode.sh
 exec_always --no-startup-id setxkbmap -option caps:escape
-# exec --no-startup-id sh -c "sleep 1 && wal -R" 
-exec --no-startup-id sh -c "sleep 1 && feh --bg-scale ~/Pictures/black.jpg"
+exec --no-startup-id xsetroot -solid "#000000"
 # exec --no-startup-id setxkbmap -layout us -option caps:escape
 # exec --no-startup-id rfkill unblock all
 exec --no-startup-id greenclip daemon

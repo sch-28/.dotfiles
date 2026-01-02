@@ -25,25 +25,25 @@ blink.setup({
     sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
         providers = {
-            lsp = {
-                name = 'LSP',
-                module = 'blink.cmp.sources.lsp',
-                opts = {}, -- Passed to the source directly, varies by source
-                --- NOTE: All of these options may be functions to get dynamic behavior
-                --- See the type definitions for more information
-                enabled = true, -- Whether or not to enable the provider
-                async = true, -- Whether we should show the completions before this provider returns, without waiting for it
-                timeout_ms = 250, -- How long to wait for the provider to return before showing completions and treating it as asynchronous
-                transform_items = nil, -- Function to transform the items before they're returned
-                should_show_items = true, -- Whether or not to show the items
-                max_items = nil, -- Maximum number of items to display in the menu
-                min_keyword_length = 0, -- Minimum number of characters in the keyword to trigger the provider
-                -- If this provider returns 0 items, it will fallback to these providers.
-                -- If multiple providers fallback to the same provider, all of the providers must return 0 items for it to fallback
-                fallbacks = {},
-                score_offset = 0, -- Boost/penalize the score of the items
-                override = nil, -- Override the source's functions
-            }
+            -- lsp = {
+            --     name = 'LSP',
+            --     module = 'blink.cmp.sources.lsp',
+            --     opts = {}, -- Passed to the source directly, varies by source
+            --     --- NOTE: All of these options may be functions to get dynamic behavior
+            --     --- See the type definitions for more information
+            --     enabled = true, -- Whether or not to enable the provider
+            --     async = true, -- Whether we should show the completions before this provider returns, without waiting for it
+            --     timeout_ms = 250, -- How long to wait for the provider to return before showing completions and treating it as asynchronous
+            --     transform_items = nil, -- Function to transform the items before they're returned
+            --     should_show_items = true, -- Whether or not to show the items
+            --     max_items = nil, -- Maximum number of items to display in the menu
+            --     min_keyword_length = 0, -- Minimum number of characters in the keyword to trigger the provider
+            --     -- If this provider returns 0 items, it will fallback to these providers.
+            --     -- If multiple providers fallback to the same provider, all of the providers must return 0 items for it to fallback
+            --     fallbacks = {},
+            --     score_offset = 0, -- Boost/penalize the score of the items
+            --     override = nil, -- Override the source's functions
+            -- }
         },
     },
     completion = {
@@ -95,6 +95,8 @@ blink.setup({
             ['<Tab>'] = { 'select_next', 'fallback' },
             ['<S-Tab>'] = { 'select_prev', 'fallback' },
             ['<C-y>'] = { 'accept_and_enter', 'fallback' },
+            ['<C-n>'] = { 'select_next', 'fallback' },
+            ['<C-p>'] = { 'select_prev', 'fallback' },
         },
         completion = {
             menu = { auto_show = true },
