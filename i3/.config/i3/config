@@ -50,6 +50,8 @@ bindsym --release button2 kill
 # A more modern dmenu replacement is rofi:
 bindsym $mod+space exec "rofi -show drun"
 bindsym $mod+BackSpace exec "rofi -show drun"
+bindsym $mod+semicolon exec "rofi -modi emoji -show emoji"
+
 
 # bindsym $mod+e exec --no-startup-id setxkbmap us -option caps:escape 
 # bindsym $mod+d exec --no-startup-id setxkbmap de -variant nodeadkeys -option caps:escape 
