@@ -27,6 +27,7 @@ vim.pack.add({
     { src = "https://github.com/m4xshen/hardtime.nvim" },
     { src = "https://github.com/christoomey/vim-tmux-navigator" },
     { src = "https://github.com/Saghen/blink.cmp" },
+    { src = "https://github.com/MunifTanjim/nui.nvim" },
 })
 
 local inactive_plugins = {}
