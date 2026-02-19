@@ -64,6 +64,12 @@ export NODE_OPTIONS="--max-old-space-size=16384"
 eval "$(zoxide init zsh)"
 
 eval "$(ssh-agent -s)" > /dev/null
+
+if [ -z "$SSH_AUTH_SOCK" ] && command -v gnome-keyring-daemon >/dev/null 2>&1; then
+  eval "$(gnome-keyring-daemon --start --components=ssh)"
+  export SSH_AUTH_SOCK
+fi
+
 # Only add SSH key if not already added
 if ! ssh-add -l | grep -q "id_rsa_github"; then
     ssh-add ~/.ssh/id_rsa_github > /dev/null 2>&1
