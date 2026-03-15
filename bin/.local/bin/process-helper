@@ -1,0 +1,2 @@
+#!/bin/sh
+exec java -jar "$HOME/.local/share/process-helper/process-helper.jar" "$@"
