@@ -22,7 +22,7 @@ log "Running full update"
 bash ./update.sh
 
 log "Install required pacman packages"
-sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav redshift xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse
+sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav redshift xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse smartmontools
 
 log "Install required yay packages"
 yay -S greenclip
@@ -43,6 +43,12 @@ sudo bash stow-all.sh
 
 log "Virus protection"
 sudo systemctl enable --now clamav-freshclam.service
+
+log "System health check"
+sudo cp ~/.dotfiles/system-check/etc/systemd/system/system-check.service /etc/systemd/system/
+sudo cp ~/.dotfiles/system-check/etc/systemd/system/system-check.timer /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now system-check.timer
 
 if prompt "Do you want to install ly?"; then
     log "Download ly"

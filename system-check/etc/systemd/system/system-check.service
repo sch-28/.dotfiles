@@ -1,0 +1,11 @@
+[Unit]
+Description=System stability health check
+Wants=local-fs.target
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/jan/.dotfiles/scripts/check.sh
+
+[Install]
+WantedBy=multi-user.target
