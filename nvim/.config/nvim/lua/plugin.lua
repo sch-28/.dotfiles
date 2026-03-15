@@ -6,8 +6,8 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
     { src = "https://github.com/EdenEast/nightfox.nvim" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version="master"},
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-context", version="master"},
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/tpope/vim-fugitive" },
@@ -28,6 +28,7 @@ vim.pack.add({
     { src = "https://github.com/christoomey/vim-tmux-navigator" },
     { src = "https://github.com/Saghen/blink.cmp" },
     { src = "https://github.com/MunifTanjim/nui.nvim" },
+    { src = "https://github.com/mfussenegger/nvim-jdtls" },
 })
 
 local inactive_plugins = {}
