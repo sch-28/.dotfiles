@@ -40,7 +40,8 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec kitty --single-instance
+bindsym $mod+Return exec kitty --single-instance -e tmux
+bindsym $mod+BackSpace exec kitty --single-instance
 
 # kill focused window
 bindsym $mod+q kill
@@ -49,7 +50,6 @@ bindsym --release button2 kill
 # bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 bindsym $mod+space exec "rofi -show drun"
-bindsym $mod+BackSpace exec "rofi -show drun"
 bindsym $mod+semicolon exec "rofi -modi emoji -show emoji"
 
 

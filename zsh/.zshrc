@@ -128,10 +128,10 @@ antigen apply
 
 
 
-
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux 
-fi
+#
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#   exec tmux 
+# fi
 
 # Show system health check in first tmux pane of each terminal
 if [[ -n "$TMUX" ]] && [[ "$(tmux list-panes | wc -l)" == "1" ]] && [[ "$(tmux list-windows | wc -l)" == "1" ]] && [[ -f /tmp/system-check.log ]]; then
