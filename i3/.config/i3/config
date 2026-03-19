@@ -40,7 +40,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec kitty --single-instance -e tmux
+bindsym $mod+Return exec kitty -e zsh -i -c tmux
 bindsym $mod+BackSpace exec kitty --single-instance
 
 # kill focused window
