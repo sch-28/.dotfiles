@@ -6,6 +6,7 @@ import java.util.List;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.GridLayout.Alignment;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 import com.googlecode.lanterna.screen.Screen;
@@ -32,6 +33,7 @@ public class App {
     private static Button killButton = new Button("Kill", () -> {
         Service selected = serviceSelect.getSelectedItem();
         selected.killProcess();
+        updateForm(selected);
     });
     private static Label valActiveSince = new Label("");
     private static Label valStateChanged = new Label("");
@@ -63,18 +65,23 @@ public class App {
             // ── Service selector row ──────────────────────────────────────────
             Panel selectorRow = new Panel(new GridLayout(2));
             ((GridLayout) selectorRow.getLayoutManager()).setHorizontalSpacing(2);
+            selectorRow.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill));
 
             SystemdService service = new SystemdService();
             List<Service> services = service.services;
             System.out.println(services);
 
-            selectorRow.addComponent(new Label("Service:"));
             for (Service s : services) {
                 serviceSelect.addItem(s);
-                
+
             }
             serviceSelect.setReadOnly(true);
+
+            Button addButton = new Button("Create");
+            addButton.setLayoutData(GridLayout.createLayoutData(Alignment.END, Alignment.CENTER, true, false));
+
             selectorRow.addComponent(serviceSelect);
+            selectorRow.addComponent(addButton);
 
             root.addComponent(new Separator(Direction.HORIZONTAL)
                     .setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill)));
@@ -126,20 +133,40 @@ public class App {
             root.addComponent(detailArea
                     .setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill)));
 
-            // ── Button bar ────────────────────────────────────────────────────
-            root.addComponent(new EmptySpace(new TerminalSize(1, 1))
+            // ── Action Bar ────────────────────────────────────────────────────────────
+            root.addComponent(new Separator(Direction.HORIZONTAL)
                     .setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill)));
+            Panel actionBar = new Panel(new GridLayout(3));
+            ((GridLayout) actionBar.getLayoutManager()).setHorizontalSpacing(3);
+            actionBar.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill));
+
+            Button editButton = new Button("Edit");
+            Button restartButton = new Button("Restart", () -> {
+                Service selected = serviceSelect.getSelectedItem();
+                selected.restart();
+                updateForm(selected);
+            });
+            Button deleteButton = new Button("Delete", () -> MessageDialog.showMessageDialog(textGUI, "Save",
+                    "Not yet implemented.", MessageDialogButton.OK));
+            deleteButton.setLayoutData(GridLayout.createLayoutData(Alignment.END, Alignment.CENTER, true, false));
+
+            actionBar.addComponent(editButton);
+            actionBar.addComponent(restartButton);
+            actionBar.addComponent(deleteButton);
+
+            root.addComponent(actionBar);
+
+            // ── Button bar ────────────────────────────────────────────────────
             root.addComponent(new Separator(Direction.HORIZONTAL)
                     .setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill)));
 
             Panel buttonBar = new Panel(new GridLayout(2));
             ((GridLayout) buttonBar.getLayoutManager()).setHorizontalSpacing(2);
+            buttonBar.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill));
 
-            buttonBar.addComponent(new Button("Save",
-                    () -> MessageDialog.showMessageDialog(textGUI, "Save",
-                            "Not yet implemented.", MessageDialogButton.OK)));
-            buttonBar.addComponent(new Button("Close", window::close)
-                    .setLayoutData(GridLayout.createHorizontallyEndAlignedLayoutData(1)));
+            Button closeButton = new Button("Close", window::close);
+
+            buttonBar.addComponent(closeButton);
 
             root.addComponent(buttonBar);
 

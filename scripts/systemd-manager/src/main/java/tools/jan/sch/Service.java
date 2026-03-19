@@ -161,8 +161,30 @@ public class Service {
 
     public void killProcess() {
         try {
-            new ProcessBuilder("systemctl", "--user", "kill", id).start();
+            Process p = new ProcessBuilder("systemctl", "--user", "kill", id).start();
+            int code = p.waitFor();
+            if (code != 0) {
+                throw new RuntimeException("systemctl error " + code);
+            }
+
+            Thread.sleep(1000);
+            initialize();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void restart(){
+        try {
+            Process p = new ProcessBuilder("systemctl", "--user", "restart", id).start();
+            int code = p.waitFor();
+            if (code != 0) {
+                throw new RuntimeException("systemctl error " + code);
+            }
+
+            Thread.sleep(1000);
+            initialize();
+        }catch(Exception e){
             e.printStackTrace();
         }
     }
