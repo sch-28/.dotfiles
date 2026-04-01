@@ -1,11 +1,8 @@
-local ts_utils = require("nvim-treesitter.ts_utils")
-
-
 --  ╭─────────────────────────────────────────────────────────────────────────╮
 --  │ Console Log Function                                                    │
 --  ╰─────────────────────────────────────────────────────────────────────────╯
 local function log_variable()
-    local node = ts_utils.get_node_at_cursor()
+    local node = vim.treesitter.get_node()
     if not node then return end
 
     -- Find a variable-like node
@@ -330,8 +327,8 @@ vim.api.nvim_create_autocmd("FocusLost", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "typescript,typescriptreact",
     group = augroup,
-    -- command = "compiler tsc | setlocal makeprg=cd\\ ./apps/web\\ &&\\ bun\\ run\\ build:check:clean",
-    command = "compiler tsc | setlocal makeprg=pnpm\\ run\\ build:check",
+    command = "compiler tsc | setlocal makeprg=cd\\ ./apps/web\\ &&\\ bun\\ run\\ build:check:clean",
+    -- command = "compiler tsc | setlocal makeprg=pnpm\\ run\\ build:check",
 })
 
 return {

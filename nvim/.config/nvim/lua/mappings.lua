@@ -88,7 +88,7 @@ set("n", "<leader>4", function() harpoon:list():select(4) end)
 set("n", "<C-S-P>", function() harpoon:list():prev() end)
 set("n", "<C-S-N>", function() harpoon:list():next() end)
 
-set("n", "<leader>u", vim.cmd.UndotreeToggle)
+set("n", "<leader>u", require("undotree").open)
 
 set("n", "<leader>oi", ":TSToolsOrganizeImports<CR>", { silent = true, desc = "Organize Imports" })
 

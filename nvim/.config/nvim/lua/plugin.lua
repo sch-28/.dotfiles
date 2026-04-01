@@ -1,4 +1,5 @@
-#52342
+
+--  ── packages ──────────────────────────────────────────────────────────────
 vim.pack.add({
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
     { src = "https://github.com/stevearc/oil.nvim" },
@@ -6,10 +7,9 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
     { src = "https://github.com/EdenEast/nightfox.nvim" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version="master"},
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter-context", version="master"},
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter"},
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-context"},
     { src = "https://github.com/nvim-lua/plenary.nvim" },
-    { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/tpope/vim-fugitive" },
     { src = "https://github.com/windwp/nvim-autopairs" },
     { src = "https://github.com/windwp/nvim-ts-autotag" },
@@ -30,6 +30,10 @@ vim.pack.add({
     { src = "https://github.com/MunifTanjim/nui.nvim" },
     { src = "https://github.com/mfussenegger/nvim-jdtls" },
 })
+
+
+--  ── plugins ───────────────────────────────────────────────────────────────
+vim.cmd("packadd nvim.undotree")
 
 local inactive_plugins = {}
 local plugins = vim.pack.get()

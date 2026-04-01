@@ -1,3 +1,5 @@
+local data = vim.fn.stdpath("data")
+local mason_bin = data .. "/mason/bin"
 local capabilities = require "blink.cmp".get_lsp_capabilities()
 require("typescript-tools").setup {
 
@@ -124,11 +126,13 @@ vim.lsp.config('harper_ls', {
 vim.lsp.enable('harper_ls')
 
 
+
 vim.lsp.config("jdtls", {
-  settings = {
-    java = {
-        -- Custom eclipse.jdt.ls options go here
-    },
+  cmd = {
+    mason_bin .. "/jdtls",
+    "--java-executable",
+    "/usr/bin/java", -- your Java 26
   },
+  settings = { java = {} },
 })
 vim.lsp.enable("jdtls")
