@@ -24,7 +24,7 @@ vim.pack.add({
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/ThePrimeagen/harpoon",                       version = "harpoon2" },
     { src = "https://github.com/L3MON4D3/LuaSnip",                           version = "v2.4.0" },
-    { src = "https://github.com/m4xshen/hardtime.nvim" },
+    -- { src = "https://github.com/m4xshen/hardtime.nvim" },
     { src = "https://github.com/christoomey/vim-tmux-navigator" },
     { src = "https://github.com/Saghen/blink.cmp" },
     { src = "https://github.com/MunifTanjim/nui.nvim" },
@@ -50,7 +50,7 @@ require "oil".setup()
 require "nvim-autopairs".setup()
 require "nvim-ts-autotag".setup()
 require "nvim-surround".setup()
-require "hardtime".setup()
+-- require "hardtime".setup()
 
 require "plugins.comment"
 require "plugins.nightfox"

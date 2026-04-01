@@ -74,5 +74,6 @@ sudo pacman -S --needed alsa-lib lib32-alsa-lib alsa-plugins lib32-alsa-plugins 
 
 ## virus scan
 ```
+sudo freshclam
 clamscan -r /path/to/dir
 ```

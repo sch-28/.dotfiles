@@ -13,7 +13,11 @@ export PATH="$HOME/.nvm/versions/node/v22.14.0/bin:$PATH"
 # PKG config
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 
-
+# Android setup
+export CAPACITOR_ANDROID_STUDIO_PATH=/sbin/android-studio
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator"
 
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 
