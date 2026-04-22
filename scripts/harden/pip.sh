@@ -33,7 +33,11 @@ if [[ -f "$PIP_CONF" ]]; then
     fi
   fi
   if ! grep -q 'no-input' "$PIP_CONF"; then
-    sed -i '/^\[global\]/a no-input = true' "$PIP_CONF"
+    if grep -q '^\[global\]' "$PIP_CONF"; then
+      sed -i '/^\[global\]/a no-input = true' "$PIP_CONF"
+    else
+      printf '\n[global]\nno-input = true\n' >> "$PIP_CONF"
+    fi
   fi
 else
   cat > "$PIP_CONF" <<'EOF'

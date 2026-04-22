@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # pnpm hardening — supply chain attack mitigation
-# pnpm is more secure by default (strict node_modules, content-addressable store)
-# but postinstall hooks are still the main risk
+# Reference: https://pnpm.io/supply-chain-security
+# To override scripts per-install: pnpm install --allow-build=<pkg>
 
 set -euo pipefail
 
@@ -12,9 +12,24 @@ fi
 
 echo "  Hardening pnpm..."
 
-# Block lifecycle scripts globally.
-# Override per-project in .npmrc or: pnpm install --ignore-scripts=false
+# Block all postinstall/preinstall lifecycle scripts by default.
+# Packages that need build scripts must be explicitly listed via allowBuilds
+# in pnpm-workspace.yaml. Never use dangerouslyAllowAllBuilds=true.
 pnpm config set ignore-scripts true
+
+# Block transitive dependencies sourced via git repos or tarball URLs.
+# All deps must come from a trusted registry; exotic sources are a common
+# vector in staged supply chain attacks.
+pnpm config set blockExoticSubdeps true
+
+# Require packages to have been published for at least 3 days (4320 minutes)
+# before they can be installed. Catches same-day malicious publishes.
+pnpm config set minimumReleaseAge 4320
+
+# Warn (but don't block) when a package loses provenance attestation vs earlier versions.
+# no-downgrade is too aggressive in practice — legitimate packages frequently republish
+# without attestation, causing false positives.
+pnpm config set trustPolicy warn
 
 # Auto-install peer deps to avoid issues when scripts are disabled
 pnpm config set auto-install-peers true
@@ -23,7 +38,3 @@ pnpm config set auto-install-peers true
 pnpm config set strict-peer-dependencies false
 
 echo "  pnpm hardened"
-echo ""
-echo "  Note: pnpm supports minimumReleaseAge (v10.16.0+) but it must be set"
-echo "  per-project in pnpm-workspace.yaml, not globally. Add to your projects:"
-echo "    minimumReleaseAge: 4320  # 3 days in minutes"

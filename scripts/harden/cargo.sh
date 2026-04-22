@@ -38,7 +38,9 @@ add_if_missing "net" 'git-fetch-with-cli = true'
 # Install cargo-audit if not present — dependency vulnerability scanner
 if ! command -v cargo-audit &>/dev/null; then
   echo "  Installing cargo-audit..."
-  cargo install cargo-audit
+  if ! cargo install cargo-audit; then
+    echo "  Warning: cargo-audit install failed (network issue?), skipping"
+  fi
 fi
 
 echo "  cargo hardened"

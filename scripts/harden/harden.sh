@@ -6,7 +6,7 @@
 # Usage: bash scripts/harden/harden.sh
 #
 # What this does:
-#   npm/pnpm:  ignore-scripts=true, save-exact, min-release-age, audit-level
+#   npm/pnpm:  ignore-scripts=true, save-exact, audit-level
 #   bun:       ignore-scripts + minimumReleaseAge via ~/.bunfig.toml
 #   pip:       require-virtualenv, no-input
 #   cargo:     git-fetch-with-cli, installs cargo-audit
@@ -39,17 +39,17 @@ for pm in "${managers[@]}"; do
   script="$SCRIPT_DIR/$pm.sh"
   if [[ -f "$script" ]]; then
     if bash "$script"; then
-      ((hardened++))
+      hardened=$((hardened + 1))
     fi
   else
     echo -e "  ${yellow}No script found for $pm${reset}"
-    ((skipped++))
+    skipped=$((skipped + 1))
   fi
   echo ""
 done
 
 echo "========================================="
-echo -e " ${green}Done.${reset} Hardened: $hardened | Skipped (not installed): $((5 - hardened))"
+echo -e " ${green}Done.${reset} Hardened: $hardened | Skipped (not installed): $skipped"
 echo "========================================="
 echo ""
 echo "Remember: lifecycle scripts are now blocked by default."

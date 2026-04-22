@@ -142,3 +142,6 @@ if [[ -n "$TMUX" ]] && [[ "$(tmux list-panes | wc -l)" == "1" ]] && [[ "$(tmux l
   cat /tmp/system-check.log
   echo
 fi
+
+# opencode
+export PATH=/home/jan/.opencode/bin:$PATH

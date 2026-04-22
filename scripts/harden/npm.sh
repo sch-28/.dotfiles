@@ -21,10 +21,6 @@ npm config set ignore-scripts true
 # Don't auto-resolve to latest on version conflicts during install
 npm config set save-exact true
 
-# Require packages to have been published for at least 3 days.
-# Catches staged attacks where malicious versions are published hours before use.
-npm config set min-release-age 3
-
 # Set audit level — warn on moderate+ vulnerabilities during install
 npm config set audit-level moderate
 

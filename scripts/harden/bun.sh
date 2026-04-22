@@ -24,8 +24,12 @@ if [[ -f "$BUNFIG" ]]; then
       sed -i '/^\[install\]/a ignore-scripts = true' "$BUNFIG"
     fi
     # Check if minimumReleaseAge is already set
-    if ! grep -q 'minimumReleaseAge' "$BUNFIG"; then
+    if ! grep -q 'minimumReleaseAge[^E]' "$BUNFIG"; then
       sed -i '/^\[install\]/a minimumReleaseAge = 259200' "$BUNFIG"
+    fi
+    # Check if minimumReleaseAgeExcludes is already set
+    if ! grep -q 'minimumReleaseAgeExcludes' "$BUNFIG"; then
+      sed -i '/^\[install\]/a minimumReleaseAgeExcludes = ["@types/node", "typescript"]' "$BUNFIG"
     fi
   else
     # Append [install] section
