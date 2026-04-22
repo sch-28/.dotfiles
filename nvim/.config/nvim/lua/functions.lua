@@ -302,10 +302,13 @@ vim.api.nvim_create_autocmd('FileType', {
     desc = 'Quickfix tweaks',
 })
 
+local did_yank = false
+
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = augroup,
     pattern = '*',
     callback = function()
+        did_yank = true
         vim.highlight.on_yank({
             higroup = 'Visual',
             timeout = 200,
@@ -316,7 +319,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.api.nvim_create_autocmd("FocusLost", {
     callback = function()
-        vim.fn.setreg('+', vim.fn.getreg('"'))
+        if did_yank then
+            vim.fn.setreg('+', vim.fn.getreg('"'))
+            did_yank = false
+        end
         local w = require('fzf-lua.utils').fzf_winobj()
         if w then
             w:close()
