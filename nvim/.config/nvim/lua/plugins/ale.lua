@@ -7,16 +7,16 @@ vim.g.ale_fix_on_save = 1
 --     typescriptreact = { "eslint" },
 -- }
 
-vim.g.ale_fixers = {
-    javascript = { "prettier", "biome" },
-    javascriptreact = { "prettier", "biome" },
-    typescript = { "prettier", "biome" },
-    typescriptreact = { "prettier", "biome" },
-}
-
 -- vim.g.ale_fixers = {
---     javascript = { "prettier" },
---     javascriptreact = { "prettier" },
---     typescript = { "prettier" },
---     typescriptreact = { "prettier" },
+--     javascript = { "prettier", "biome" },
+--     javascriptreact = { "prettier", "biome" },
+--     typescript = { "prettier", "biome" },
+--     typescriptreact = { "prettier", "biome" },
 -- }
+
+vim.g.ale_fixers = {
+    javascript = { "prettier" },
+    javascriptreact = { "prettier" },
+    typescript = { "prettier" },
+    typescriptreact = { "prettier" },
+}

@@ -10,6 +10,12 @@ set $leader d
 # is used in the bar {} block below.
 font pango:Fira Code 10
 
+# Push i3's env into the systemd user manager + D-Bus activation env (--systemd
+# covers both), then start a session target that pulls in graphical-session.target
+# so xdg-desktop-portal can start (it has Requisite=graphical-session.target).
+exec_always --no-startup-id dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP
+exec_always --no-startup-id systemctl --user start --no-block i3-session.target
+
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
