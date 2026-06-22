@@ -9,7 +9,7 @@
  if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find  "${DIRS[@]}" -mindepth 1 -maxdepth 1 -type d \
+    selected=$({ find "${DIRS[@]}" -mindepth 1 -maxdepth 1 -type d; echo "$HOME/.dotfiles"; } \
         | sed "s|^$HOME/||" \
         | fzf --prompt="Select project: ")
 
