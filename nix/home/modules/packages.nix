@@ -35,6 +35,7 @@
 
     # --- X11 helpers ---
     xclip xcolor xbindkeys xss-lock numlockx dex xdotool
+    libinput-gestures # config in wm.nix; autostarted via dex (.desktop in wm.nix)
     xorg.xdpyinfo xorg.xinput xorg.xkill xorg.xrandr
     xorg.xsetroot xorg.setxkbmap
     arandr lxappearance nwg-look

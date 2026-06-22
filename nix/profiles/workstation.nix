@@ -3,6 +3,30 @@
 # (Steam's multi-GB FHS + Proton-GE, bluetooth/printing/scanner/SMART stacks).
 { pkgs, ... }:
 {
+  # --- System health check (replaces the imperative system-check.service/.timer
+  #     that install.sh copied into /etc). Runs scripts/check.sh on boot + every
+  #     6h, caches to /tmp/system-check.log which .zshrc shows in the first pane.
+  systemd.services.system-check = {
+    description = "System stability health check";
+    after = [ "local-fs.target" ];
+    path = with pkgs; [
+      btrfs-progs util-linux smartmontools snapper
+      gawk gnused gnugrep coreutils
+      systemd # journalctl — without it the kernel/MCE checks silently return OK
+    ];
+    serviceConfig.Type = "oneshot";
+    script = builtins.readFile ../../scripts/check.sh;
+  };
+  systemd.timers.system-check = {
+    description = "Run system health check on boot and every 6 hours";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "30s";
+      OnUnitActiveSec = "6h";
+      Persistent = true;
+    };
+  };
+
   # --- Gaming (GPU-agnostic; the driver is per-host) ---
   # programs.steam builds Steam in an FHS sandbox that auto-provides every
   # 32/64-bit lib Proton/Wine need — replaces the whole lib32-* wall.

@@ -23,12 +23,6 @@
     "desktop.nix uses PLACEHOLDER disk devices (/dev/nvme0n1pN). Replace with the generated hardware-configuration.nix before installing, or you risk mounting the wrong partition."
   ];
 
-  # docker — real box needs it. NOTE: the pinned nixpkgs docker is currently
-  # CVE-flagged insecure; before enabling, either bump to a patched version or
-  # consciously add it to nixpkgs.config.permittedInsecurePackages. Left off
-  # until that decision is made.
-  # virtualisation.docker.enable = true;
-
   # === GPU — NVIDIA RTX 4090 (Ada; open module is recommended) ===
   # gaming base (steam/graphics 32-bit) is in common.nix — only the driver here.
   services.xserver.videoDrivers = [ "nvidia" ];

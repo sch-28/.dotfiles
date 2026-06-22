@@ -181,7 +181,7 @@ fi
 # ============================================================
 #  Show system health check in the first tmux pane of each terminal.
 # ============================================================
-if [[ -n "$TMUX" ]] && [[ "$(tmux list-panes | wc -l)" == "1" ]] && [[ "$(tmux list-windows | wc -l)" == "1" ]] && [[ -f /tmp/system-check.log ]]; then
-  cat /tmp/system-check.log
+if [[ -n "$TMUX" ]] && [[ "$(tmux list-panes | wc -l)" == "1" ]] && [[ "$(tmux list-windows | wc -l)" == "1" ]] && [[ -r /run/system-check.log ]]; then
+  cat /run/system-check.log
   echo
 fi

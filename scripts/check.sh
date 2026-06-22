@@ -4,9 +4,11 @@
 # Optional: set NVME_DEV=/dev/nvme0n1  (or another device)
 set -uo pipefail
 
-CACHE_FILE="/tmp/system-check.log"
-# Ensure cache file is writable by all (root creates it, user reads it)
-install -m 666 /dev/null "$CACHE_FILE" 2>/dev/null || true
+# /run is root-owned tmpfs — unlike /tmp, an unprivileged user can't pre-create
+# a symlink here, so this root-written file is safe from symlink clobbering.
+# 0644 = world-readable (for the .zshrc login display) but not world-writable.
+CACHE_FILE="/run/system-check.log"
+install -m 644 /dev/null "$CACHE_FILE" 2>/dev/null || true
 green='\033[0;32m'; yellow='\033[0;33m'; red='\033[0;31m'; reset='\033[0m'
 ok="${green}OK${reset}"; warn="${yellow}WARN${reset}"; bad="${red}FAIL${reset}"
 

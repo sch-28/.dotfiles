@@ -17,4 +17,13 @@
   # gestures config lives at ~/.config/libinput-gestures.conf (single file)
   xdg.configFile."libinput-gestures.conf".source =
     ../../../gestures/.config/libinput-gestures.conf;
+
+  # Autostart libinput-gestures via dex (i3 runs `dex --autostart`), same as Arch.
+  xdg.configFile."autostart/libinput-gestures.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=libinput-gestures
+    Exec=libinput-gestures
+    X-GNOME-Autostart-enabled=true
+  '';
 }
