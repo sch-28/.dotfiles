@@ -40,3 +40,8 @@ nbactions.xml
 hs_err_pid*
 replay_pid*
 
+# Nix
+result
+result-*
+*.qcow2
+

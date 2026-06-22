@@ -1,98 +1,141 @@
-# Prioritize custom xdg-open first
-export PATH="$HOME/.local/xdg-open:$HOME/bin:$HOME/.local/share/bob/nvim-bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+# ============================================================
+#  PATH — typeset -U dedupes; guards keep it portable (Arch + NixOS).
+#  Missing dirs are simply not added instead of erroring.
+# ============================================================
+typeset -U path
 
-# Flatpak apps
-export PATH="$PATH:/home/jan/.local/share/flatpak/exports/bin"
+path=(
+  "$HOME/.local/xdg-open"               # custom xdg-open first
+  "$HOME/bin"
+  "$HOME/.local/bin"
+  "$HOME/.cargo/bin"
+  $path
+)
 
-# Cargo apps
-export PATH="$HOME/.cargo/bin:$PATH"
+# bob-managed neovim — prepend so it wins, only if present (absent on NixOS).
+[ -d "$HOME/.local/share/bob/nvim-bin" ]    && path=("$HOME/.local/share/bob/nvim-bin" $path)
+[ -d "$HOME/.local/share/pnpm" ]            && path=("$HOME/.local/share/pnpm" $path)
+[ -d "$HOME/.bun/bin" ]                      && path+=("$HOME/.bun/bin")
+[ -d "$HOME/.local/share/flatpak/exports/bin" ] && path+=("$HOME/.local/share/flatpak/exports/bin")
+[ -d "$HOME/.opencode/bin" ]                 && path+=("$HOME/.opencode/bin")
 
-# Node.js (nvm)
-export PATH="$HOME/.nvm/versions/node/v22.14.0/bin:$PATH"
+# Android SDK — only when configured.
+if [ -d "$HOME/.config/android" ]; then
+  export ANDROID_HOME="$HOME/.config/android"
+  export ANDROID_SDK_ROOT="$HOME/.config/android"
+  export CAPACITOR_ANDROID_STUDIO_PATH=/sbin/android-studio
+  path+=("$ANDROID_HOME/platform-tools" "$ANDROID_HOME/emulator")
+fi
 
-# PKG config
-export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+export PATH
 
-# Android setup
-export CAPACITOR_ANDROID_STUDIO_PATH=/sbin/android-studio
-export ANDROID_HOME="$HOME/Android/Sdk"
-export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
-export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator"
-
+# ============================================================
+#  Environment
+# ============================================================
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
+export BROWSER='firefox'
+export NODE_OPTIONS="--max-old-space-size=16384"
+export FZF_DEFAULT_OPTS='--height 40% --layout reverse --border top'
 
-# Preferred editor for local and remote sessions
+# Editor: nvim locally, vim over ssh.
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='nvim'
 fi
+command -v nvim >/dev/null && export SUDO_EDITOR="$(command -v nvim)"
 
-export BROWSER='firefox'
+# ============================================================
+#  History
+# ============================================================
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt inc_append_history      # write each command immediately
+setopt share_history           # live-sync history across all open terminals
+setopt hist_ignore_all_dups    # drop older duplicate of a repeated command
+setopt hist_reduce_blanks      # trim surplus whitespace before saving
 
-export SUDO_EDITOR='/home/jan/.local/share/bob/nvim-bin/nvim'
+# ============================================================
+#  Keymap — force emacs bindings. Without this zsh picks vi-insert mode
+#  (because $EDITOR=nvim matches "vi"), which breaks Ctrl-F/Ctrl-A/Ctrl-E and
+#  zsh-autosuggestions' accept-on-forward-char. oh-my-zsh used to set this.
+# ============================================================
+bindkey -e
 
+# ============================================================
+#  Prompt — minimal, no theme framework.
+# ============================================================
+PS1='%F{blue}%B%~%b%f %F{gray}❯%f '
 
+# ============================================================
+#  Completion (oh-my-zsh used to run this; do it ourselves).
+#  Rebuild the dump at most once / 24h; otherwise load it cached (-C skips
+#  the slow security rescan — completions still load fully, no power lost).
+# ============================================================
+autoload -Uz compinit
+# Filename generation does NOT happen inside [[ ]], so glob the dump in an array
+# assignment (where it does). Non-empty match => dump older than 24h => rebuild;
+# otherwise load it cached with -C (skips the slow security rescan).
+() {
+  setopt localoptions extendedglob
+  local -a stale=( ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24) )
+  if (( $#stale )) || [[ ! -s ${ZDOTDIR:-$HOME}/.zcompdump ]]; then
+    compinit
+  else
+    compinit -C
+  fi
+}
+
+# ============================================================
+#  Aliases
+# ============================================================
+alias ls='ls --color=auto -hv -l'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip -c=auto'
 
 alias envim="cd ~/.dotfiles/nvim/.config/nvim && nvim"
 alias ei3="cd ~/.dotfiles/i3/.config/i3 && nvim config"
 alias ai="docker exec -it ollama ollama run deepseek-r1"
 alias aiq="docker exec -it ollama ollama run deepseek-r1 --think=false"
 
-alias ls='ls --color=auto -hv -l'
-alias grep='grep --color=auto'
-alias diff='diff --color=auto'
-alias ip='ip -c=auto'
+# git — common subset ported from the oh-my-zsh git plugin (no framework).
+alias g='git'
+alias gst='git status'
+alias ga='git add'
+alias gc='git commit -v'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gp='git push'
+alias gl='git pull'
+alias gd='git diff'
+alias glog='git log --oneline --decorate --graph'
 
-
-PS1='%F{blue}%B%~%b%f %F{gray}❯%f '
-
-HISTFILE=~/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000 
-setopt inc_append_history
-
-
-
-
-# pnpm
-export PNPM_HOME="/home/jan/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-export NODE_OPTIONS="--max-old-space-size=16384"
-
-
-
+# ============================================================
+#  Tools
+# ============================================================
 eval "$(zoxide init zsh)"
+source <(fzf --zsh)
 
-eval "$(ssh-agent -s)" > /dev/null
+# nvm — Arch keeps it in $HOME/.nvm (zsh-nvm) or /usr/share (pkg). Skipped on
+# NixOS, which supplies node declaratively.
+[ -r "$HOME/.nvm/nvm.sh" ]            && source "$HOME/.nvm/nvm.sh"
+[ -r /usr/share/nvm/init-nvm.sh ]    && source /usr/share/nvm/init-nvm.sh
+[ -s "$HOME/.bun/_bun" ]             && source "$HOME/.bun/_bun"   # bun completions
 
-if [ -z "$SSH_AUTH_SOCK" ] && command -v gnome-keyring-daemon >/dev/null 2>&1; then
-  eval "$(gnome-keyring-daemon --start --components=ssh)"
-  export SSH_AUTH_SOCK
+# Reuse a single ssh-agent across shells instead of spawning one each time.
+SSH_AGENT_ENV="${XDG_RUNTIME_DIR:-/tmp}/ssh-agent.env"
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  [ -r "$SSH_AGENT_ENV" ] && . "$SSH_AGENT_ENV" > /dev/null
+  ssh-add -l > /dev/null 2>&1
+  if [ $? -eq 2 ]; then
+    ssh-agent -s > "$SSH_AGENT_ENV"
+    . "$SSH_AGENT_ENV" > /dev/null
+  fi
 fi
 
-# Only add SSH key if not already added
-if ! ssh-add -l | grep -q "id_rsa_github"; then
-    ssh-add ~/.ssh/id_rsa_github > /dev/null 2>&1
-fi
-
-# bun completions
-[ -s "/home/jan/.bun/_bun" ] && source "/home/jan/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-export NVM_LAZY_LOAD=true
-
-
-export FZF_DEFAULT_OPTS='--height 40% --layout reverse --border top'
- # ripgrep->fzf->vim [QUERY]
+# ripgrep -> fzf -> nvim  (sf [QUERY])
 sf() (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
@@ -111,37 +154,34 @@ sf() (
       --query "$*"
 )
 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source ~/.fzf.zsh
-source <(fzf --zsh)
-
-autoload -z edit-command-line
+# Ctrl-X Ctrl-E: edit the current command line in $EDITOR.
+autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
-# bundles
-source ~/.antigen.zsh
-antigen use oh-my-zsh  
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle git
-antigen theme robbyrussell/oh-my-zsh themes/minimal
-antigen bundle lukechilds/zsh-nvm
-antigen apply 
+# ============================================================
+#  Plugins — distro-packaged, sourced directly. NO antigen, no runtime
+#  git-clone from GitHub at startup (that was the supply-chain hole).
+#    Arch:  sudo pacman -S zsh-autosuggestions zsh-syntax-highlighting
+#    NixOS: provided via home-manager / home.packages (nix-profile path)
+#  syntax-highlighting MUST be sourced last.
+# ============================================================
+# NixOS: home-manager writes ~/.config/zsh/nix-plugins.zsh with exact store
+# paths (autosuggestions then syntax-highlighting). Otherwise fall back to the
+# distro-packaged paths (Arch). Either way syntax-highlighting is sourced last.
+if [ -r "$HOME/.config/zsh/nix-plugins.zsh" ]; then
+  source "$HOME/.config/zsh/nix-plugins.zsh"
+else
+  [ -r /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && \
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  [ -r /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && \
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
-
-
-#
-# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#   exec tmux 
-# fi
-
-# Show system health check in first tmux pane of each terminal
+# ============================================================
+#  Show system health check in the first tmux pane of each terminal.
+# ============================================================
 if [[ -n "$TMUX" ]] && [[ "$(tmux list-panes | wc -l)" == "1" ]] && [[ "$(tmux list-windows | wc -l)" == "1" ]] && [[ -f /tmp/system-check.log ]]; then
   cat /tmp/system-check.log
   echo
 fi
-
-# opencode
-export PATH=/home/jan/.opencode/bin:$PATH

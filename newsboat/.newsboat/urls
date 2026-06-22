@@ -1,0 +1,21 @@
+# Query feeds (unified views)
+"query:All Unread:unread = \"yes\""
+"query:Supply Chain:tags # \"supply-chain\" or tags # \"npm\""
+"query:Security:tags # \"security\""
+"query:CVE:tags # \"cve\""
+
+# Supply-chain / npm vulnerabilities
+"https://github.com/advisories.atom?query=type%3Areviewed+ecosystem%3Anpm" "!npm-advisories" "npm" "advisories"
+"https://socket.dev/blog/rss.xml" "socket.dev" "npm" "supply-chain"
+"https://snyk.io/blog/feed/" "snyk" "supply-chain"
+"https://blog.aquasec.com/rss.xml" "aqua" "supply-chain"
+"https://hnrss.org/newest?q=npm+OR+%22supply+chain%22+OR+%22malicious+package%22&points=20" "hn-supply-chain" "hn" "supply-chain"
+"https://status.npmjs.org/history.rss" "npm-status" "npm"
+
+# General security news
+"https://feeds.feedburner.com/TheHackersNews" "thn" "security"
+"https://www.bleepingcomputer.com/feed/" "bleeping" "security"
+"https://krebsonsecurity.com/feed/" "krebs" "security"
+
+# CVE / vuln databases
+"https://nvd.nist.gov/feeds/xml/cve/misc/nvd-rss-analyzed.xml" "nvd" "cve"

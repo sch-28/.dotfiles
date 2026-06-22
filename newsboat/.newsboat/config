@@ -1,0 +1,53 @@
+# refresh
+auto-reload yes
+reload-time 60
+reload-threads 6
+refresh-on-startup yes
+
+# behaviour
+confirm-exit no
+cleanup-on-quit yes
+goto-next-feed no
+show-read-feeds no
+show-read-articles no
+mark-as-read-on-hover no
+text-width 100
+
+# browser
+browser "xdg-open %u >/dev/null 2>&1 &"
+external-url-viewer "urlscan"
+
+# notifications
+notify-screen yes
+notify-beep no
+notify-format "newsboat: %n new articles (%f)"
+
+# keys
+bind-key j down
+bind-key k up
+bind-key J next-feed
+bind-key K prev-feed
+bind-key G end
+bind-key g home
+bind-key o open-in-browser
+bind-key R reload-all
+
+# colors (monochrome — match tmux)
+color background          default       default
+color listnormal          color244      default
+color listnormal_unread   white         default   bold
+color listfocus           black         white
+color listfocus_unread    black         white     bold
+color info                black         white     bold
+color article             default       default
+color hint-key            white         default   bold
+color hint-keys-delimiter color244      default
+color hint-separator      color244      default
+color hint-description    color244      default
+
+# article highlights
+highlight article "^(Title|Feed|Author|Link|Date):.*$" white    default bold
+highlight article "https?://[^ ]+"                     color244 default underline
+highlight article "\\[[0-9]+\\]"                       white    default bold
+highlight feedlist "^─.*"                              color240 default
+highlight articlelist "^─.*"                           color240 default
