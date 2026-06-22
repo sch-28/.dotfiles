@@ -10,7 +10,7 @@
 
   home.username = "jan";
   home.homeDirectory = "/home/jan";
-  home.stateVersion = "25.11"; # do NOT change after first switch
+  home.stateVersion = "26.05"; # do NOT change after first switch
 
   programs.home-manager.enable = true;
 }

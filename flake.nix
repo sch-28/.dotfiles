@@ -2,10 +2,11 @@
   description = "jan dotfiles — NixOS + home-manager (reuses existing stow configs)";
 
   inputs = {
-    # Bump channel when you want newer pkgs. 25.11 = known-good stable.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # 26.05 = current stable (verified live, not assumed). Bump when a newer
+    # stable releases (e.g. 26.11 in Nov 2026).
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Per-machine hardware tuning (CPU microcode, GPU, SSD, laptop defaults).
@@ -41,6 +42,7 @@
         vm = mkHost "vm"; # throwaway test target — nixos-rebuild build-vm
         desktop = mkHost "desktop"; # 7800X3D + RTX 4090, keeps /home on p7
         laptop = mkHost "laptop"; # Intel iGPU, battery/power mgmt
+        surface = mkHost "surface"; # Surface Go test box — lean, clean wipe
       };
     };
 }

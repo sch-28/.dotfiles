@@ -1,26 +1,21 @@
-# User packages — mapped from the live Arch `pacman -Qe` list (365 explicit).
-# Only real apps/tools live here; Arch base/libs/drivers became NixOS options
-# (see common.nix / desktop.nix) and are NOT listed.
+# User packages — mapped from the live Arch `pacman -Qe` list.
+# Two tiers, each package listed ONCE (DRY):
+#   base  — always installed (i3 desktop + cli + light GUI). Fits the 4GB/64GB
+#           Surface Go.
+#   heavy — big GUI apps, toolchains, emulators. Skipped on lean hosts
+#           (`my.lean = true`, e.g. surface) via osConfig.
 #
-# Lines marked `# VERIFY` are <80%-confidence attr names — uncomment once a
-# build confirms them. `nix eval` validates every active name without building.
-{ pkgs, ... }:
-{
-  home.packages = with pkgs; [
+# `# VERIFY` = <80%-confidence attr name; uncomment once a build confirms it.
+{ pkgs, lib, osConfig, ... }:
+let
+  base = with pkgs; [
     # --- shell / terminal / cli (plocate via services.locate in common) ---
     btop htop glances inxi duf ncdu
     ripgrep fzf bat zoxide jq tmux
     ranger newsboat tldr stow
     pv pwgen rsync wget which unzip zip unrar
-
-    # --- dev toolchains (Nix replaces nvm/bob/rustup version managers) ---
     git gh
-    nodejs_22 bun cargo rustc
-    jdk jdk21          # jdk25  # VERIFY (may be temurin-bin-25)
-    maven
-    clang lld cmake meson nasm
-    pipx lazydocker
-    python3Packages.i3ipc
+    python3Packages.i3ipc # REQUIRED by i3 helper scripts (autotiling etc)
 
     # --- system / disk / hardware utils (smartmontools via services.smartd) ---
     acpi alsa-utils brightnessctl
@@ -40,15 +35,33 @@
     xorg.xsetroot xorg.setxkbmap
     arandr lxappearance nwg-look
 
-    # --- WM stack (i3 itself enabled in common.nix; these are the daemons) ---
+    # --- WM stack (i3 enabled in common.nix; these are the daemons) ---
     polybar rofi dunst picom
     i3blocks i3lock i3status
     dmenu rofi-emoji playerctl pulsemixer pavucontrol redshift
     flameshot feh
 
-    # --- GUI apps ---
-    firefox chromium
+    # --- light GUI (browser, terminal, file manager, small utils) ---
+    firefox
     kitty xfce.xfce4-terminal xterm
+    nemo xarchiver meld
+    galculator gnome-calculator
+    gparted gnome-disk-utility btrfs-assistant
+    mission-center
+    xfce.xfce4-screensaver
+  ];
+
+  # Skipped on lean hosts (surface). Big downloads / heavy at runtime.
+  heavy = with pkgs; [
+    # --- dev toolchains (Nix replaces nvm/bob/rustup) ---
+    nodejs_22 bun cargo rustc
+    jdk jdk21          # jdk25  # VERIFY (may be temurin-bin-25)
+    maven
+    clang lld cmake meson nasm
+    pipx lazydocker
+
+    # --- heavy GUI apps ---
+    chromium
     vscode
     discord vesktop slack spotify
     obsidian
@@ -56,18 +69,14 @@
     libreoffice-fresh
     gimp inkscape darktable blender freecad fontforge
     calibre mpv
-    galculator gnome-calculator
-    gparted gnome-disk-utility btrfs-assistant
-    nemo xarchiver meld xfce.thunar
+    xfce.thunar
     kdePackages.dolphin kdePackages.gwenview
-    mission-center
-    xfce.xfce4-screensaver
+    rustdesk vokoscreen-ng
     # xed-editor          # VERIFY attr name
     # bambu-studio        # VERIFY (3D printer slicer)
     # protonmail-desktop  # VERIFY attr name
-    rustdesk
 
-    # --- gaming / emulation (steam itself via programs.steam in common.nix) ---
+    # --- gaming / emulation (steam via programs.steam in workstation.nix) ---
     lutris protontricks winetricks
     wineWowPackages.staging
     mangohud
@@ -80,10 +89,11 @@
     # --- low-confidence / needs decision ---
     # hactool            # VERIFY (Switch NCA tool)
     # harper             # VERIFY (grammar checker / harper-ls)
-    # fbset              # VERIFY
-    # bolt-launcher      # VERIFY (RuneScape launcher)
-    # NOT in nixpkgs (AUR-only) — use flatpak or VPN config instead:
+    # NOT in nixpkgs (AUR-only) — flatpak or VPN config instead:
     #   surfshark-client -> wireguard/openvpn config
     #   recordly-bin     -> obs-studio or flatpak
   ];
+in
+{
+  home.packages = base ++ lib.optionals (!osConfig.my.lean) heavy;
 }

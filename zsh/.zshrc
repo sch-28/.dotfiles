@@ -112,6 +112,20 @@ alias gl='git pull'
 alias gd='git diff'
 alias glog='git log --oneline --decorate --graph'
 
+# NixOS — rebuild from ~/.dotfiles, auto-targeting this host (#desktop/laptop/surface).
+# No-ops on Arch (nixos-rebuild absent). FLAKE points at the repo, runnable anywhere.
+if command -v nixos-rebuild >/dev/null 2>&1; then
+  FLAKE="$HOME/.dotfiles#$(hostnamectl --static 2>/dev/null || hostname)"
+  alias nrs="sudo nixos-rebuild switch --flake $FLAKE"  # apply now + persist
+  alias nrt="sudo nixos-rebuild test   --flake $FLAKE"  # try without a boot entry
+  alias nrb="sudo nixos-rebuild boot   --flake $FLAKE"  # apply on next boot
+  alias nro="sudo nixos-rebuild switch --rollback"      # roll back a generation
+  alias nfu="nix flake update --flake $HOME/.dotfiles"  # bump inputs (re-lock)
+  alias ngc="sudo nix-collect-garbage -d"               # delete old generations
+  # dry validate a host without building: nrc desktop
+  nrc() { nix eval ".#nixosConfigurations.${1:-$(hostname)}.config.system.build.toplevel.drvPath" >/dev/null && echo "ok: ${1:-$(hostname)}"; }
+fi
+
 # ============================================================
 #  Tools
 # ============================================================

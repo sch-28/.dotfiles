@@ -2,6 +2,8 @@
 # user/app config lives in nix/home/. GPU drivers + disks are per-host.
 { pkgs, ... }:
 {
+  imports = [ ../modules/lean.nix ]; # defines the `my.lean` flag (used by home)
+
   # Flakes + new CLI.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true; # slack, spotify, nvidia, steam...
@@ -122,5 +124,5 @@
     pciutils usbutils # lspci / lsusb for diagnosis
   ];
 
-  system.stateVersion = "25.11"; # do NOT change after install
+  system.stateVersion = "26.05"; # do NOT change after install
 }

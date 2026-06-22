@@ -52,12 +52,8 @@
   services.tailscale.enable = true;
 
   # --- Docker ---
-  # Pin docker_29 (29.5.3): the default `docker` attr in this channel is 28.5.2,
-  # which is EOL-flagged. 29 is the current non-EOL release. (jan is in the
-  # "docker" group via common.nix.)
-  virtualisation.docker = {
-    enable = true;
-    package = pkgs.docker_29;
-  };
+  # 26.05's default docker is 29.5.3 (current, not EOL) — no version pin needed.
+  # jan is in the "docker" group via common.nix.
+  virtualisation.docker.enable = true;
 }
 

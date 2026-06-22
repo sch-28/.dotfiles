@@ -7,6 +7,7 @@
   imports = [
     ./common.nix
     ../profiles/workstation.nix # gaming + peripherals (real machine)
+    ../profiles/portable.nix # Intel iGPU + power + zram (shared with surface)
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
@@ -19,18 +20,7 @@
     "laptop.nix uses PLACEHOLDER disk labels (nixos/BOOT). Replace with the generated hardware-configuration.nix before installing."
   ];
 
-  # === GPU — Intel integrated ===
-  # gaming base (steam/graphics 32-bit) comes from common.nix; just the driver.
-  services.xserver.videoDrivers = [ "modesetting" ];
-  services.thermald.enable = true; # Intel thermal management
-
-  # === Power management (laptop) ===
-  services.power-profiles-daemon.enable = true; # balances perf/battery (upower in common)
-  # Lid behaviour:
-  services.logind.settings.Login.HandleLidSwitch = "suspend";
-
-  # Backlight control for the laptop panel:
-  programs.light.enable = true;
+  # GPU + power + zram come from profiles/portable.nix.
 
   # === Bootloader — assume UEFI systemd-boot on the laptop ===
   boot.loader.systemd-boot.enable = true;
