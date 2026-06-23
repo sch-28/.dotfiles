@@ -6,6 +6,7 @@
     ./modules/wm.nix # i3, polybar, rofi, dunst, picom — reused from stow dirs
     ./modules/terminal.nix # kitty, tmux, zsh, fzf
     ./modules/packages.nix # all user apps + cli tools (mapped from pacman -Qe)
+    ./modules/harden.nix # pkg-manager supply-chain hardening (npm/pnpm/bun/pip/cargo)
   ];
 
   home.username = "jan";

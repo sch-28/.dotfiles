@@ -4,6 +4,9 @@
   xdg.configFile = {
     "kitty".source = ../../../kitty/.config/kitty;
     "tmux".source = ../../../tmux/.config/tmux;
+    # nvim config (Neovim 0.12 vim.pack manager fetches plugins to the writable
+    # data dir on first launch, so the read-only store config is fine).
+    "nvim".source = ../../../nvim/.config/nvim;
   };
 
   # .zshrc is antigen-free (no runtime GitHub fetch), safe to reuse verbatim.

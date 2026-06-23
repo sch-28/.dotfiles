@@ -14,7 +14,9 @@ let
     ripgrep fzf bat zoxide jq tmux
     ranger newsboat tldr stow
     pv pwgen rsync wget which unzip zip unrar
+    neovim # your $EDITOR; config symlinked in terminal.nix
     git gh claude-code
+    nodejs_22 pnpm # node ships npm/npx/corepack; pnpm separate
     python3Packages.i3ipc # REQUIRED by i3 helper scripts (autotiling etc)
 
     # --- system / disk / hardware utils (smartmontools via services.smartd) ---
@@ -52,8 +54,8 @@ let
 
   # Skipped on lean hosts (surface). Big downloads / heavy at runtime.
   heavy = with pkgs; [
-    # --- dev toolchains (Nix replaces nvm/bob/rustup) ---
-    nodejs_22 bun cargo rustc
+    # --- dev toolchains (Nix replaces nvm/bob/rustup; node/pnpm moved to base) ---
+    bun cargo rustc cargo-audit
     jdk jdk21          # jdk25  # VERIFY (may be temurin-bin-25)
     maven
     clang lld cmake meson nasm
