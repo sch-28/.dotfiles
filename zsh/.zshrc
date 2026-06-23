@@ -63,6 +63,23 @@ setopt hist_reduce_blanks      # trim surplus whitespace before saving
 # ============================================================
 bindkey -e
 
+# Word movement + line nav that oh-my-zsh used to provide. Without these the
+# terminal's escape sequences (e.g. Ctrl-Right = ^[[1;5C) aren't bound and the
+# trailing letter (C/D/A/B) gets inserted literally.
+bindkey '^[[1;5C' forward-word        # Ctrl-Right
+bindkey '^[[1;5D' backward-word       # Ctrl-Left
+bindkey '^[[1;3C' forward-word        # Alt-Right
+bindkey '^[[1;3D' backward-word       # Alt-Left
+bindkey '^[[H'    beginning-of-line   # Home
+bindkey '^[[F'    end-of-line         # End
+bindkey '^[[1~'   beginning-of-line   # Home (alt encoding)
+bindkey '^[[4~'   end-of-line         # End  (alt encoding)
+bindkey '^[[3~'   delete-char         # Delete
+bindkey '^[[3;5~' kill-word           # Ctrl-Delete
+bindkey '^H'      backward-kill-word  # Ctrl-Backspace (some terminals)
+bindkey '^[[1;5A' up-line-or-history    # Ctrl-Up
+bindkey '^[[1;5B' down-line-or-history  # Ctrl-Down
+
 # ============================================================
 #  Prompt — minimal, no theme framework.
 # ============================================================
