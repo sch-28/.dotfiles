@@ -1,4 +1,8 @@
-killall -q polybar
+# Kill any running polybar and WAIT for it to die before relaunching, so
+# i3's `exec_always` (mod+shift+r) doesn't stack a new bar each restart.
+# pkill/pgrep (procps) are present on NixOS; `killall` (psmisc) is not.
+pkill -x polybar 2>/dev/null
+while pgrep -x polybar >/dev/null; do sleep 0.3; done
 #  if type "xrandr"; then
 #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
 #     MONITOR=$m polybar --reload toph &

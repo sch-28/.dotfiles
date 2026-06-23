@@ -41,7 +41,7 @@ let
     flameshot feh
 
     # --- light GUI (browser, terminal, file manager, small utils) ---
-    firefox
+    firefox firefox-devedition
     kitty xfce4-terminal xterm
     nemo xarchiver meld
     galculator gnome-calculator
@@ -60,7 +60,7 @@ let
     pipx lazydocker
 
     # --- heavy GUI apps ---
-    chromium firefox-devedition
+    chromium
     vscode
     discord vesktop slack spotify
     obsidian

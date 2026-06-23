@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Silently empty when playerctl/spotify isn't present (e.g. the lean surface),
 # so polybar shows nothing instead of erroring.
 command -v playerctl >/dev/null 2>&1 || { echo ""; exit 0; }
