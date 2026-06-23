@@ -26,4 +26,14 @@
   boot.loader.systemd-boot.configurationLimit = 10; # cap generations — 512MB ESP
 
   # Disks come from hardware-configuration-surface.nix (generated on the device).
+
+  # Disk swapfile as a slow second tier behind zram (priority 5 from
+  # zram-generator). 4 GB on the 64 GB eMMC — kicks in only when zram is full,
+  # so it absorbs the next memory spike without thrash-livelocking the GUI.
+  # Slow > frozen. NixOS creates the file on first activation.
+  swapDevices = [{
+    device = "/swapfile";
+    size = 4096; # MB
+    priority = 1; # lower than zram (5) → kernel prefers zram
+  }];
 }
