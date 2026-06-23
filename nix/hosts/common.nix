@@ -4,8 +4,17 @@
 {
   imports = [ ../modules/lean.nix ]; # defines the `my.lean` flag (used by home)
 
+  # Redistributable firmware (wifi/GPU blobs) + lets CPU-microcode updates
+  # apply on hosts that don't pull a nixos-hardware module (e.g. surface).
+  hardware.enableRedistributableFirmware = true;
+
   # Flakes + new CLI.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Disk hygiene — weekly GC (drop generations >30d) + scheduled store dedup.
+  # Matters most on the 64GB Surface. optimise.automatic is timer-driven, so it
+  # avoids the build-hot-path cost of auto-optimise-store.
+  nix.gc = { automatic = true; dates = "weekly"; options = "--delete-older-than 30d"; };
+  nix.optimise.automatic = true;
   nixpkgs.config.allowUnfree = true; # slack, spotify, nvidia, steam...
   # bitwarden-desktop 2026.2.1 pins electron_39, which upstream flags EOL.
   # Whitelisted so the desktop app builds — it ships its own local UI (not a web

@@ -7,12 +7,12 @@
   imports = [
     ./common.nix
     ../profiles/portable.nix # Intel iGPU + power + zram (shared with laptop)
+    ./hardware-configuration-surface.nix # real UUIDs + eMMC initrd modules
     # microsoft-surface-go pulls the linux-surface kernel, which is BUILT FROM
     # SOURCE (no binary cache) — a ~2h compile on this 4GB Pentium. Disabled so
     # the install uses the cached mainline kernel (minutes). Re-enable later when
     # you want touch/pen and can spare the one-time compile.
     # inputs.nixos-hardware.nixosModules.microsoft-surface-go
-    # ./hardware-configuration-surface.nix  # <-- generated ON the surface, then uncomment
   ];
 
   networking.hostName = "surface";
@@ -20,23 +20,10 @@
 
   # NOT imported: workstation.nix — no gaming/docker/SMART on a 4GB test box.
 
-  warnings = [
-    "surface.nix uses PLACEHOLDER disk labels. Replace with the generated hardware-configuration.nix before installing."
-  ];
-
   # === Bootloader — UEFI systemd-boot ===
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10; # cap generations — 512MB ESP
 
-  # === Placeholder disks — REPLACE with generated config on the device ===
-  # Surface Go eMMC is typically /dev/mmcblk0; nixos-generate-config writes the
-  # real UUIDs. This is just a shape so the flake evaluates beforehand.
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
-  };
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/BOOT";
-    fsType = "vfat";
-  };
+  # Disks come from hardware-configuration-surface.nix (generated on the device).
 }

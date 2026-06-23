@@ -49,6 +49,9 @@
 
   # --- Remote access (real machines only) ---
   services.openssh.enable = true;
+  # Key-only login (uncomment once your authorized_keys is in place — locking
+  # yourself out of a headless box over password is the only risk here):
+  # services.openssh.settings.PasswordAuthentication = false;
   services.tailscale.enable = true;
 
   # --- Docker ---

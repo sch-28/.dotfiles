@@ -40,6 +40,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.efiSysMountPoint = "/efi";
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10; # cap generations on the ESP
 
   # === EXISTING partitions — formatted ONLY p6 (root) on install ===
   # p7 = /home (@home subvol) -> keep your 1.3T of data.

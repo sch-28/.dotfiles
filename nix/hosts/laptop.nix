@@ -25,6 +25,7 @@
   # === Bootloader — assume UEFI systemd-boot on the laptop ===
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10; # cap generations on the ESP
 
   # === Placeholder disks — REPLACE with the laptop's generated config ===
   # nixos-generate-config writes the real device UUIDs; this is just a shape so
