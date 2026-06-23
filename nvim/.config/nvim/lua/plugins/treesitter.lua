@@ -1,6 +1,5 @@
---  ── check if tree-sitter CLI is installed, if not install it ────────────────
-local ts_bin = vim.fn.expand("~/.cargo/bin/tree-sitter")
-if vim.fn.filereadable(ts_bin) == 0 then
+--  ── check if tree-sitter CLI is on PATH, if not install via cargo ──────────
+if vim.fn.executable("tree-sitter") == 0 then
     print("Installing tree-sitter CLI, please wait...")
     local result = os.execute("cargo install --locked tree-sitter-cli")
     if result == 0 then

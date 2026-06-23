@@ -55,8 +55,11 @@ require("typescript-tools").setup {
 }
 require "mason".setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls" },
+    -- lua_ls comes from nix (lua-language-server) because mason's prebuilt
+    -- binary links to /lib64/ld-linux-x86-64.so.2 and fails with exit 127 on NixOS.
+    ensure_installed = {},
 })
+vim.lsp.enable('lua_ls')
 
 vim.diagnostic.config({
     update_in_insert = true,
@@ -131,7 +134,7 @@ vim.lsp.config("jdtls", {
   cmd = {
     mason_bin .. "/jdtls",
     "--java-executable",
-    "/usr/bin/java", -- your Java 26
+    "java", -- resolved from PATH (jdk provided by nix)
   },
   settings = { java = {} },
 })

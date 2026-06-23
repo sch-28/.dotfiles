@@ -190,7 +190,7 @@ for_window [class="firefox"] title_format "%title"
 
 
 #files
-bindsym $mod+o exec --no-startup-id thunar
+bindsym $mod+o exec --no-startup-id nemo
 
 bindsym $mod+Shift+f floating toggle, resize set 1200 800
 bindsym $mod+Shift+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'

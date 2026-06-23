@@ -17,9 +17,18 @@ let
     neovim # your $EDITOR; config symlinked in terminal.nix
     git gh claude-code
     nodejs_22 pnpm # node ships npm/npx/corepack; pnpm separate
-    python3Packages.i3ipc # REQUIRED by i3 helper scripts (autotiling etc)
+    (python3.withPackages (ps: with ps; [ i3ipc ])) # python3 + i3ipc; REQUIRED by i3 helper scripts (autotiling, firefox-launch, firefox-title, quick-launch)
+
+    # --- nvim runtime deps (config in nvim/.config/nvim) ---
+    cargo rustc          # blink.cmp `cargo build --release` on first launch
+    gcc gnumake          # nvim-treesitter parser compilation; cargo native-dep builds
+    tree-sitter          # satisfies plugins/treesitter.lua PATH check, skips cargo install
+    prettier             # ALE fixer for js/ts/jsx/tsx (plugins/ale.lua)
+    harper               # harper_ls grammar checker (lsp.lua)
+    lua-language-server  # lua_ls (mason's prebuilt binary breaks on NixOS — exit 127)
 
     # --- system / disk / hardware utils (smartmontools via services.smartd) ---
+    psmisc # killall, pstree, fuser (procps ships pkill but not killall)
     acpi alsa-utils brightnessctl
     dmidecode hdparm hwinfo lsscsi nvme-cli sg3_utils
     ethtool nmap dnsutils
@@ -33,7 +42,7 @@ let
     # --- X11 helpers ---
     xclip xcolor xbindkeys xss-lock numlockx dex xdotool
     libinput-gestures # config in wm.nix; autostarted via dex (.desktop in wm.nix)
-    xdpyinfo xinput xkill xrandr xsetroot setxkbmap
+    xdpyinfo xinput xkill xrandr xsetroot setxkbmap xprop
     arandr lxappearance nwg-look
 
     # --- WM stack (i3 enabled in common.nix; these are the daemons) ---
@@ -54,8 +63,8 @@ let
 
   # Skipped on lean hosts (surface). Big downloads / heavy at runtime.
   heavy = with pkgs; [
-    # --- dev toolchains (Nix replaces nvm/bob/rustup; node/pnpm moved to base) ---
-    bun cargo rustc cargo-audit
+    # --- dev toolchains (Nix replaces nvm/bob/rustup; node/pnpm/cargo/rustc moved to base for nvim) ---
+    bun cargo-audit
     jdk jdk21          # jdk25  # VERIFY (may be temurin-bin-25)
     maven
     clang lld cmake meson nasm
@@ -89,7 +98,6 @@ let
 
     # --- low-confidence / needs decision ---
     # hactool            # VERIFY (Switch NCA tool)
-    # harper             # VERIFY (grammar checker / harper-ls)
     # NOT in nixpkgs (AUR-only) — flatpak or VPN config instead:
     #   surfshark-client -> wireguard/openvpn config
     #   recordly-bin     -> obs-studio or flatpak
