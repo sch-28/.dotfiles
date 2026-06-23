@@ -14,7 +14,7 @@ let
     ripgrep fzf bat zoxide jq tmux
     ranger newsboat tldr stow
     pv pwgen rsync wget which unzip zip unrar
-    git gh
+    git gh claude-code
     python3Packages.i3ipc # REQUIRED by i3 helper scripts (autotiling etc)
 
     # --- system / disk / hardware utils (smartmontools via services.smartd) ---
@@ -60,7 +60,7 @@ let
     pipx lazydocker
 
     # --- heavy GUI apps ---
-    chromium
+    chromium firefox-devedition
     vscode
     discord vesktop slack spotify
     obsidian

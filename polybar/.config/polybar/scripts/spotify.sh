@@ -1,8 +1,7 @@
 #!/bin/bash
-
-# Bar characters
-bars=(▁ ▂ ▃ ▄ ▅ ▆ ▇ █)
-bar_count=${#bars[@]}
+# Silently empty when playerctl/spotify isn't present (e.g. the lean surface),
+# so polybar shows nothing instead of erroring.
+command -v playerctl >/dev/null 2>&1 || { echo ""; exit 0; }
 
 status=$(playerctl --player spotify status 2>/dev/null)
 
