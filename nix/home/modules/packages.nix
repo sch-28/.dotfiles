@@ -31,8 +31,7 @@ let
     # --- X11 helpers ---
     xclip xcolor xbindkeys xss-lock numlockx dex xdotool
     libinput-gestures # config in wm.nix; autostarted via dex (.desktop in wm.nix)
-    xorg.xdpyinfo xorg.xinput xorg.xkill xorg.xrandr
-    xorg.xsetroot xorg.setxkbmap
+    xdpyinfo xinput xkill xrandr xsetroot setxkbmap
     arandr lxappearance nwg-look
 
     # --- WM stack (i3 enabled in common.nix; these are the daemons) ---
@@ -43,12 +42,12 @@ let
 
     # --- light GUI (browser, terminal, file manager, small utils) ---
     firefox
-    kitty xfce.xfce4-terminal xterm
+    kitty xfce4-terminal xterm
     nemo xarchiver meld
     galculator gnome-calculator
     gparted gnome-disk-utility btrfs-assistant
     mission-center
-    xfce.xfce4-screensaver
+    xfce4-screensaver
   ];
 
   # Skipped on lean hosts (surface). Big downloads / heavy at runtime.
@@ -69,7 +68,7 @@ let
     libreoffice-fresh
     gimp inkscape darktable blender freecad fontforge
     calibre mpv
-    xfce.thunar
+    thunar
     kdePackages.dolphin kdePackages.gwenview
     rustdesk vokoscreen-ng
     # xed-editor          # VERIFY attr name
@@ -78,7 +77,7 @@ let
 
     # --- gaming / emulation (steam via programs.steam in workstation.nix) ---
     lutris protontricks winetricks
-    wineWowPackages.staging
+    wineWow64Packages.staging
     mangohud
     retroarch ppsspp dolphin-emu dosbox
 

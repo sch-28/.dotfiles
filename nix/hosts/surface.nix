@@ -7,7 +7,11 @@
   imports = [
     ./common.nix
     ../profiles/portable.nix # Intel iGPU + power + zram (shared with laptop)
-    inputs.nixos-hardware.nixosModules.microsoft-surface-go # linux-surface kernel, wifi, touch
+    # microsoft-surface-go pulls the linux-surface kernel, which is BUILT FROM
+    # SOURCE (no binary cache) — a ~2h compile on this 4GB Pentium. Disabled so
+    # the install uses the cached mainline kernel (minutes). Re-enable later when
+    # you want touch/pen and can spare the one-time compile.
+    # inputs.nixos-hardware.nixosModules.microsoft-surface-go
     # ./hardware-configuration-surface.nix  # <-- generated ON the surface, then uncomment
   ];
 
