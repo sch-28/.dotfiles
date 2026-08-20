@@ -11,16 +11,15 @@ while pgrep -x polybar >/dev/null; do sleep 0.3; done
 #   polybar --reload toph &
 # fi
 
-BAR_NAME=main
 BAR_CONFIG=/home/$USER/.config/polybar/config
 
 SCREENS=$(xrandr --query | grep " connected" | wc -l)
 PRIMARY=$(xrandr --query | grep " connected" | grep "primary" | cut -d" " -f1)
 OTHERS=$(xrandr --query | grep " connected" | grep -v "primary" | cut -d" " -f1)
 
-# Launch on primary monitor
-MONITOR=$PRIMARY polybar --reload -c $BAR_CONFIG $BAR_NAME &
-sleep 1
+# Primary gets bar/main (the only one with the systray module), everything else
+# gets bar/secondary. Two bars with a tray would fight over _NET_SYSTEM_TRAY_S0.
+MONITOR=$PRIMARY polybar --reload -c $BAR_CONFIG main >/tmp/polybar-$PRIMARY.log 2>&1 &
 
 # If only one screen, quit
 if [ $SCREENS -eq 1 ]; then
@@ -30,5 +29,5 @@ fi
 
 # Launch on all other monitors
 for m in $OTHERS; do
- MONITOR=$m polybar --reload -c $BAR_CONFIG $BAR_NAME &
+ MONITOR=$m polybar --reload -c $BAR_CONFIG secondary >/tmp/polybar-$m.log 2>&1 &
 done

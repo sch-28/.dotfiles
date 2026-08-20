@@ -24,6 +24,12 @@ bash ./update.sh
 log "Install required pacman packages"
 sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav redshift xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse smartmontools
 
+log "Install dolphin (see kde/ stow package)"
+# plasma-integration: platform theme plugin, without it Qt ignores kdeglobals and
+# renders light. archlinux-xdg-menu: provides /etc/xdg/menus/arch-applications.menu,
+# which XDG_MENU_PREFIX in zsh/.zprofile points kbuildsycoca6 at.
+sudo pacman -S dolphin kio-extras kde-cli-tools plasma-integration archlinux-xdg-menu breeze breeze-icons ffmpegthumbs kdegraphics-thumbnailers gwenview
+
 log "Install required yay packages"
 yay -S greenclip
 
@@ -40,6 +46,12 @@ curl -L git.io/antigen > ~/.antigen.zsh
 
 log "Stow all dotfiles"
 sudo bash stow-all.sh
+
+log "Rebuild KDE service cache"
+# A cache built without XDG_MENU_PREFIX has zero apps in it and won't refresh on
+# its own, since the source dirs' mtimes haven't changed. Drop it and rebuild.
+rm -f ~/.cache/ksycoca6*
+XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental
 
 log "Virus protection"
 sudo systemctl enable --now clamav-freshclam.service

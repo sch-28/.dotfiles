@@ -3,6 +3,12 @@
 sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow ly polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse
 ```
 
+## dolphin
+Packages and cache rebuild live in `install.sh` (dolphin section). Config is the
+`kde/` stow package plus `QT_QPA_PLATFORMTHEME` + `XDG_MENU_PREFIX`, exported from
+`zsh/.zprofile` and forwarded to D-Bus by `i3/.config/i3/config`. Without those two
+dolphin renders light and "Open With" comes up empty. Relog after stowing.
+
 ## node
 ```
 nvm install 22.14

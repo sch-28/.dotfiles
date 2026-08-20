@@ -13,8 +13,20 @@ font pango:Fira Code 10
 # Push i3's env into the systemd user manager + D-Bus activation env (--systemd
 # covers both), then start a session target that pulls in graphical-session.target
 # so xdg-desktop-portal can start (it has Requisite=graphical-session.target).
-exec_always --no-startup-id dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP
+# The two Qt/KDE vars matter here as well as in the login shell: dolphin is D-Bus
+# activatable (org.kde.dolphin.FileManager1) and kded6 rebuilds the sycoca cache,
+# so without them those get a light theme and an app-less "Open With".
+exec_always --no-startup-id dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME XDG_MENU_PREFIX
 exec_always --no-startup-id systemctl --user start --no-block i3-session.target
+
+# Electron/Qt apps publish tray icons over D-Bus (StatusNotifierItem) whenever a
+# watcher is on the bus. Polybar's tray is XEmbed-only, so those icons render
+# nowhere. snixembed owns the watcher name and proxies them into the polybar tray;
+# kded6 must not grab that name first, hence kde/.config/kded6rc.
+# --fork returns once the service is up, so apps started below always find it.
+# Plain exec, not exec_always: it must outlive polybar restarts, and a second
+# instance would duplicate every icon.
+exec --no-startup-id snixembed --fork
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -190,7 +202,7 @@ for_window [class="firefox"] title_format "%title"
 
 
 #files
-bindsym $mod+o exec --no-startup-id nemo
+bindsym $mod+o exec --no-startup-id dolphin
 
 bindsym $mod+Shift+f floating toggle, resize set 1200 800
 bindsym $mod+Shift+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
@@ -243,6 +255,11 @@ exec --no-startup-id greenclip daemon
 exec_always --no-startup-id sh ~/.config/polybar/launch.sh
 exec --no-startup-id dunst
 
+# Dismiss notifications from the keyboard. Dismissing is also what stops
+# slack-alert.sh repeating the notification sound.
+bindsym $mod+n exec --no-startup-id dunstctl close
+bindsym $mod+Shift+n exec --no-startup-id dunstctl close-all
+
 
 # scratch apps and bindings
 for_window [class="vol|Spotify|Slack|news|notes"] floating enable, move scratchpad, border pixel 0
@@ -279,3 +296,4 @@ exec_always --no-startup-id sh -c "redshift -x && redshift -O 4500"
 exec_always --no-startup-id xset s off
 exec_always --no-startup-id xset -dpms
 exec_always --no-startup-id xset s noblank
+

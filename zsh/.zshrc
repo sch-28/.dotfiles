@@ -9,6 +9,7 @@ path=(
   "$HOME/bin"
   "$HOME/.local/bin"
   "$HOME/.cargo/bin"
+  "$HOME/dev/flutter/bin"
   $path
 )
 

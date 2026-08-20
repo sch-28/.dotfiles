@@ -122,4 +122,11 @@
     summary = "*"
     script = ~/.config/dunst/sound.sh
 
-    
+# Slack last, so its script overrides [play_sound] for these notifications
+# rather than both firing. timeout = 0 makes it stick until acknowledged, which
+# is what slack-alert.sh polls to know when to stop beeping.
+[slack_alert]
+    enabled = true
+    appname = "Slack"
+    timeout = 0
+    script = ~/.config/dunst/slack-alert.sh

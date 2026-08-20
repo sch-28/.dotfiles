@@ -97,6 +97,13 @@ enable-ipc = true
 
 ; override-redirect = true
 
+; Only one X client can own _NET_SYSTEM_TRAY_S0, so the tray lives on the primary
+; bar only. Secondary monitors get this bar instead, or the two instances race for
+; the selection and icons land on the wrong screen.
+[bar/secondary]
+inherit = bar/main
+modules-right = spotify pulseaudio filesystem battery memory cpu gpu eth wlan date
+
 [module/systray]
 type = internal/tray
 
