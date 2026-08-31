@@ -22,7 +22,7 @@ log "Running full update"
 bash ./update.sh
 
 log "Install required pacman packages"
-sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav redshift xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse smartmontools
+sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar snixembed rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav redshift xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse smartmontools
 
 log "Install dolphin (see kde/ stow package)"
 # plasma-integration: platform theme plugin, without it Qt ignores kdeglobals and

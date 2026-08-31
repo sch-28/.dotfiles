@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Neovim (floating kitty)
+GenericName=Text Editor
+Comment=Edit text files in nvim inside a floating kitty window
+Icon=nvim
+Exec=kitty --class nvim-float --name nvim-float -e nvim %F
+Terminal=false
+StartupNotify=false
+Categories=Utility;TextEditor;
+MimeType=inode/x-empty;text/plain;text/english;text/x-log;text/x-java-properties;text/markdown;text/csv;text/x-makefile;text/x-c;text/x-c++;text/x-chdr;text/x-c++hdr;text/x-csrc;text/x-c++src;text/x-java;text/x-python;text/x-shellscript;text/x-script.python;text/x-lua;text/x-sql;text/x-diff;text/x-patch;text/x-tex;text/troff;text/vnd.trolltech.linguist;text/xml;text/css;text/javascript;application/json;application/x-yaml;application/yaml;application/toml;application/xml;application/x-shellscript;application/x-perl;application/x-ruby;application/x-desktop;application/octet-stream;

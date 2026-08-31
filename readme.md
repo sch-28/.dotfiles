@@ -1,6 +1,6 @@
 ## needed programs
 ```
-sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow ly polybar rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse
+sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow ly polybar snixembed rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse
 ```
 
 ## dolphin

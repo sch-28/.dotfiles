@@ -223,6 +223,7 @@ bindsym $mod+p exec --no-startup-id playerctl --player=spotify play-pause
 
 for_window [class="^.*"] floating enable
 for_window [class="kitty|firefox"] floating disable
+for_window [class="^nvim-float$"] floating enable, resize set 1400 900, move position center
 
 
 bindsym $mod+Ctrl+n [title="nvim"] focus; move to workspace 1; workspace 1;
