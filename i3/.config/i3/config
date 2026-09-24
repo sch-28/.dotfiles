@@ -63,6 +63,8 @@ bindsym $mod+BackSpace exec kitty --single-instance
 
 # kill focused window
 bindsym $mod+q kill
+# SIGKILL for hung apps that ignore WM_DELETE_WINDOW; fall back to dropping the X connection if no _NET_WM_PID
+bindsym $mod+Shift+q exec --no-startup-id sh -c 'pid=$(xdotool getwindowfocus getwindowpid) && kill -9 "$pid" || i3-msg kill client'
 bindsym --release button2 kill
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
