@@ -105,9 +105,18 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
+# Matched by make/model/serial: Wayland connector names differ from the X ones in the i3 config.
+set $main "Samsung Electric Company Odyssey G7 H1AK500000"
+set $side "iiyama Corporation PL2792Q 1152194803166"
+output $main mode 3840x2160@60Hz position 0 0
+output $side mode 2560x1440@69.92Hz position 3840 0
+focus output $main
+
 # Move workspaces to outputs (monitors)
-workspace 1 output DP-4
-workspace 2 output DP-1
+workspace 1 output $main
+workspace 2 output $main
+workspace 3 output $side
+workspace 4 output $side
 
 # Move workspace between outputs
 bindsym $mod+Ctrl+l move workspace to output right

@@ -4,7 +4,7 @@
 
 [global]
     ### Display ###
-    monitor = 2
+    monitor = 0
 
     follow = none
 

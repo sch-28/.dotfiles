@@ -192,11 +192,14 @@ bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
-workspace 1 output DP-4
-workspace 2 output DP-1
+workspace 1 output DisplayPort-2
+workspace 2 output DisplayPort-2
+workspace 3 output DisplayPort-1
+workspace 4 output DisplayPort-1
 
 bindsym $alt+Shift+b exec sh /home/jan/toggle-displays.sh
 bindsym $alt+Shift+n exec sh /home/jan/turn-off-displays.sh
+bindsym $alt+Shift+m exec --no-startup-id ~/.config/i3/res-toggle
 
 bindsym $mod+Shift+Return exec --no-startup-id ~/.config/i3/firefox/firefox-launch
 bindsym $mod+Shift+BackSpace exec --no-startup-id /home/jan/.local/bin/firefox/firefox
@@ -290,7 +293,7 @@ mode "scratchpads" {
 
 
 
-exec_always --no-startup-id xrandr --output DP-4 --primary --output DP-0 --right-of DP-4
+exec_always --no-startup-id xrandr --output DisplayPort-2 --primary --mode 2560x1440 --rate 69.92 --output DisplayPort-1 --mode 3840x2160 --rate 60 --right-of DisplayPort-2
 exec_always --no-startup-id ~/.config/i3/autotiling
 exec_always --no-startup-id ~/.config/i3/firefox/firefox-title
 # exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf

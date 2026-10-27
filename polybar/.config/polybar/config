@@ -61,7 +61,7 @@ width = 100%
 height = 28pt
 radius = 0
 
-; dpi = 96
+dpi = ${xrdb:Xft.dpi:96}
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -194,7 +194,7 @@ label = %percentage:2%%
 
 [module/gpu]
 type = custom/script
-exec = ~/.config/polybar/scripts/system-nvidia-smi.sh
+exec = ~/.config/polybar/scripts/system-gpu.sh
 interval = 10
 
 [module/battery]
