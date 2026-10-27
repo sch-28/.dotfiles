@@ -45,7 +45,7 @@ log "Install antigen"
 curl -L git.io/antigen > ~/.antigen.zsh
 
 log "Stow all dotfiles"
-sudo bash stow-all.sh
+bash stow-all.sh
 
 log "Rebuild KDE service cache"
 # A cache built without XDG_MENU_PREFIX has zero apps in it and won't refresh on

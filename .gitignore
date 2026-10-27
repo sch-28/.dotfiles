@@ -45,3 +45,8 @@ result
 result-*
 *.qcow2
 
+
+# matugen / Dux output
+kitty/.config/kitty/dank-*.conf
+nvim/.config/nvim/colors/dms.lua
+hypr/.config/hypr/.dms-backups/

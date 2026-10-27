@@ -3,14 +3,38 @@
 # Go to dotfiles root (optional, in case it's run from elsewhere)
 cd "$(dirname "$0")"
 
-# Get all folders except 'ly'
-for dir in */; do
-    dir=${dir%/}
-    if [[ "$dir" != "ly" ]]; then
-        stow "$dir"
-    fi
-done
+# Explicit list: other top-level dirs (agents, nix, scripts, ...) aren't $HOME mirrors.
+# ly targets / and is stowed separately with sudo (see install.sh).
+packages=(
+    bin
+    claude
+    dunst
+    flameshot
+    i3
+    i3status
+    kde
+    kitty
+    kmonad
+    mime
+    newsboat
+    nvim
+    nvim-old
+    picom
+    pipewire
+    polybar
+    retroarch
+    rofi
+    sway
+    tmux
+    xdg-desktop-portal
+    zsh
+)
 
-# Now stow ly with sudo to /etc
-# echo "Stowing ly to /etc with sudo..."
-# sudo stow -t / ly
+# Programs write their own files into these dirs (systemctl enable -> *.wants/),
+# so link per file instead of folding the whole dir into the repo.
+no_fold=(
+    systemd
+)
+
+stow "${packages[@]}"
+stow --no-folding "${no_fold[@]}"
