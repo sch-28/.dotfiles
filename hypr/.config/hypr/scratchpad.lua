@@ -120,7 +120,6 @@ function M.stash()
     end
 end
 
--- window.class too: Spotify sets its class only after mapping.
 local function adopt(w)
     if not w then return end
     for name, mode in pairs(pending) do
@@ -132,6 +131,5 @@ local function adopt(w)
     end
 end
 hl.on("window.open", adopt)
-hl.on("window.class", adopt)
 
 return M

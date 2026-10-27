@@ -164,7 +164,7 @@ Scratchpads — `scratchpad.lua` (i3 semantics): `special:<name>` is only the hi
 | vol | `kitty --class vol -e pulsemixer` | 1400x800 |
 | notes | `kitty --class notes -1 -e zsh -lic "nvim ~/notes.md"` | 1400x800 |
 | news | `kitty --class news -e newsboat` | 1400x800 |
-| spotify | `spotify-launcher` (class `Spotify`, may be set late → `hl.on` workaround) | app default |
+| spotify | `spotify-launcher` (native Wayland via `spotify/`, class `spotify`) | app default |
 | slack | `slack` | 1600x1000 (`suppress_event = maximize`: Slack restores its maximized state, which tiled it) |
 
 All scratchpads: no border. Other rules: float all except `^(kitty|firefox)$` (center, persistent size); `nvim-float` 1400x900 centered. Global `suppress_event = maximize` (like i3: kitty/Slack maximize requests on open covered the workspace).

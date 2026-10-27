@@ -24,6 +24,7 @@ packages=(
     polybar
     retroarch
     rofi
+    spotify
     sway
     tmux
     xdg-desktop-portal
