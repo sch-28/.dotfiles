@@ -29,7 +29,7 @@ come from the 0.56 wiki; check each against `/usr/share/hypr/stubs` before use.
 
 - [ ] Jan commits current changes.
 - [ ] **`stow-all.sh` → explicit package list.** Today it stows every dir except `ly`, so `agents/ nix/ scripts/ system-check/` leak into `~` (`~/check.sh`, `~/kill.sh`, `~/update.sh` already did). Clean the leaked links after. `mime` and `claude` conflict on real files (`~/.config/mimeapps.list`, `~/.claude/settings.json.bak`) — resolve. `install.sh` runs `sudo bash stow-all.sh` → drop `sudo` (root-owned dirs).
-- [ ] **Unfold `~/.config/systemd`** (today a dir symlink into the repo, so every `systemctl --user enable` writes `*.wants/` links into git — that's why the kscreen masks show as untracked). Stow `systemd` with `--no-folding`; commit the kscreen masks (they must stay — see `project_kscreen_modeset`).
+- [ ] **Unfold `~/.config/systemd`** (today a dir symlink into the repo, so every `systemctl --user enable` writes `*.wants/` links into git — that's why the kscreen masks show as untracked). Stow `systemd` with `--no-folding`. kscreen masks must stay (see `project_kscreen_modeset`). Stow refuses `/dev/null` links → `install.sh` runs `systemctl --user mask plasma-kscreen.service plasma-kscreen-osd.service`. Verify: `systemctl --user is-enabled plasma-kscreen.service` = `masked`.
 - [ ] New packages `hypr` and later `dms` stowed with `--no-folding` too (Dux writes generated files next to ours).
 - [ ] `.gitignore`: matugen output in folded dirs (`kitty/.config/kitty/dank-*.conf`, `nvim/.config/nvim/colors/dms.lua`), `hypr/.config/hypr/.dms-backups/`.
 
@@ -83,7 +83,7 @@ Monitors — match by `desc:` (Wayland connector names differ from X; EDID-verif
 - [ ] Idle: monitor/lock/suspend timeouts 0 (i3 today: no blanking). Night mode manual 4500K (replaces redshift).
 - [ ] Wallpaper switcher: Dux built-in (Settings → Wallpaper, `dms ipc call wallpaper next|prev`, per-monitor `nextFor <screen>`). Folder `~/Pictures/wallpapers` with ~20–40 picks from a curated upstream collection, or filled via the Wallpaper Discovery plugin (see Plugins). Images not in git — note the source in `readme.md`. Bind Super+Shift+w → next. Fixed colour scheme stays; matugen-from-wallpaper is an option to try later.
 - [ ] Keyring/SSH: check `grep gnome_keyring /etc/pam.d/ly` first. Then `systemctl --user enable gcr-ssh-agent.socket`, export `SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh` in `.zprofile`, delete ssh-agent block `zsh/.zshrc:159-166`.
-- [ ] KDE bits stay off under Hyprland: kscreen masks, kded6 statusnotifier setting (`kde/.config/kded6rc`).
+- [ ] KDE bits stay off under Hyprland: kscreen masks (verify `systemctl --user is-enabled plasma-kscreen.service` = `masked`), kded6 statusnotifier setting (`kde/.config/kded6rc`).
 - Bar — map every polybar module:
 
 | polybar | Dux |

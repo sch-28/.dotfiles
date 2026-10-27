@@ -47,6 +47,11 @@ curl -L git.io/antigen > ~/.antigen.zsh
 log "Stow all dotfiles"
 bash stow-all.sh
 
+log "Mask kscreen"
+# kded6 loading kscreen blanks both screens and crashes chromium under i3.
+# Stow can't link /dev/null (absolute symlink), so mask here instead.
+systemctl --user mask plasma-kscreen.service plasma-kscreen-osd.service
+
 log "Rebuild KDE service cache"
 # A cache built without XDG_MENU_PREFIX has zero apps in it and won't refresh on
 # its own, since the source dirs' mtimes haven't changed. Drop it and rebuild.
