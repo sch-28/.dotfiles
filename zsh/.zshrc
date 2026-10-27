@@ -156,17 +156,6 @@ source <(fzf --zsh)
 [ -r /usr/share/nvm/init-nvm.sh ]    && source /usr/share/nvm/init-nvm.sh
 [ -s "$HOME/.bun/_bun" ]             && source "$HOME/.bun/_bun"   # bun completions
 
-# Reuse a single ssh-agent across shells instead of spawning one each time.
-SSH_AGENT_ENV="${XDG_RUNTIME_DIR:-/tmp}/ssh-agent.env"
-if [ -z "$SSH_AUTH_SOCK" ]; then
-  [ -r "$SSH_AGENT_ENV" ] && . "$SSH_AGENT_ENV" > /dev/null
-  ssh-add -l > /dev/null 2>&1
-  if [ $? -eq 2 ]; then
-    ssh-agent -s > "$SSH_AGENT_ENV"
-    . "$SSH_AGENT_ENV" > /dev/null
-  fi
-fi
-
 # ripgrep -> fzf -> nvim  (sf [QUERY])
 sf() (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'

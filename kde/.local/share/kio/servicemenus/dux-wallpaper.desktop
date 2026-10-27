@@ -1,0 +1,11 @@
+# Dolphin's built-in "Set as Wallpaper" talks to plasmashell, which isn't running here.
+[Desktop Entry]
+Type=Service
+MimeType=image/jpeg;image/png;image/webp;
+Actions=duxWallpaper
+X-KDE-Priority=TopLevel
+
+[Desktop Action duxWallpaper]
+Name=Set as Wallpaper (Dux)
+Icon=preferences-desktop-wallpaper
+Exec=dms ipc call wallpaper set %f

@@ -1,8 +1,8 @@
 # dotfiles
 
-Personal Linux config repo. GNU **stow** packages — each top-level dir
-(`i3/`, `polybar/`, `zsh/`, ...) mirrors `$HOME` and is symlinked into place by
-`stow-all.sh`. Primary stack: Arch + X11 + i3. A parallel **NixOS** port lives
+Personal Linux config repo. GNU **stow** packages — config dirs
+(`i3/`, `polybar/`, `zsh/`, ...) mirror `$HOME` and are symlinked into place by
+`stow-all.sh` (explicit package list). Primary stack: Arch + X11 + i3. A parallel **NixOS** port lives
 under `nix/` (declarative replacement for `install.sh` + stow).
 
 ## Principles

@@ -30,9 +30,12 @@ packages=(
     zsh
 )
 
-# Programs write their own files into these dirs (systemctl enable -> *.wants/),
-# so link per file instead of folding the whole dir into the repo.
+# Programs write their own files into these dirs (systemctl enable -> *.wants/,
+# dms setup fragments, Dux plugins/state), so link per file instead of folding the
+# whole dir into the repo.
 no_fold=(
+    dms
+    hypr
     systemd
 )
 

@@ -16,8 +16,9 @@ font pango:Fira Code 10
 # The two Qt/KDE vars matter here as well as in the login shell: dolphin is D-Bus
 # activatable (org.kde.dolphin.FileManager1) and kded6 rebuilds the sycoca cache,
 # so without them those get a light theme and an app-less "Open With".
-exec_always --no-startup-id dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME XDG_MENU_PREFIX
-exec_always --no-startup-id systemctl --user start --no-block i3-session.target
+# One sh -c: separate exec_always lines run in parallel, and the target must see the env.
+# The user manager outlives logins (tmux), so Hyprland's vars and target may still be there.
+exec_always --no-startup-id sh -c 'systemctl --user unset-environment WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE HYPRLAND_CMD MOZ_ENABLE_WAYLAND; dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE QT_QPA_PLATFORMTHEME XDG_MENU_PREFIX; systemctl --user stop hyprland-session.target; systemctl --user start --no-block i3-session.target'
 
 # Electron/Qt apps publish tray icons over D-Bus (StatusNotifierItem) whenever a
 # watcher is on the bus. Polybar's tray is XEmbed-only, so those icons render

@@ -8,6 +8,7 @@ Maintenance + hardening + two small Java/Maven helper services.
 - `check.sh` — system health (btrfs/NVMe SMART); run by system-check systemd timer.
 - `harden/` — package-manager hardening (`npm.sh`, `pnpm.sh`, `bun.sh`, `pip.sh`, `cargo.sh`). Set ignore-scripts, minimumReleaseAge, trust policy — supply-chain defenses.
 - `kill.sh`, `memtest.sh` — rofi process killer, RAM test.
+- `fetch-wallpapers.py` — fills `~/Pictures/wallpapers` (sources + filters in its header; images not in git).
 - `process-helper/`, `systemd-manager/` — Java/Maven projects (jar built to `~/.local/share/...`).
 
 ## Quirks

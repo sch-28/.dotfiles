@@ -1,0 +1,13 @@
+{
+  "wallpaperCarousel": {
+    "enabled": true,
+    "wallpaperDirectory": "/home/jan/Pictures/wallpapers/"
+  },
+  "dockerManager": {
+    "enabled": true,
+    "terminalApp": "kitty --hold"
+  },
+  "claudeUsage": {
+    "enabled": true
+  }
+}

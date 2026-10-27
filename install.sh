@@ -22,7 +22,18 @@ log "Running full update"
 bash ./update.sh
 
 log "Install required pacman packages"
-sudo pacman -S bob feh rustup zsh tmux zoxide kitty stow polybar snixembed rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav redshift xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse smartmontools
+sudo pacman -S --needed bob feh rustup zsh tmux zoxide kitty stow polybar snixembed rofi kmonad python-i3ipc docker lazydocker nvm pulsemixer dunst xclip flameshot jre-openjdk dbeaver maven clamav redshift xorg-xsetroot nemo rofi-emoji harper 7zip gnome-keyring libsecret seahorse smartmontools
+
+log "Install Hyprland + Dux (see hyprland-plan.md)"
+sudo pacman -S --needed hyprland xdg-desktop-portal-hyprland quickshell matugen dux-gop wl-clipboard wtype satty gpu-screen-recorder jq playerctl
+# dux-shell 2.0 is still only in extra-testing; switch to `pacman -S dux-shell` once it is in extra.
+pacman -Q dux-shell >/dev/null 2>&1 || sudo pacman -U https://geo.mirror.pkgbuild.com/extra-testing/os/x86_64/dux-shell-2.0.0-1-x86_64.pkg.tar.zst || {
+    echo "dux-shell install failed (URL moved? check extra / extra-testing)"; exit 1
+}
+
+log "snap-pac: snapshot / around every pacman transaction"
+sudo pacman -S --needed snap-pac
+sudo install -Dm644 ~/.dotfiles/snap-pac/etc/snap-pac.ini /etc/snap-pac.ini
 
 log "Install dolphin (see kde/ stow package)"
 # plasma-integration: platform theme plugin, without it Qt ignores kdeglobals and
@@ -52,6 +63,14 @@ log "Mask kscreen"
 # Stow can't link /dev/null (absolute symlink), so mask here instead.
 systemctl --user mask plasma-kscreen.service plasma-kscreen-osd.service
 
+log "SSH agent"
+systemctl --user enable gcr-ssh-agent.socket
+
+log "Hyprland session units + Dux plugins"
+systemctl --user add-wants hyprland-session.target dms.service
+systemctl --user enable slack-alert-watch.service
+dms plugins restore ~/.dotfiles/dms/plugins.lock.json
+
 log "Rebuild KDE service cache"
 # A cache built without XDG_MENU_PREFIX has zero apps in it and won't refresh on
 # its own, since the source dirs' mtimes haven't changed. Drop it and rebuild.
@@ -66,6 +85,16 @@ sudo cp ~/.dotfiles/system-check/etc/systemd/system/system-check.service /etc/sy
 sudo cp ~/.dotfiles/system-check/etc/systemd/system/system-check.timer /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now system-check.timer
+
+gpu=/sys/bus/pci/devices/0000:03:00.0
+if [[ "$(cat $gpu/vendor $gpu/device 2>/dev/null)" == $'0x1002\n0x7550' ]]; then
+    log "GPU: stable dGPU name + X on the dGPU"
+    # Copied, not stowed: udev reads rules before /home is mounted.
+    sudo install -Dm644 ~/.dotfiles/gpu/etc/udev/rules.d/90-rx9070.rules /etc/udev/rules.d/90-rx9070.rules
+    sudo install -Dm644 ~/.dotfiles/gpu/etc/X11/xorg.conf.d/20-dgpu.conf /etc/X11/xorg.conf.d/20-dgpu.conf
+    sudo udevadm control --reload
+    sudo udevadm trigger --subsystem-match=drm --action=change
+fi
 
 if prompt "Do you want to install ly?"; then
     log "Download ly"

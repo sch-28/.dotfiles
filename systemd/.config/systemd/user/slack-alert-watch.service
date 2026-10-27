@@ -1,0 +1,11 @@
+[Unit]
+Description=Repeat the Slack sound until a Slack notification is acknowledged
+PartOf=hyprland-session.target
+
+[Service]
+ExecStart=%h/.config/hypr/scripts/slack-alert-watch.sh
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=hyprland-session.target

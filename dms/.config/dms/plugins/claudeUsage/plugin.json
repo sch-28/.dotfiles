@@ -1,0 +1,13 @@
+{
+    "id": "claudeUsage",
+    "name": "Claude Usage",
+    "description": "Claude 5h and weekly quota in the bar",
+    "version": "1.0.0",
+    "author": "jan",
+    "type": "widget",
+    "capabilities": ["dankbar-widget"],
+    "component": "./ClaudeUsageWidget.qml",
+    "icon": "monitoring",
+    "requires_dms": ">=2.0.0",
+    "permissions": ["process"]
+}

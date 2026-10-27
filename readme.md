@@ -17,7 +17,7 @@ nvm install 22.14
 ## stow
 ```
 sudo rm -rf /etc/ly/config.ini
-sudo sh stow-all.sh
+bash stow-all.sh
 ```
 
 ## setup ly
@@ -53,6 +53,13 @@ sudo nmtui
 ## clipboard
 ```
 yay -Syu greenclip
+```
+
+## wallpapers
+Not in git (~620 images, ~1.9 GB). Sources: elementary/wallpapers, KDE/plasma-workspace-wallpapers,
+dharmx/walls (selected categories), wallhaven.cc toplist — see the script header.
+```
+python3 -I scripts/fetch-wallpapers.py ~/Pictures/wallpapers
 ```
 
 ## ssh key
