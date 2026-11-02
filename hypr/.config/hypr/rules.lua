@@ -8,8 +8,7 @@ local scratchpads = {
     news    = { class = "^news$",    cmd = "kitty --class news -e newsboat",                       size = { 1400, 800 } },
     spotify = { class = "^spotify$", cmd = "spotify-launcher", overlay = true },
     -- Huddle / mini windows share the class; the main window is the scratchpad.
-    slack   = { class = "^Slack$",   cmd = "slack",                                                size = { 1600, 1000 }, skip_title = "[Hh]uddle" },
-}
+    slack   = { class = "^Slack$",   cmd = "slack",                                                size = { 1600, 1000 }, skip_title = "[Hh]uddle" },}
 
 for name, s in pairs(scratchpads) do
     if s.overlay then
@@ -38,6 +37,33 @@ hl.window_rule({
     center = true,
     persistent_size = true,
 })
+
+-- Proton games: most run "borderless windowed" and never ask for fullscreen, so they opened
+-- as a screen-sized floating window under the bar. "game" also enables direct scanout (look.lua).
+-- Launchers share the class but open smaller, so only a screen-sized window goes fullscreen.
+hl.window_rule({ name = "steam-games", match = { class = "^steam_app_.*" }, content = "game" })
+hl.on("window.open", function(w)
+    if not (w and w.monitor and w.class:find("^steam_app_")) then return end
+    local m = w.monitor
+    if w.size.x >= m.width / m.scale and w.size.y >= m.height / m.scale * 0.9 then
+        hl.dispatch(hl.dsp.window.fullscreen({ action = "set", window = w }))
+    end
+end)
+
+-- Apps started via hl-exec. Hyprland's own initial_workspace_tracking moves only the first
+-- window (Steam's login prompt, not its main window). The time limit keeps children started
+-- much later, like games launched from Steam, from following.
+hl.on("window.open", function(w)
+    if not (w and w.pid and w.workspace) then return end
+    local f = io.open("/proc/" .. w.pid .. "/environ")
+    if not f then return end
+    local env = f:read("a")
+    f:close()
+    local ws, at = env:match("HL_LAUNCH_WS=(%-?%d+)"), env:match("HL_LAUNCH_AT=(%d+)")
+    if ws and os.time() - tonumber(at) < 120 and tonumber(ws) ~= w.workspace.id then
+        hl.dispatch(hl.dsp.window.move({ workspace = tonumber(ws), follow = false, window = w }))
+    end
+end)
 
 hl.window_rule({ name = "nvim-float", match = { class = "^nvim-float$" }, float = true, size = { 1400, 900 }, center = true })
 

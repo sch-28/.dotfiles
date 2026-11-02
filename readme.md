@@ -90,3 +90,15 @@ sudo pacman -S --needed alsa-lib lib32-alsa-lib alsa-plugins lib32-alsa-plugins 
 sudo freshclam
 clamscan -r /path/to/dir
 ```
+
+## fluss MCP
+User-scope registration for the personal config (lands in `~/.claude-personal/.claude.json`). Token from
+`pnpm token:create --scope mcp:write --name pc-desktop` in `~/dev/fluss`, kept out of git in
+`~/.config/fluss/mcp-token` (0600) and exported as `FLUSS_MCP_TOKEN` before starting `claude-me`.
+Single quotes keep `${FLUSS_MCP_TOKEN}` literal so Claude Code expands it at connect time.
+```
+claude-me mcp add --scope user --transport http fluss http://localhost:3000/api/mcp \
+  --header 'Authorization: Bearer ${FLUSS_MCP_TOKEN}'
+claude-me mcp list   # fluss: ✓ Connected
+```
+`/ticket-loop` needs the allow rule `Workflow(ticket-loop)` in `~/.claude-personal/settings.json`.

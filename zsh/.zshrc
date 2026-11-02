@@ -117,6 +117,8 @@ alias envim="cd ~/.dotfiles/nvim/.config/nvim && nvim"
 alias ei3="cd ~/.dotfiles/i3/.config/i3 && nvim config"
 alias ai="docker exec -it ollama ollama run deepseek-r1"
 alias aiq="docker exec -it ollama ollama run deepseek-r1 --think=false"
+# personal Claude subscription; plain `claude` stays on the work account
+alias claude-me="CLAUDE_CONFIG_DIR=$HOME/.claude-personal claude"
 
 # git — common subset ported from the oh-my-zsh git plugin (no framework).
 alias g='git'

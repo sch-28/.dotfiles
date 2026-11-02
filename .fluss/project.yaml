@@ -1,0 +1,45 @@
+key: DOTS
+name: dotfiles
+links:
+  - type: repo
+    label: GitHub
+    url: https://github.com/sch-28/.dotfiles
+    path: ~/.dotfiles
+remotes:
+  - https://github.com/sch-28/.dotfiles
+# Read-only checks with tools installed on the Arch box (no shellcheck or nix there). nvim-old is
+# unmaintained and left out; opencode.json is JSONC. The stow dry run reads the package lists from
+# stow-all.sh, so they are never copied here; it fails while a stowed target has been replaced by a
+# real file. No dev server, no e2e.
+gate:
+  e2e: false
+  fast: >-
+    git ls-files -coz --exclude-standard '*.sh' '*.lua' '*.json' ':!nvim-old' ':!opencode'
+    | xargs -0 -n1 sh -c 'case "$0" in *.sh) bash -n "$0";; *.lua) luac -p "$0";; *) jq empty "$0";; esac'
+    && zsh -n zsh/.zshrc && zsh -n zsh/.zprofile
+  full: >-
+    git ls-files -coz --exclude-standard '*.sh' '*.lua' '*.json' ':!nvim-old' ':!opencode'
+    | xargs -0 -n1 sh -c 'case "$0" in *.sh) bash -n "$0";; *.lua) luac -p "$0";; *) jq empty "$0";; esac'
+    && zsh -n zsh/.zshrc && zsh -n zsh/.zprofile
+    && systemd-analyze --user verify $(git ls-files 'systemd/*.service' 'systemd/*.target' 'system-check/*')
+    && stow -n -t ~ $(sed -n '/^packages=(/,/)/{//!p}' stow-all.sh)
+    && stow -n -t ~ --no-folding $(sed -n '/^no_fold=(/,/)/{//!p}' stow-all.sh)
+  parts:
+    - name: syntax
+      run: >-
+        git ls-files -coz --exclude-standard '*.sh' '*.lua' '*.json' ':!nvim-old' ':!opencode'
+        | xargs -0 -n1 sh -c 'case "$0" in *.sh) bash -n "$0";; *.lua) luac -p "$0";; *) jq empty "$0";; esac'
+        && zsh -n zsh/.zshrc && zsh -n zsh/.zprofile
+      paths: ["**/*.sh", "**/*.lua", "**/*.json", "zsh/**"]
+    - name: systemd units
+      run: >-
+        systemd-analyze --user verify
+        $(git ls-files 'systemd/*.service' 'systemd/*.target' 'system-check/*')
+      paths: ["systemd/**", "system-check/**"]
+    # No paths: every round, since any package file or stow-all.sh can break the links.
+    - name: stow dry run
+      run: >-
+        stow -n -t ~ $(sed -n '/^packages=(/,/)/{//!p}' stow-all.sh)
+        && stow -n -t ~ --no-folding $(sed -n '/^no_fold=(/,/)/{//!p}' stow-all.sh)
+    - name: docs and unchecked config
+      paths: ["**/*.md", "nvim-old/**", "opencode/**", ".fluss/**"]

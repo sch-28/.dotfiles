@@ -1,0 +1,115 @@
+solutions:
+  pdf:
+    status: n_a
+    title: No PDF output
+    body: Personal config files; nothing is turned into a PDF.
+  email:
+    status: n_a
+    title: No mail sending
+    body: The repo holds desktop and shell config; nothing sends mail.
+  auth:
+    status: n_a
+    title: No users or sign-in
+    body: >-
+      Config for one person's own machines. The only credentials are local (SSH agent, the fluss MCP
+      token in ~/.config/fluss/mcp-token), all kept out of git.
+  deploy:
+    status: deviation
+    convergence: permanent
+    title: GNU stow symlinks plus an Arch bootstrap; a frozen NixOS flake
+    body: >-
+      "Deploying" is linking the stow packages into $HOME with `stow-all.sh` (explicit package list;
+      dms, hypr and systemd with --no-folding) after `install.sh` installs the Arch/EndeavourOS
+      packages and copies the root files (gpu/, snap-pac/, system-check/) into /etc; `ly` is stowed
+      to / with sudo. `flake.nix` + `nix/` is a NixOS port of the June 2026 configs, frozen and
+      unmaintained (not in use on any machine, not kept in step). Secrets never enter the repo: `.env` is ignored, tokens live in ~/.config.
+    codePaths: [stow-all.sh, install.sh, flake.nix, nix]
+  i18n:
+    status: n_a
+    title: English only, no translations
+    body: Docs and comments are English; there is no UI text to translate.
+  assets:
+    status: n_a
+    title: No uploads
+    body: >-
+      No file storage. Wallpapers stay out of git and are fetched by
+      `scripts/fetch-wallpapers.py`.
+  jobs:
+    status: n_a
+    title: No job worker
+    body: >-
+      Scheduled work is plain systemd units: the system-check timer (scripts/check.sh) and user
+      services such as slack-alert-watch. No job queue.
+  search:
+    status: n_a
+    title: No data to search
+    body: Config files only; nothing is filtered or paginated.
+  api_client:
+    status: n_a
+    title: No frontend or backend
+    body: There is no web app; nothing talks to a backend of its own.
+  ui_components:
+    status: n_a
+    title: No component library
+    body: >-
+      Desktop look comes from Hyprland, the Dux Shell theme (dms/), kitty, rofi and KDE's Breeze
+      (kde/); the own Dux plugin (dms/.config/dms/plugins/claudeUsage) is a single QML file; the two
+      third-party plugins are pinned in dms/plugins.lock.json.
+  testing:
+    status: deviation
+    convergence: permanent
+    title: Static checks and a stow dry run, no test suite
+    body: >-
+      No Vitest and no CI. The gate checks syntax (bash -n, zsh -n, luac -p, jq), verifies the
+      systemd units and runs `stow -n` over stow-all.sh's package lists, so a broken link or a
+      stowed file replaced by a real one fails before anything is restowed. The two Java helpers
+      under scripts/ only carry Maven archetype tests. Changes to the desktop itself are checked by
+      using it.
+    codePaths: [stow-all.sh, .fluss/project.yaml]
+  glossary:
+    status: n_a
+    title: No domain vocabulary
+    body: >-
+      No domain model, so no CONTEXT.md. AGENTS.md and agents/*.md describe the stow layout and
+      quirks.
+  db:
+    status: n_a
+    title: No database
+    body: >-
+      Nothing stores data. The Postgres container in readme.md is a dev convenience for other
+      projects.
+  mobile:
+    status: n_a
+    title: Desktop and laptop only
+    body: Config for Linux desktops and laptops; no phone app.
+  push:
+    status: n_a
+    title: No push notifications
+    body: >-
+      Desktop notifications only (Dux Shell, dunst under i3 on the laptop, the Slack alert scripts); nothing is
+      pushed to a device.
+  lint:
+    status: deviation
+    convergence: permanent
+    title: Per-language syntax checks instead of Biome
+    body: >-
+      There is no JS or TS to lint. Shell is checked with bash -n / zsh -n, Lua (Hyprland, nvim)
+      with luac -p, JSON with jq. shellcheck is the wanted linter for the scripts but is not
+      installed yet. Nix files have no formatter or linter configured.
+    codePaths: [.fluss/project.yaml]
+  monorepo:
+    status: n_a
+    title: Stow packages, not a pnpm workspace
+    body: >-
+      Each top-level dir is a stow package mirroring $HOME (or / for ly, gpu, snap-pac,
+      system-check); there are no packages to build or version.
+  observability:
+    status: n_a
+    title: No app logs or error capture
+    body: >-
+      No service to monitor. Machine health is checked by scripts/check.sh (btrfs, NVMe SMART) on
+      the system-check timer.
+  e2e:
+    status: n_a
+    title: No end-to-end tests
+    body: No web app to drive; the desktop is checked by using it.

@@ -7,7 +7,7 @@ hl.config({
         layout      = "dwindle",
         resize_on_border = true,
         extend_border_grab_area = 25,
-        snap = { enabled = true, window_gap = 40, monitor_gap = 40 },
+        snap = { enabled = true, window_gap = 20, monitor_gap = 20 },
     },
     decoration = {
         rounding    = 0,

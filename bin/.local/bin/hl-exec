@@ -1,0 +1,6 @@
+#!/bin/sh
+# Dux launch prefix: stamps the launch workspace into the app's env for rules.lua, so its
+# windows open where it was started even if focus moved before they mapped.
+cmd="cd '$(printf %s "$PWD" | sed "s/'/'\\\\''/g")' &&"
+for a; do cmd="$cmd '$(printf %s "$a" | sed "s/'/'\\\\''/g")'"; done
+exec hyprctl -q eval "hl.exec_cmd('export HL_LAUNCH_WS=' .. hl.get_active_workspace().id .. ' HL_LAUNCH_AT=' .. os.time() .. '; ' .. [==[$cmd]==])"

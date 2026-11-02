@@ -189,10 +189,10 @@ Scripts: `language-switch.sh` → kb_layout + leader+l; `autotiling`, `firefox/*
 
 i3 today is flat black: 0 gaps, near-invisible borders (Hyprland tier 0: borders 0 — over a wallpaper the dark i3 borders read as frames). Jan wants to see what's possible: go up one tier at a time, step back down if too much.
 
-1. Snap for floats, `resize_on_border`, hide cursor on typing, Super+wheel workspaces (from Dux's ungitted `dms/binds.lua`), `dim_special` 0.3. — done: snap 40 px, edge grab 25 px.
+1. Snap for floats, `resize_on_border`, hide cursor on typing, Super+wheel workspaces (from Dux's ungitted `dms/binds.lua`), `dim_special` 0.3. — done: snap 20 px, edge grab 25 px.
 2. Rounding 10 + `rounding_power` 4, 2px border, gaps 4/8, no gaps with a single window. — tried, then dropped entirely (Jan): no rounding, border or gaps.
 3. Short animations (popin windows, slide workspaces, slidevert scratchpads), blur 1 pass, `dim_inactive = true` + `dim_strength = 0.1`. — done without dim (Jan: no focused/unfocused difference): popin/slide/slidevert ~150–250 ms, blur size 6 × 1 pass, layer animations off (Dux animates its own).
-4. Shell: floating bar with blur, Control Center, Dash (media, weather, calendar, sysmon), widget lock screen, overview `dms ipc call hypr toggleOverview`, screen recording (gpu-screen-recorder). — done: bar (Jan's: bottom, detached, square) 85 % + Dux `blurEnabled`; Dash on Super+a (Dux's Super+y is our pin); lock screen = Dux defaults.
+4. Shell: floating bar with blur, Control Center, Dash (media, weather, calendar, sysmon), widget lock screen, overview `dms ipc call hypr toggleOverview`, screen recording (gpu-screen-recorder). — done: bar (Jan's: bottom, detached, square) 85 %, Dux `blurEnabled` off (left a white fragment in the window-title widget when focus moved; xray off didn't help); Dash on Super+a (Dux's Super+y is our pin); lock screen = Dux defaults.
 5. Plugins — see below.
 
 Avoid: looping border animation (constant redraw), hyprpm (Hyprland compositor) plugins (rebuild every update).
@@ -230,7 +230,7 @@ Installed (reviewed 2026-10-27, pinned in `dms/plugins.lock.json`):
 
 ## Phase 6 — cleanup (after ~2 weeks daily use; slack-alert port done)
 
-- Remove: `i3-wm i3status python-i3ipc polybar picom dunst redshift snixembed xcolor feh flameshot greenclip`. Keep `rofi`. Keep `xdotool` (rustdesk-bin), `xorg-xsetroot` (tigervnc), `dex` (EOS welcome), `xclip` (rofi-emoji opt) unless those go too. `mime/.config/mimeapps.list` still points image/png at `feh.desktop` — replace.
+- Remove: `i3-wm i3status python-i3ipc polybar picom dunst redshift snixembed xcolor feh flameshot greenclip`. Keep `rofi`. Keep `xdotool` (rustdesk-bin), `xorg-xsetroot` (tigervnc), `dex` (EOS welcome), `xclip` (rofi-emoji opt) unless those go too.
 - Delete in repo: `i3/ i3status/ polybar/ picom/ dunst/ flameshot/ sway/ gestures/ kmonad/`, `i3-session.target`, `dunst.service.d/`, `portals.conf`, `voice-memo.sh`, kitty `session-${XDG_SESSION_TYPE}` include (Wayland-only then: plain `font_size 14`). Keep `rofi/`.
 - Update `install.sh`, `readme.md` (greenclip stale), `agents/dotfiles.md`, `.zprofile` comments, `ei3` alias.
 - nix port references i3 (`nix/hosts/common.nix`, `nix/home/modules/wm.nix`) — separate task.

@@ -6,8 +6,10 @@ cd "$(dirname "$0")"
 # Explicit list: other top-level dirs (agents, nix, scripts, ...) aren't $HOME mirrors.
 # ly targets / and is stowed separately with sudo (see install.sh).
 packages=(
+    applications
     bin
     claude
+    claude-personal
     dunst
     flameshot
     i3

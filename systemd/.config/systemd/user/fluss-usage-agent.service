@@ -1,0 +1,9 @@
+[Unit]
+Description=fluss usage-agent: post Claude Code usage metadata
+
+[Service]
+Type=oneshot
+Environment=CLAUDE_CONFIG_DIR=%h/.claude-personal
+Environment=FLUSS_URL=https://fluss.sch.tools
+# systemd's PATH lacks nvm's node.
+ExecStart=%h/.nvm/versions/node/v22.14.0/bin/node %h/dev/fluss/tools/usage-agent/bin/usage-agent.mjs
